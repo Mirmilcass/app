@@ -1,4 +1,4 @@
-package app;
+package Lecture;
 
 public class Operator {
 	public static void main(String args[]) {

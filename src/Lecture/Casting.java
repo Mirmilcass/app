@@ -1,4 +1,4 @@
-package app;
+package Lecture;
 
 public class Casting {
 	public static void main(String args[]) {

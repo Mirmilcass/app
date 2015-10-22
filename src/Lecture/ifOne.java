@@ -1,4 +1,4 @@
-package app;
+package Lecture;
 
 public class ifOne {
 	public static void main(String agrs[]) {

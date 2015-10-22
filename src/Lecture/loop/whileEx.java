@@ -1,4 +1,4 @@
-package app.loop;
+package Lecture.loop;
 
 public class whileEx {
 	public static void main(String args[]) {
