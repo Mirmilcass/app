@@ -10,19 +10,19 @@ public class whileEx {
 			}
 		 
 		 */
-		
+
 		java.util.Scanner scan = new java.util.Scanner(System.in);
 		System.out.println("반복 제한 : ");
 		int result = scan.nextInt();
-		
+
 		int count = 0;
-		while( count < result ) {
+		while (count < result) {
 			count++;
 			System.out.println("실행 구문 " + count);
 		}
 		scan.close();
 		System.out.println("");
-		
+
 		// 반복문 ( do ~ while 문)
 		/*
 		표현)
@@ -34,24 +34,25 @@ public class whileEx {
 		do {
 			count++;
 			System.out.println("실행 구문" + count);
-		}while( count < 10 );
-		
+		} while (count < 10);
+		System.out.println();
+
 		// break Ex
 		int i = 0;
 		boolean result1 = true;
 		do {
 			i++;
-			if ( result1 ) {
+			if (result1) {
 				System.out.println("실행 구문 : " + i);
-				if( i == 5 ){
+				if (i == 5) {
 					result1 = false;
 				}
-				if ( ! result1 ) {
+				if (!result1) {
 					System.out.println("실행 구문 종료합니다.");
 					break;
 				}
-			} else 
+			} else
 				System.out.println(" i : " + i);
-		}while( i < 10 );
+		} while (i < 10);
 	}
 }

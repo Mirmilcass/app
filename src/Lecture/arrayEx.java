@@ -243,5 +243,56 @@ public class arrayEx {
 		}
 		System.out.println();
 
+		// T ex)
+		/*
+		*
+		**
+		***
+		****
+		*****
+		*/
+		int[] star2 = new int[5];
+		for(int i = 0; i < star2.length; i++) {
+			for(int j = 0; j <= i; j++) {
+				System.out.print("*");	
+			}
+			System.out.println();
+		}
+		System.out.println();
+		
+		/*
+		*****
+		****
+		***
+		**
+		*
+		*/
+		
+		for(int i = 0; i < star2.length; i++) {
+			for(int j = 4; j >= i; j--) {
+				System.out.print("*");	
+			}
+			System.out.println();
+		}
+		System.out.println();
+		
+		/*
+		     *
+		    **
+		   ***
+		  ****
+		 *****
+		 */
+		
+		//미완
+		for(int i = 0; i < star2.length; i++) {
+			for(int j = 0; j <= i; j++) {
+				System.out.print(i+j);
+				System.out.print(" ");	
+			}
+			System.out.println("*");
+		}
+		System.out.println();
+		
 	}
 }
