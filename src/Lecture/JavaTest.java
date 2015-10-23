@@ -5,14 +5,19 @@ public class JavaTest {
 		System.out.println("자바 테스트");
 
 		
-		// 3*3 배열로 구구단을 하려 했으나.. 실패상태
-		int[] dan = new int[3];
-		for (int i = 0; i < dan.length; i++) {
-			for (int j = 1; j < i; j++) {
-				System.out.println(i + j);
+		// 3*3 표 구구단
+		int[][] dan = new int[9][4];
+		for (int row = 0; row < dan.length; row += 3) {
+			for (int i = 2; i <= dan.length; i++) {
+				for (int col = 1; col < dan[row].length; col++) {
+					int sum = row + col;
+					int mul = i * sum;
+					System.out.print(sum + " * " + i + " = " + mul + "\t");
+				}
+				System.out.println("\t");
 			}
-		System.out.println();	
+			System.out.println();
 		}
-
+		System.out.println();
 	}
 }
