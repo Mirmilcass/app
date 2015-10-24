@@ -2,10 +2,9 @@ package Lecture;
 
 public class JavaTest {
 	public static void main(String args[]) {
-		System.out.println("ìë°” í…ŒìŠ¤íŠ¸");
+		System.out.println("ÀÚ¹Ù Å×½ºÆ®");
 
-		
-		// 3*3 í‘œ êµ¬êµ¬ë‹¨
+		// 3*3 Ç¥ ±¸±¸´Ü
 		int[][] dan = new int[9][4];
 		for (int row = 0; row < dan.length; row += 3) {
 			for (int i = 2; i <= dan.length; i++) {
@@ -14,7 +13,7 @@ public class JavaTest {
 					int mul = i * sum;
 					System.out.print(sum + " * " + i + " = " + mul + "\t");
 				}
-				System.out.println("\t");
+				System.out.println();
 			}
 			System.out.println();
 		}

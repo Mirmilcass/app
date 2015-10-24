@@ -1,30 +1,31 @@
 public class bike {
+	// ¿øÇÏ´Â °á°ú - ¹è¿­°ªÀ» ·£´ıÀ¸·Î ºÒ·¯¿Í ¾Æ·§±ÛÀ» ¿Ï¼ºÇÒ°Í.
+	// ³» ¹ÙÀÌÅ©´Â "maker"ÀÇ ccCC "type"ÀÎ "name"ÀÔ´Ï´Ù.
 
-	/*
-	ë°”ì´í¬  ì¢…ë¥˜
-	ë ˆí”Œë¦¬ì¹´, ì˜¤í”„ë¡œë“œ, ì•„ë©”ë¦¬ì¹´, ìŠ¤ì¿ í„°
-	
-	ë°°ê¸°ëŸ‰
-	125, 250, 400, 650, 1000
-	
-	ì´ë¦„
-	
-	ë©”ì´ì»¤
-	*/
-
-	String[] type;
-	String[] name;
-	int[] cc;
-	String[] maker;
+	String maker[];
+	int cc[];
+	String type[];
+	String name[];
 
 	public bike() {
-		type = new String[] { "ë ˆí”„ë¦¬ì¹´", "ì˜¤í”„ë¡œë“œ", "ì•„ë©”ë¦¬ì¹´", "ìŠ¤ì¿ í„°" };
-		name = new String[] { "ë°ì´ìŠ¤íƒ€", "ë¯¸ë¼ì¥¬", "ê³¨ë“œìœ™", "ì–´ë“œë ˆìŠ¤" };
-		cc = new int[] { 125, 250, 400, 650 };
-		maker = new String[] { "ìŠ¤ì¦ˆí‚¤", "ëŒ€ë¦¼", "A&T", "ê¸°ì•„" };
+		maker = new String[] { "´ë¸²", "A&T", "½ºÁîÅ°" };
+		cc = new int[] { 125, 250, 400, 650, 1000 };
+		type = new String[] { "¾Æ¸Ş¸®Ä­", "¿ÀÇÁ·Îµå", "·¹ÇÃ¸®Ä«", "½ºÄíÅÍ" };
+		name = new String[] { "µ¥ÀÌ½ºÅ¸", "¾îµå·¹½º", "¹Ì¶óÁê" };
 	}
 
-	public void main(String[] agrs) {
-		
+	public void methodA() {
+		int m = (int) Math.floor(Math.random() * this.maker.length);
+		int c = (int) Math.floor(Math.random() * this.cc.length);
+		int t = (int) Math.floor(Math.random() * this.type.length);
+		int n = (int) Math.floor(Math.random() * this.name.length);
+		System.out.println("³» ¹ÙÀÌÅ©´Â " + maker[m] + "ÀÇ " + cc[c] + "CC "
+				+ type[t] + "ÀÎ " + name[n] + "ÀÔ´Ï´Ù.");
+	}
+
+	public static void main(String[] args) {
+		bike bike = new bike();
+		bike.methodA();
+		System.out.println();
 	}
 }
