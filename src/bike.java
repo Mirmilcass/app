@@ -1,3 +1,4 @@
+
 public class bike {
 	// 원하는 결과 - 배열값을 랜덤으로 불러와 아랫글을 완성할것.
 	// 내 바이크는 "maker"의 ccCC "type"인 "name"입니다.
@@ -24,8 +25,26 @@ public class bike {
 	}
 
 	public static void main(String[] args) {
-		bike bike = new bike();
-		bike.methodA();
+		bike model = new bike();
+		act n = new act(40, 2, 50);
+		model.methodA();
 		System.out.println();
+		n.now();
+		System.out.println();
+	}
+}
+
+class act {
+	int speed, geer, feul;
+
+	public act(int speed, int geer, int feul) {
+		this.speed = speed;
+		this.geer = geer;
+		this.feul = feul;
+	}
+
+	public void now() {
+		System.out.println("현재 속도는 : " + this.speed + "km/h 이며 " + this.geer
+				+ "단입니다. " + this.feul + "%의 기름이 남았습니다.");
 	}
 }
