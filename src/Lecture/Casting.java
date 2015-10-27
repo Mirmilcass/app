@@ -17,6 +17,7 @@ public class Casting {
 		long1 = int1; // int ( 32 bit ) => long ( 64 bit )
 		float1 = int1; // int ( 32 bit ) => float1 ( 32 bit )
 		double1 = long1; // long ( 64 bit ) => double1 ( 32 bit )
+		System.out.println(float1 + double1);
 
 		// 명시적 형 변환 Ex) 큰 곳에서 작은 곳으로 강제 변환
 		byte1 = (byte)short1; // short ( 16 bits ) => byte ( 8 bits )

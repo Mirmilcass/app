@@ -29,6 +29,36 @@ public class Method {
 		// return 구문을 사용하지 않음.
 	}
 	*/
+	
+	// 자바에서는 이렇게 메소드 구분에 사용되는 메소드 이름, 파라미터 변수의 수, 타입, 순서를 묶어서 메소드 시그니쳐(signature, 서명) 라고 부른다.
+	/*
+	ex)
+	class a {
+		a() {
+			
+		}
+	
+		a(int a){
+			
+		}
+		
+		a(String a){
+			
+		}
+		
+		a(int a, String b) {
+			
+		}
+		
+		a(String b, int a) {
+			
+		}
+		
+		a(String e, int c) { // 이 상황에서는 위 메소드와 시그니처 충돌이 일어나 오류난다.
+			
+		}
+	}
+	*/
 
 	private static Scanner want;
 
