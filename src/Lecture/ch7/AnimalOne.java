@@ -48,7 +48,7 @@ class Animal {
 class Cat {
 	String name;
 	int age;
-	String sex;
+	String gender;
 
 	private static Scanner scanner;
 
@@ -63,21 +63,21 @@ class Cat {
 
 		System.out.println("고양이의 성별은 어떻게 됩니까?");
 		scanner = new Scanner(System.in);
-		this.sex = scanner.next();
+		this.gender = scanner.next();
 
-		System.out.println("고양이의 이름은 " + name + "이고 나이는 " + age + "이며 " + sex
-				+ "입니다.");
+		System.out.println("고양이의 이름은 " + name + "이고 나이는 " + age + "이며 "
+				+ gender + "입니다.");
 		bark();
 
 	}
 
-	public Cat(String name, int age, String sex) {
+	public Cat(String name, int age, String gender) {
 		this.name = name;
 		this.age = age;
-		this.sex = sex;
+		this.gender = gender;
 
-		System.out.println("고양이의 이름은 " + name + "이고 나이는 " + age + "이며 " + sex
-				+ "입니다.");
+		System.out.println("고양이의 이름은 " + name + "이고 나이는 " + age + "이며 "
+				+ gender + "입니다.");
 		bark();
 	}
 
