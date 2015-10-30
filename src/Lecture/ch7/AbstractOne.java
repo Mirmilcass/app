@@ -128,6 +128,10 @@ class Circle extends Shape {
 		this.r = r;
 	}
 
+	public Circle(Circle c) {
+		System.out.println(c.area() + c.circumferece());
+	}
+
 	@Override
 	public double area() {
 		return Math.PI * r * r;
@@ -219,7 +223,6 @@ class Tiger extends AnimalTwo {
 		name = "호랑이";
 	}
 
-	@Override
 	void bark() {
 		System.out.println("어흥~");
 	}
