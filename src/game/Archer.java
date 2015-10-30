@@ -17,7 +17,7 @@ package game;
 */
 
 public class Archer {
-	
+
 }
 
 class bow {
@@ -27,25 +27,39 @@ class bow {
 	
 	활의 강도, 활줄의 힘, 활의 재질?강도랑 같을려나?
 	*/
-	
+
 	String[] body;
 	String[] string;
 	String bowbody;
 	String stringinfo;
-	
-	
+
 	bow() {
-		 body = new String[] { "나무", "구리", "잡철", "강철" };
-		 string = new String[] { "알수 없는 짐승 힘줄", "약한 짐승 힘줄", "강한 짐승 힘줄",
-				"잡광석 줄" };
+		body = new String[] { "나무", "구리", "잡철", "강철" };
+		string = new String[] { "알수 없는 짐승 힘줄", "약한 짐승 힘줄", "강한 짐승 힘줄", "잡광석 줄" };
 	}
 
 	bow(int i) {
 		bowbody = body[i];
-		stringinfo = string[i];	
+		stringinfo = string[i];
 	}
 
 	void bowinfo() {
 		System.out.println("현재 활 상태는 " + bowbody + "로 이루어져 있으며" + stringinfo + "를 사용중입니다.");
 	}
+}
+
+class TagetBoard {
+
+	int[][] pointboard = new int[7][7];
+	int point;
+
+	public int Board() {
+		for (int i = -3; i <= pointboard.length; i++) {
+			for (int j = -3; j <= pointboard[7].length; j++) {
+
+			}
+		}
+		return point;
+	}
+
 }
