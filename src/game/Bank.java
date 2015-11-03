@@ -1,3 +1,5 @@
+package game;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -61,8 +63,8 @@ public class Bank {
 
 class Menu implements Input {
 
-	String[] menu = new String[] { "고객 정보 입력", "고객 정보 출력",
-			"전체 고객 정보 출력", "금액 입금", "금액 출금", "프로그램 종료" };
+	String[] menu = new String[] { "고객 정보 입력", "고객 정보 출력", "전체 고객 정보 출력",
+			"금액 입금", "금액 출금", "프로그램 종료" };
 	int select;
 
 	Menu() {
@@ -76,7 +78,7 @@ class Menu implements Input {
 			System.out.println("[" + (j + 1) + "] " + menu[j]);
 		}
 		System.out.println("================");
-		System.out.println("Select Menu : ");
+		System.out.print("Select Menu : ");
 		input(scan.nextInt());
 	}
 
@@ -139,17 +141,30 @@ class Costomerin implements Input {
 		System.out.println("===========");
 		System.out.println("식별 번호 : " + PersonalNum);
 		cos.setPersonalNum(PersonalNum);
-		System.out.println("고객 ID를 적으세요.");
-		cos.setId(scan.next());
-		System.out.println("고객의 비밀 번호를 적으세요.");
+		System.out.print("사용자 아이디를 입력해 주세요. : ");
+		loop: do {
+			String id = scan.next();
+			if (PersonalNum != 0) {
+				for (int j = 0; j <= PersonalNum - 1; j++) {
+					if (cosArr.get(j).getId().equals(id)) {
+						System.out
+								.println("이미 존재하는 ID입니다. 다른 ID를 사용해 주세요.");
+						continue loop;
+					}
+				}
+			}
+			cos.setId(id);
+			break;
+		} while (true);
+		System.out.print("사용자 암호를 입력해 주세요. : ");
 		cos.setPassWord(scan.next());
-		System.out.println("고객의 비밀 번호를 다시 적어주세요.");
+		System.out.print("사용자 암호를 재입력해 주세요. : ");
 		cos.cheack(scan.next());
-		System.out.println("고객 성함을 적으세요. ");
+		System.out.print("사용자 성함을 적으세요. : ");
 		cos.setName(scan.next());
-		System.out.println("고객 초기 입금액을 적으세요.");
+		System.out.print("사용자 초기 입금액을 적으세요. : ");
 		cos.setMoney(scan.nextInt());
-		System.out.println("우수 고객(yes/no)");
+		System.out.print("우수 고객(yes/no) : ");
 		cos.setVip(scan.next());
 		cosArr.add(cos);
 		new Menu();
@@ -176,10 +191,10 @@ class Costomerout implements Input {
 		String name = scan.next();
 		for (int j = 0; j < cosArr.size(); j++) {
 			if (name.equalsIgnoreCase(cosArr.get(j).getName())) {
-				System.out.print(cosArr.get(j).getPersonalNum()
-						+ "\t" + cosArr.get(j).getName() + "\t"
+				System.out.print(cosArr.get(j).getPersonalNum() + "\t"
+						+ cosArr.get(j).getName() + "\t"
 						+ cosArr.get(j).getMoney() + "\t"
-						+ cosArr.get(j).getVip());
+						+ cosArr.get(j).getVip() + "\n");
 			}
 		}
 		System.out.println();
@@ -198,8 +213,8 @@ class AllCostomerOut implements Input {
 		System.out.println("식별번호 \t이름 \t잔액 \t우수여부");
 		for (i = 0; i < cosArr.size(); i++) {
 
-			System.out.print(cosArr.get(i).getPersonalNum()
-					+ "\t" + cosArr.get(i).getName() + "\t"
+			System.out.print(cosArr.get(i).getPersonalNum() + "\t"
+					+ cosArr.get(i).getName() + "\t"
 					+ cosArr.get(i).getMoney() + "\t"
 					+ cosArr.get(i).getVip());
 
@@ -236,10 +251,8 @@ class moneyin implements Input {
 					System.out.println("원하시는 금액을 입력하세요.");
 					int inMoney = scan.nextInt();
 					System.out.println(inMoney + "원 입금하였습니다.");
-					int result = cosArr.get(j).getMoney()
-							+ inMoney;
-					System.out.println("총액 : " + result
-							+ "가 있습니다.");
+					int result = cosArr.get(j).getMoney() + inMoney;
+					System.out.println("총액 : " + result + "가 있습니다.");
 					cosArr.get(j).setMoney(result);
 					break;
 				} else {
@@ -278,12 +291,9 @@ class moneyout implements Input {
 					System.out.println("원하시는 금액을 입력하세요.");
 					int inMoney = scan.nextInt();
 					if (inMoney < cosArr.get(j).getMoney()) {
-						System.out.println(inMoney
-								+ "원 출금하였습니다.");
-						int result = cosArr.get(j).getMoney()
-								- inMoney;
-						System.out.println("총액 : " + result
-								+ "가 있습니다.");
+						System.out.println(inMoney + "원 출금하였습니다.");
+						int result = cosArr.get(j).getMoney() - inMoney;
+						System.out.println("총액 : " + result + "가 있습니다.");
 						cosArr.get(j).setMoney(result);
 						break;
 					} else {
@@ -326,15 +336,7 @@ interface Input {
 	void print(int i);
 }
 
-// arraylist
-
-class arrayList implements Input {
-
-	@Override
-	public void print(int i) {
-
-	}
-}
+// arraylist Costomer info
 
 class Costomer implements Input {
 	/* 1.
@@ -371,6 +373,23 @@ class Costomer implements Input {
 		id = i;
 	}
 
+	/*
+		public void setId(String i) {
+			if (PersonalNum < 1) {
+				for (int j = 0; j < PersonalNum; j++) {
+					if (!i.equals(cosArr.get(j).getId())) {
+						id = i;
+						break;
+					} else {
+						System.out.println("중복되는 아이디 입니다. 다시 해주세요.");
+						setId(scan.next());
+					}
+				}
+			} else {
+				id = i;
+			}
+		}
+	*/
 	public String getPassWord() {
 		return password;
 	}
@@ -380,16 +399,14 @@ class Costomer implements Input {
 	}
 
 	public void cheack(String i) {
-		while (true) {
-			if (i.equals(password)) {
-				break;
-			} else {
-				System.out.println("일치하지 않습니다. 다시 입력해주세요.");
-				cheack(scan.next());
-				break;
-			}
+		if (i.equals(password)) {
+		} else {
+			System.out.print("일치하지 않습니다. 다시 입력해주세요.");
+			cheack(scan.next());
 		}
 	}
+
+	//	}
 
 	public String getName() {
 		return name;
@@ -412,20 +429,13 @@ class Costomer implements Input {
 	}
 
 	public void setVip(String i) {
-		while (true) {
-			if (i.equalsIgnoreCase("y")
-					|| i.equalsIgnoreCase("yes")) {
-				vip = "우수고객";
-				break;
-			} else if (i.equalsIgnoreCase("n")
-					|| i.equalsIgnoreCase("no")) {
-				vip = "일반고객";
-				break;
-			} else {
-				System.out.println("잘못입력하였습니다. 다시 입력해주세요.");
-				setVip(scan.next());
-				break;
-			}
+		if (i.equalsIgnoreCase("y") || i.equalsIgnoreCase("yes")) {
+			vip = "우수고객";
+		} else if (i.equalsIgnoreCase("n") || i.equalsIgnoreCase("no")) {
+			vip = "일반고객";
+		} else {
+			System.out.println("잘못입력하였습니다. 다시 입력해주세요.");
+			setVip(scan.next());
 		}
 	}
 

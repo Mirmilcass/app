@@ -1,3 +1,4 @@
+package game;
 import java.util.Scanner;
 
 public class Bike extends Scan {

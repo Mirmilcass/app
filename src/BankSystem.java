@@ -1,289 +1,301 @@
-import java.text.BreakIterator;
-/*
-메뉴 선택
- 
-고객 정보 입력
-고객 정보 출력
-전체 고객 정보 출력
-금액 입금
-금액 출금
-프로그램 종료
-
-1.
-식별번호
-고객 아이디
-패스원드
-패스워드 재입력
-고객 성명
-고객 잔액
-우수고객(Yes/No)  // 수수료 0.03, 0.05
-저장
-
-2. 
-이름:
-고객정보 출력
-식별번호 ; 아이디 ; 이름; 잔고 ; 우수고객 여부
-
-4. 
-아이디
-패스워드
-" ~ 님 인증되었습니다."
-입금액
-잔액 출력
-
-5.
-아이디
-패스워드
-인증되었습니다.
-출금액(가능액, 수수료): 금액 입력
-자액부족 메시지
-잔액확인
-재 출금
-출금 요청액
-수수료
-잔액
-
-
-
-
-*/
 import java.util.Scanner;
 
-public class BankSystem extends Main {
-	int num;
+public class BankSystem {
+	public Scanner scan;
 
-	public static void main(String[] args) {
-		BankSystem bank = new BankSystem();
-		bank.print(0);
-	}
-
-	@Override
-	public void print(int i) {
-		System.out.println("BankSystem Ver. 0.1");
-		System.out.println("===================");
-		System.out.println("[1]. 고객 정보 입력"); // Costomerin
-		System.out.println("[2]. 고객 정보 출력"); // Costomerout
-		System.out.println("[3]. 전 고객 정보 출력"); // AllCostomerOut
-		System.out.println("[4]. 금액 입금"); // moneyin
-		System.out.println("[5]. 금액 출금"); // moneyout
-		System.out.println("[6]. 프로그램 종료"); // exit
-		System.out.println("===================");
-		System.out.println("Select Menu : "); // int
-
-		Mune s = new Mune();
-		s.input();
-
-	}
-
-}
-
-abstract class Main implements MenuSelect {
-	int num, money;
-	String name;
-
-}
-
-interface MenuSelect {
-	void print(int i);
-}
-
-abstract class info {
-
-	//	int PersonalNumber;
-	String name;
-	String id;
-	String Password;
-	int money;
-	boolean vip;
-
-	//	public void setPersonalNumber() {
-	//		Scanner setPersonalNumber = new Scanner(System.in);
-	//		this.PersonalNumber = setPersonalNumber.nextInt();
-	//		setPersonalNumber.close();
-	//	}
-
-	public void setId() {
-		Scanner setId = new Scanner(System.in);
-		this.id = setId.next();
-		//		setId.close();
-	}
-
-	public void setName() {
-		Scanner setName = new Scanner(System.in);
-		this.name = setName.next();
-		//		setName.close();
-	}
-
-	public void setPassword() {
-		Scanner setPassword = new Scanner(System.in);
-		Password = setPassword.nextLine();
-		//		setPassword.close();
-	}
-
-	public void checkPassword() {
-		loop: while (true) {
-			Scanner checkPassword = new Scanner(System.in);
-			String check = checkPassword.nextLine();
-
-			if (check.equalsIgnoreCase(Password)) {
-				break;
-			} else {
-				System.out.println("일치 하지 않습니다. 다시 입력해주세요.");
-				continue loop;
-			}
-		}
-		//		checkPassword.close();
-	}
-
-	public void setMoney() {
-		Scanner setMoney = new Scanner(System.in);
-		this.money = setMoney.nextInt();
-		//		setMoney.close();
-	}
-
-	public void setVip() {
-		loop: while (true) {
-			Scanner setVip = new Scanner(System.in);
-			String vip = setVip.nextLine();
-			if (vip.equalsIgnoreCase("y") || vip.equalsIgnoreCase("yes")) {
-				this.vip = true;
-				break;
-			} else if (vip.equalsIgnoreCase("n") || vip.equalsIgnoreCase("no")) {
-				this.vip = false;
-				break;
-			} else {
-				System.out.println("잘못입력 하셨습니다. 다시 입력해주세요.");
-				continue loop;
-			}
-		}
-		//		setVip.close();
-	}
-}
-
-class Mune {
-	int num;
-
-	void input() {
-		Scanner Select = new Scanner(System.in);
-		num = Select.nextInt();
-		MenuSelect[] title = new MenuSelect[5];
-		switch (num) {
-		case 1:
-			title[0] = new Costomerin();
-			break;
-		case 2:
-			title[1] = new Costomerout();
-			break;
-		case 3:
-			title[2] = new AllCostomerOut();
-			break;
-		case 4:
-			title[3] = new moneyin();
-			break;
-		case 5:
-			title[4] = new moneyout();
-			break;
-		case 6:
-			title[5] = new exit();
-			break;
-		default:
-			System.out.println("잘못 입력 하였습니다. 다시 시작해주세요.");
-			input();
-		}
-		Select.close();
-	}
-}
-
-class Costomerin extends info implements MenuSelect {
 	/*
-	1.
-	식별번호
-	고객 아이디
-	패스원드
-	패스워드 재입력
-	고객 성명
-	고객 잔액
-	우수고객(Yes/No)  // 수수료 0.03, 0.05
-	저장
+	private String[] cust_id;
+	private String[] cust_pw;
+	private int[] cust_money;
+	private String[] cust_vip;
+	private int[] cust_tax;
 	*/
-	public Costomerin() {
-		print(0);
+	public int cust_idx;
+
+	private Customer[] custs;
+
+	BankSystem() {
+
 	}
 
-	@Override
-	public void print(int i) {
+	public BankSystem(int size) {
+		scan = new Scanner(System.in);
+		custs = new Customer[size];
+		/*
+		cust_id = new String[size];
+		cust_pw = new String[size];
+		cust_money = new int[size];
+		cust_vip = new String[size];
+		cust_tax = new int[size];
+		*/
+		int input = 0;
+		do {
+			menu();
+			System.out.print("Select Menu : ");
+			input = inputInt();
+			switch (input) {
+			case 1:
+				inputInfo();
+				break;
+			case 2:
+				outInfo();
+				break;
+			case 3:
+				outAllcustinfo();
+				break;
+			case 4:
+				deposit();
+				break;
+			case 5:
+				withdraw();
+				break;
+			}
+		} while (input != 6);
+		System.out.println("이용해 주셔서 감사합니다.");
+	}
+
+	public void menu() {
+		System.out.println("BankSystem v 0.1");
+		System.out.println("================");
+		System.out.println("[1] 고객 정보 입력");
+		System.out.println("[2] 고객 정보 출력");
+		System.out.println("[3] 전체 고객 정보 출력");
+		System.out.println("[4] 금액 입금");
+		System.out.println("[5] 금액 출금");
+		System.out.println("[6] 프로그램 종료");
+		System.out.println("================");
+
+	}
+
+	public void inputInfo() {
+		custs[cust_idx] = new Customer();
+
+		String temp = null;
 		System.out.println("고객 정보 입력");
 		System.out.println("===========");
-		//		System.out.println("식별 번호를 적으세요.");
-		//		setPersonalNumber();
-		System.out.println("고객 ID를 적으세요.");
-		setId();
-		System.out.println("고객의 비밀 번호를 적으세요.");
-		setPassword();
-		System.out.println("고객의 비밀 번호를 다시 적어주세요.");
-		checkPassword();
-		System.out.println("고객 성함을 적으세요. ");
-		setName();
-		System.out.println("고객 초기 입금액을 적으세요.");
-		setMoney();
-		System.out.println("우수 고객(yes/no)");
-		setVip();
+		System.out.print("사용자 아이디를 입력해 주세요 : ");
+		//		cust_id[cust_idx] = inputStr();
+		//		custs[cust_idx].setId(inputStr());
+		loop: do {
+			String id = inputStr();
+			if (cust_idx != 0) {
+				for (int i = 0; i <= cust_idx - 1; i++) {
+					if (custs[i].getId().equals(id)) {
+						System.out
+								.println("이미 존재하는 ID입니다. 다른 ID를 사용해 주세요.");
+						continue loop;
+					}
+				}
+			}
+			custs[cust_idx].setId(id);
+			break;
+		} while (true);
 
+		do {
+			System.out.print("사용자 암호를 입력해 주세요 : ");
+			custs[cust_idx].setPw(inputStr());
+			System.out.print("사용자 암호 확인 : ");
+			temp = inputStr();
+		} while (!custs[cust_idx].getPw().equals(temp));
+
+		System.out.println("사용자 최초 입금액을 입력해 주세요.");
+		custs[cust_idx].setMoney(inputInt());
+
+		System.out.println("우수 여부 ( yes / no )");
+		while (true) {
+			String tax = inputStr();
+			if (tax.equalsIgnoreCase("y") || tax.equalsIgnoreCase("yes")) {
+				custs[cust_idx].setVip("우수 고객");
+				custs[cust_idx].setTax(0);
+				break;
+			} else if (tax.equalsIgnoreCase("n")
+					|| tax.equalsIgnoreCase("no")) {
+				custs[cust_idx].setVip("일반 고객");
+				custs[cust_idx].setTax(500);
+				break;
+			} else
+				System.out.println("다시 입력해주세요.");
+		}
+
+		++cust_idx;
 	}
 
-}
-
-class Costomerout extends info implements MenuSelect {
-	public Costomerout() {
-		print(0);
-	}
-
-	@Override
-	public void print(int i) {
+	public void outInfo() {
+		String wantId = null;
 		System.out.println("고객 정보 출력");
+		System.out.println("===========");
+		System.out.println("원하는 사용자 아이디를 입력해 주세요 : ");
+		wantId = inputStr();
+		if (cust_idx != 0) {
+			for (int i = 0; i < cust_idx; i++) {
+				if (wantId.equals(custs[i].getId())) {
+					System.out.println("사용자의 아이디는 : " + custs[i].getId()
+							+ "\n사용자 암호는 : " + custs[i].getPw()
+							+ "\n사용자의 잔액은 " + custs[i].getMoney()
+							+ "원입니다.\n" + custs[i].getVip() + "입니다.\n");
+					break;
+				} else
+					System.out.println("일치하는 아이디가 없습니다. 재입력해주세요.");
+				continue;
+			}
+		} else {
+			System.out.println("존재 하는 아이디가 없습니다. 사용자 정보를 입력해 주세요.");
+		}
 	}
-}
 
-class AllCostomerOut extends info implements MenuSelect {
-	public AllCostomerOut() {
-		print(0);
+	public void outAllcustinfo() {
+		System.out.println("전체 고객 정보 출력");
+		System.out.println("===============");
+		for (int i = 0; i < cust_idx; i++) {
+			if (custs[i].getId() != null) {
+				System.out.println("사용자의 아이디는 : " + custs[i].getId()
+						+ "\n사용자 암호는 : " + custs[i].getPw()
+						+ "\n사용자의 잔액은 " + custs[i].getMoney() + "원입니다.\n"
+						+ custs[i].getVip() + "입니다.\n");
+			}
+		}
 	}
 
-	@Override
-	public void print(int i) {
-		System.out.println("전 고객 정보 출력");
-	}
-}
-
-class moneyin extends info implements MenuSelect {
-	public moneyin() {
-		print(0);
-	}
-
-	@Override
-	public void print(int i) {
+	public void deposit() {
 		System.out.println("금액 입금");
-	}
-}
+		System.out.println("=======");
 
-class moneyout extends info implements MenuSelect {
-	public moneyout() {
-		print(0);
+		loop: while (true) {
+			for (int i = 0; i < cust_idx; i++) {
+				System.out.println("사용자 아이디를 입력하세요.");
+				String id = inputStr();
+				if (id.equals(custs[i].getId())) {
+					System.out.println("사용자 암호를 입력하세요.");
+					String pw = inputStr();
+					if (pw.equals(custs[i].getPw())) {
+						System.out.println("사용자 인증 되었습니다.");
+						System.out.println("원하시는 입금액을 입력하세요.");
+						custs[i].setMoney(custs[i].getMoney() + inputInt());
+						System.out.println("사용자의 잔액은 "
+								+ custs[i].getMoney() + "입니다.");
+						break loop;
+					} else
+						System.out.println("암호가 틀렸습니다. 재입력해주세요.");
+				} else
+					System.out.println("사용자 아이디가 틀렸습니다. 재 입력 해주세요.");
+			}
+		}
+
+		/*
+		System.out.print("아이디 입력 : ");
+		String id = inputStr();
+		System.out.print("암호 입력 : ");
+		String pw = inputStr();
+
+		for (int i = 0; i < cust_idx; i++) {
+			if (cust_id[i].equals(id)) {
+				do {
+					if (cust_pw[i].equals(pw)) {
+						System.out.print("입금액을 입력하세요.");
+						cust_money[i] += inputInt();
+						break;
+					} else
+						System.out.println("암호가 틀립니다.");
+				} while (true);
+			} else {
+				System.out.println("아이디가 없습니다.");
+			}
+		}
+		*/
 	}
 
-	@Override
-	public void print(int i) {
+	public void withdraw() {
 		System.out.println("금액 출금");
+		System.out.println("=======");
+		loop: while (true) {
+			for (int i = 0; i < cust_idx; i++) {
+				System.out.println("사용자 아이디를 입력하세요.");
+				String id = inputStr();
+				if (id.equals(custs[i].getId())) {
+					System.out.println("사용자 암호를 입력하세요.");
+					String pw = inputStr();
+					if (pw.equals(custs[i].getPw())) {
+						System.out.println("사용자 인증 되었습니다.");
+						System.out.println("원하시는 출금액을 입력하세요.");
+						int money = inputInt();
+						if (money < custs[i].getMoney()) {
+							custs[i].setMoney(custs[i].getMoney()
+									- (money + custs[i].getTax()));
+							System.out.println("사용자의 잔액은 "
+									+ custs[i].getMoney() + "입니다.");
+							break loop;
+						} else
+							System.out.println("잔액이 부족합니다.");
+						break;
+					} else
+						System.out.println("암호가 틀렸습니다. 재입력해주세요.");
+					break;
+				} else
+					System.out.println("사용자 아이디가 틀렸습니다. 재 입력 해주세요.");
+			}
+		}
+	}
+
+	public int inputInt() {
+		return scan.nextInt();
+	}
+
+	public String inputStr() {
+		return scan.next();
+	}
+
+	public static void main(String[] args) {
+		new BankSystem(Integer.parseInt(args[0]));
 	}
 }
 
-class exit implements MenuSelect {
-	public exit() {
-		print(0);
+class Customer {
+
+	private String id;
+	private String pw;
+	private int money;
+	public int idx;
+	private String vip;
+	private int tax;
+
+	public void setId(String i) {
+		this.id = i;
 	}
 
-	@Override
-	public void print(int i) {
-		System.out.println("종료");
+	public String getId() {
+		return this.id;
 	}
+
+	public String getPw() {
+		return pw;
+	}
+
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
+	public String getVip() {
+		return vip;
+	}
+
+	public void setVip(String vip) {
+		this.vip = vip;
+	}
+
+	public int getTax() {
+		return tax;
+	}
+
+	public void setTax(int tax) {
+		this.tax = tax;
+	}
+
 }
