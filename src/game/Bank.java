@@ -4,48 +4,48 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
- ë©”ë‰´ ì„ íƒ
+ ¸Ş´º ¼±ÅÃ
 
- ê³ ê° ì •ë³´ ì…ë ¥
- ê³ ê° ì •ë³´ ì¶œë ¥
- ì „ì²´ ê³ ê° ì •ë³´ ì¶œë ¥
- ê¸ˆì•¡ ì…ê¸ˆ
- ê¸ˆì•¡ ì¶œê¸ˆ
- í”„ë¡œê·¸ë¨ ì¢…ë£Œ
+ °í°´ Á¤º¸ ÀÔ·Â
+ °í°´ Á¤º¸ Ãâ·Â
+ ÀüÃ¼ °í°´ Á¤º¸ Ãâ·Â
+ ±İ¾× ÀÔ±İ
+ ±İ¾× Ãâ±İ
+ ÇÁ·Î±×·¥ Á¾·á
 
  1.
- ì‹ë³„ë²ˆí˜¸
- ê³ ê° ì•„ì´ë””
- íŒ¨ìŠ¤ì›ë“œ
- íŒ¨ìŠ¤ì›Œë“œ ì¬ì…ë ¥
- ê³ ê° ì„±ëª…
- ê³ ê° ì”ì•¡
- ìš°ìˆ˜ê³ ê°(Yes/No)  // ìˆ˜ìˆ˜ë£Œ 0.03, 0.05
- ì €ì¥
+ ½Äº°¹øÈ£
+ °í°´ ¾ÆÀÌµğ
+ ÆĞ½º¿øµå
+ ÆĞ½º¿öµå ÀçÀÔ·Â
+ °í°´ ¼º¸í
+ °í°´ ÀÜ¾×
+ ¿ì¼ö°í°´(Yes/No)  // ¼ö¼ö·á 0.03, 0.05
+ ÀúÀå
 
  2. 
- ì´ë¦„:
- ê³ ê°ì •ë³´ ì¶œë ¥
- ì‹ë³„ë²ˆí˜¸ ; ì•„ì´ë”” ; ì´ë¦„; ì”ê³  ; ìš°ìˆ˜ê³ ê° ì—¬ë¶€
+ ÀÌ¸§:
+ °í°´Á¤º¸ Ãâ·Â
+ ½Äº°¹øÈ£ ; ¾ÆÀÌµğ ; ÀÌ¸§; ÀÜ°í ; ¿ì¼ö°í°´ ¿©ºÎ
 
  4. 
- ì•„ì´ë””
- íŒ¨ìŠ¤ì›Œë“œ
- " ~ ë‹˜ ì¸ì¦ë˜ì—ˆìŠµë‹ˆë‹¤."
- ì…ê¸ˆì•¡
- ì”ì•¡ ì¶œë ¥
+ ¾ÆÀÌµğ
+ ÆĞ½º¿öµå
+ " ~ ´Ô ÀÎÁõµÇ¾ú½À´Ï´Ù."
+ ÀÔ±İ¾×
+ ÀÜ¾× Ãâ·Â
 
  5.
- ì•„ì´ë””
- íŒ¨ìŠ¤ì›Œë“œ
- ì¸ì¦ë˜ì—ˆìŠµë‹ˆë‹¤.
- ì¶œê¸ˆì•¡(ê°€ëŠ¥ì•¡, ìˆ˜ìˆ˜ë£Œ): ê¸ˆì•¡ ì…ë ¥
- ìì•¡ë¶€ì¡± ë©”ì‹œì§€
- ì”ì•¡í™•ì¸
- ì¬ ì¶œê¸ˆ
- ì¶œê¸ˆ ìš”ì²­ì•¡
- ìˆ˜ìˆ˜ë£Œ
- ì”ì•¡
+ ¾ÆÀÌµğ
+ ÆĞ½º¿öµå
+ ÀÎÁõµÇ¾ú½À´Ï´Ù.
+ Ãâ±İ¾×(°¡´É¾×, ¼ö¼ö·á): ±İ¾× ÀÔ·Â
+ ÀÚ¾×ºÎÁ· ¸Ş½ÃÁö
+ ÀÜ¾×È®ÀÎ
+ Àç Ãâ±İ
+ Ãâ±İ ¿äÃ»¾×
+ ¼ö¼ö·á
+ ÀÜ¾×
 
 
 
@@ -59,12 +59,12 @@ public class Bank {
 	}
 }
 
-// ë©”ë‰´
+// ¸Ş´º
 
 class Menu implements Input {
 
-	String[] menu = new String[] { "ê³ ê° ì •ë³´ ì…ë ¥", "ê³ ê° ì •ë³´ ì¶œë ¥", "ì „ì²´ ê³ ê° ì •ë³´ ì¶œë ¥",
-			"ê¸ˆì•¡ ì…ê¸ˆ", "ê¸ˆì•¡ ì¶œê¸ˆ", "í”„ë¡œê·¸ë¨ ì¢…ë£Œ" };
+	String[] menu = new String[] { "°í°´ Á¤º¸ ÀÔ·Â", "°í°´ Á¤º¸ Ãâ·Â", "ÀüÃ¼ °í°´ Á¤º¸ Ãâ·Â",
+			"±İ¾× ÀÔ±İ", "±İ¾× Ãâ±İ", "ÇÁ·Î±×·¥ Á¾·á" };
 	int select;
 
 	Menu() {
@@ -104,7 +104,7 @@ class Menu implements Input {
 			title[5] = new exit();
 			break;
 		default:
-			System.out.println("ì˜ëª» ì…ë ¥ í•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+			System.out.println("Àß¸ø ÀÔ·Â ÇÏ¿´½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 			input(scan.nextInt());
 		}
 	}
@@ -112,14 +112,14 @@ class Menu implements Input {
 
 class Costomerin implements Input {
 	/* 1.
-	 * ì‹ë³„ë²ˆí˜¸
-	 * ê³ ê° ì•„ì´ë””
-	 * íŒ¨ìŠ¤ì›Œë“œ
-	 * íŒ¨ìŠ¤ì›Œë“œ ì¬ì…ë ¥
-	 * ê³ ê° ì„±ëª…
-	 * ê³ ê° ì”ì•¡
-	 * ìš°ìˆ˜ê³ ê°(Yes/No) // ìˆ˜ìˆ˜ë£Œ 0.03, 0.05
-	 * ì €ì¥ */
+	 * ½Äº°¹øÈ£
+	 * °í°´ ¾ÆÀÌµğ
+	 * ÆĞ½º¿öµå
+	 * ÆĞ½º¿öµå ÀçÀÔ·Â
+	 * °í°´ ¼º¸í
+	 * °í°´ ÀÜ¾×
+	 * ¿ì¼ö°í°´(Yes/No) // ¼ö¼ö·á 0.03, 0.05
+	 * ÀúÀå */
 
 	static int PersonalNum = 0;
 	String id;
@@ -137,18 +137,18 @@ class Costomerin implements Input {
 	@Override
 	public void print(int i) {
 		Costomer cos = new Costomer();
-		System.out.println("ê³ ê° ì •ë³´ ì…ë ¥");
+		System.out.println("°í°´ Á¤º¸ ÀÔ·Â");
 		System.out.println("===========");
-		System.out.println("ì‹ë³„ ë²ˆí˜¸ : " + PersonalNum);
+		System.out.println("½Äº° ¹øÈ£ : " + PersonalNum);
 		cos.setPersonalNum(PersonalNum);
-		System.out.print("ì‚¬ìš©ì ì•„ì´ë””ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”. : ");
+		System.out.print("»ç¿ëÀÚ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä. : ");
 		loop: do {
 			String id = scan.next();
 			if (PersonalNum != 0) {
 				for (int j = 0; j <= PersonalNum - 1; j++) {
 					if (cosArr.get(j).getId().equals(id)) {
 						System.out
-								.println("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” IDì…ë‹ˆë‹¤. ë‹¤ë¥¸ IDë¥¼ ì‚¬ìš©í•´ ì£¼ì„¸ìš”.");
+								.println("ÀÌ¹Ì Á¸ÀçÇÏ´Â IDÀÔ´Ï´Ù. ´Ù¸¥ ID¸¦ »ç¿ëÇØ ÁÖ¼¼¿ä.");
 						continue loop;
 					}
 				}
@@ -156,15 +156,15 @@ class Costomerin implements Input {
 			cos.setId(id);
 			break;
 		} while (true);
-		System.out.print("ì‚¬ìš©ì ì•”í˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”. : ");
+		System.out.print("»ç¿ëÀÚ ¾ÏÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä. : ");
 		cos.setPassWord(scan.next());
-		System.out.print("ì‚¬ìš©ì ì•”í˜¸ë¥¼ ì¬ì…ë ¥í•´ ì£¼ì„¸ìš”. : ");
+		System.out.print("»ç¿ëÀÚ ¾ÏÈ£¸¦ ÀçÀÔ·ÂÇØ ÁÖ¼¼¿ä. : ");
 		cos.cheack(scan.next());
-		System.out.print("ì‚¬ìš©ì ì„±í•¨ì„ ì ìœ¼ì„¸ìš”. : ");
+		System.out.print("»ç¿ëÀÚ ¼ºÇÔÀ» ÀûÀ¸¼¼¿ä. : ");
 		cos.setName(scan.next());
-		System.out.print("ì‚¬ìš©ì ì´ˆê¸° ì…ê¸ˆì•¡ì„ ì ìœ¼ì„¸ìš”. : ");
+		System.out.print("»ç¿ëÀÚ ÃÊ±â ÀÔ±İ¾×À» ÀûÀ¸¼¼¿ä. : ");
 		cos.setMoney(scan.nextInt());
-		System.out.print("ìš°ìˆ˜ ê³ ê°(yes/no) : ");
+		System.out.print("¿ì¼ö °í°´(yes/no) : ");
 		cos.setVip(scan.next());
 		cosArr.add(cos);
 		new Menu();
@@ -173,9 +173,9 @@ class Costomerin implements Input {
 
 class Costomerout implements Input {
 	/* 2.
-	 * ì´ë¦„:
-	 * ê³ ê°ì •ë³´ ì¶œë ¥
-	 * ì‹ë³„ë²ˆí˜¸ ; ì•„ì´ë”” ; ì´ë¦„; ì”ê³  ; ìš°ìˆ˜ê³ ê° ì—¬ë¶€ */
+	 * ÀÌ¸§:
+	 * °í°´Á¤º¸ Ãâ·Â
+	 * ½Äº°¹øÈ£ ; ¾ÆÀÌµğ ; ÀÌ¸§; ÀÜ°í ; ¿ì¼ö°í°´ ¿©ºÎ */
 
 	String name;
 
@@ -185,9 +185,9 @@ class Costomerout implements Input {
 
 	@Override
 	public void print(int i) {
-		System.out.println("ê³ ê° ì •ë³´ ì¶œë ¥");
+		System.out.println("°í°´ Á¤º¸ Ãâ·Â");
 		System.out.println("============");
-		System.out.println("ê³ ê° ì„±í•¨ì„ ì…ë ¥í•˜ì„¸ìš”.");
+		System.out.println("°í°´ ¼ºÇÔÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
 		String name = scan.next();
 		for (int j = 0; j < cosArr.size(); j++) {
 			if (name.equalsIgnoreCase(cosArr.get(j).getName())) {
@@ -209,8 +209,8 @@ class AllCostomerOut implements Input {
 
 	@Override
 	public void print(int i) {
-		System.out.println("ì „ ê³ ê° ì •ë³´ ì¶œë ¥");
-		System.out.println("ì‹ë³„ë²ˆí˜¸ \tì´ë¦„ \tì”ì•¡ \tìš°ìˆ˜ì—¬ë¶€");
+		System.out.println("Àü °í°´ Á¤º¸ Ãâ·Â");
+		System.out.println("½Äº°¹øÈ£ \tÀÌ¸§ \tÀÜ¾× \t¿ì¼ö¿©ºÎ");
 		for (i = 0; i < cosArr.size(); i++) {
 
 			System.out.print(cosArr.get(i).getPersonalNum() + "\t"
@@ -226,41 +226,41 @@ class AllCostomerOut implements Input {
 }
 
 class moneyin implements Input {
-	/* ì•„ì´ë””
-	 * íŒ¨ìŠ¤ì›Œë“œ
-	 * " ~ ë‹˜ ì¸ì¦ë˜ì—ˆìŠµë‹ˆë‹¤."
-	 * ì…ê¸ˆì•¡
-	 * ì”ì•¡ ì¶œë ¥ */
+	/* ¾ÆÀÌµğ
+	 * ÆĞ½º¿öµå
+	 * " ~ ´Ô ÀÎÁõµÇ¾ú½À´Ï´Ù."
+	 * ÀÔ±İ¾×
+	 * ÀÜ¾× Ãâ·Â */
 	public moneyin() {
 		print(0);
 	}
 
 	@Override
 	public void print(int i) {
-		System.out.println("ê¸ˆì•¡ ì…ê¸ˆ");
+		System.out.println("±İ¾× ÀÔ±İ");
 		System.out.println("========");
 		for (int j = 0; j < cosArr.size(); j++) {
-			System.out.println("ê³ ê° IDì„ ì…ë ¥í•˜ì„¸ìš”.");
+			System.out.println("°í°´ IDÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
 			String id = scan.next();
 			if (id.equals(cosArr.get(j).getId())) {
-				System.out.println("ê³ ê° ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+				System.out.println("°í°´ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 				String pass = scan.next();
 				if (pass.equals(cosArr.get(j).getPassWord())) {
 					System.out.println(cosArr.get(j).getName()
-							+ "ë‹˜ ì¸ì¦ë˜ì—ˆìŠµë‹ˆë‹¤.");
-					System.out.println("ì›í•˜ì‹œëŠ” ê¸ˆì•¡ì„ ì…ë ¥í•˜ì„¸ìš”.");
+							+ "´Ô ÀÎÁõµÇ¾ú½À´Ï´Ù.");
+					System.out.println("¿øÇÏ½Ã´Â ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä.");
 					int inMoney = scan.nextInt();
-					System.out.println(inMoney + "ì› ì…ê¸ˆí•˜ì˜€ìŠµë‹ˆë‹¤.");
+					System.out.println(inMoney + "¿ø ÀÔ±İÇÏ¿´½À´Ï´Ù.");
 					int result = cosArr.get(j).getMoney() + inMoney;
-					System.out.println("ì´ì•¡ : " + result + "ê°€ ìˆìŠµë‹ˆë‹¤.");
+					System.out.println("ÃÑ¾× : " + result + "°¡ ÀÖ½À´Ï´Ù.");
 					cosArr.get(j).setMoney(result);
 					break;
 				} else {
-					System.out.println("ì˜ëª»ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”.");
+					System.out.println("Àß¸øÀÔ·ÂÇÏ¼Ì½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä.");
 					continue;
 				}
 			} else {
-				System.out.println("ì˜ëª»ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”.");
+				System.out.println("Àß¸øÀÔ·ÂÇÏ¼Ì½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä.");
 				continue;
 			}
 		}
@@ -277,36 +277,36 @@ class moneyout implements Input {
 
 	@Override
 	public void print(int i) {
-		System.out.println("ê¸ˆì•¡ ì¶œê¸ˆ");
+		System.out.println("±İ¾× Ãâ±İ");
 		System.out.println("========");
 		for (int j = 0; j < cosArr.size(); j++) {
-			System.out.println("ê³ ê° IDì„ ì…ë ¥í•˜ì„¸ìš”.");
+			System.out.println("°í°´ IDÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
 			String id = scan.next();
 			if (id.equals(cosArr.get(j).getId())) {
-				System.out.println("ê³ ê° ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+				System.out.println("°í°´ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 				String pass = scan.next();
 				if (pass.equals(cosArr.get(j).getPassWord())) {
 					System.out.println(cosArr.get(j).getName()
-							+ "ë‹˜ ì¸ì¦ë˜ì—ˆìŠµë‹ˆë‹¤.");
-					System.out.println("ì›í•˜ì‹œëŠ” ê¸ˆì•¡ì„ ì…ë ¥í•˜ì„¸ìš”.");
+							+ "´Ô ÀÎÁõµÇ¾ú½À´Ï´Ù.");
+					System.out.println("¿øÇÏ½Ã´Â ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä.");
 					int inMoney = scan.nextInt();
 					if (inMoney < cosArr.get(j).getMoney()) {
-						System.out.println(inMoney + "ì› ì¶œê¸ˆí•˜ì˜€ìŠµë‹ˆë‹¤.");
+						System.out.println(inMoney + "¿ø Ãâ±İÇÏ¿´½À´Ï´Ù.");
 						int result = cosArr.get(j).getMoney() - inMoney;
-						System.out.println("ì´ì•¡ : " + result + "ê°€ ìˆìŠµë‹ˆë‹¤.");
+						System.out.println("ÃÑ¾× : " + result + "°¡ ÀÖ½À´Ï´Ù.");
 						cosArr.get(j).setMoney(result);
 						break;
 					} else {
 						System.out
-								.println("ì¶œê¸ˆìš”ì²­ ê¸ˆì•¡ì´ ì”ì•¡ë³´ë‹¤ ë§ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+								.println("Ãâ±İ¿äÃ» ±İ¾×ÀÌ ÀÜ¾×º¸´Ù ¸¹½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 						continue;
 					}
 				} else {
-					System.out.println("ì˜ëª»ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”.");
+					System.out.println("Àß¸øÀÔ·ÂÇÏ¼Ì½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä.");
 					continue;
 				}
 			} else {
-				System.out.println("ì˜ëª»ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”.");
+				System.out.println("Àß¸øÀÔ·ÂÇÏ¼Ì½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä.");
 				continue;
 			}
 		}
@@ -322,11 +322,11 @@ class exit implements Input {
 
 	@Override
 	public void print(int i) {
-		System.out.println("ì¢…ë£Œ");
+		System.out.println("Á¾·á");
 	}
 }
 
-// ì¸í„°í˜ì´ìŠ¤
+// ÀÎÅÍÆäÀÌ½º
 
 interface Input {
 	Scanner scan = new Scanner(System.in);
@@ -340,14 +340,14 @@ interface Input {
 
 class Costomer implements Input {
 	/* 1.
-	 * ì‹ë³„ë²ˆí˜¸
-	 * ê³ ê° ì•„ì´ë””
-	 * íŒ¨ìŠ¤ì›ë“œ
-	 * íŒ¨ìŠ¤ì›Œë“œ ì¬ì…ë ¥
-	 * ê³ ê° ì„±ëª…
-	 * ê³ ê° ì”ì•¡
-	 * ìš°ìˆ˜ê³ ê°(Yes/No) // ìˆ˜ìˆ˜ë£Œ 0.03, 0.05
-	 * ì €ì¥ */
+	 * ½Äº°¹øÈ£
+	 * °í°´ ¾ÆÀÌµğ
+	 * ÆĞ½º¿øµå
+	 * ÆĞ½º¿öµå ÀçÀÔ·Â
+	 * °í°´ ¼º¸í
+	 * °í°´ ÀÜ¾×
+	 * ¿ì¼ö°í°´(Yes/No) // ¼ö¼ö·á 0.03, 0.05
+	 * ÀúÀå */
 
 	private int PersonalNum;
 	private String id;
@@ -381,7 +381,7 @@ class Costomer implements Input {
 						id = i;
 						break;
 					} else {
-						System.out.println("ì¤‘ë³µë˜ëŠ” ì•„ì´ë”” ì…ë‹ˆë‹¤. ë‹¤ì‹œ í•´ì£¼ì„¸ìš”.");
+						System.out.println("Áßº¹µÇ´Â ¾ÆÀÌµğ ÀÔ´Ï´Ù. ´Ù½Ã ÇØÁÖ¼¼¿ä.");
 						setId(scan.next());
 					}
 				}
@@ -401,7 +401,7 @@ class Costomer implements Input {
 	public void cheack(String i) {
 		if (i.equals(password)) {
 		} else {
-			System.out.print("ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+			System.out.print("ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 			cheack(scan.next());
 		}
 	}
@@ -430,11 +430,11 @@ class Costomer implements Input {
 
 	public void setVip(String i) {
 		if (i.equalsIgnoreCase("y") || i.equalsIgnoreCase("yes")) {
-			vip = "ìš°ìˆ˜ê³ ê°";
+			vip = "¿ì¼ö°í°´";
 		} else if (i.equalsIgnoreCase("n") || i.equalsIgnoreCase("no")) {
-			vip = "ì¼ë°˜ê³ ê°";
+			vip = "ÀÏ¹İ°í°´";
 		} else {
-			System.out.println("ì˜ëª»ì…ë ¥í•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+			System.out.println("Àß¸øÀÔ·ÂÇÏ¿´½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 			setVip(scan.next());
 		}
 	}

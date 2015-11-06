@@ -2,8 +2,8 @@ package game;
 import java.util.Scanner;
 
 public class Bike extends Scan {
-	// ì›í•˜ëŠ” ê²°ê³¼ - ë°°ì—´ê°’ì„ ëœë¤ìœ¼ë¡œ ë¶ˆëŸ¬ì™€ ì•„ë«ê¸€ì„ ì™„ì„±í• ê²ƒ.
-	// ë‚´ ë°”ì´í¬ëŠ” "maker"ì˜ ccCC "type"ì¸ "name"ì…ë‹ˆë‹¤.
+	// ¿øÇÏ´Â °á°ú - ¹è¿­°ªÀ» ·£´ıÀ¸·Î ºÒ·¯¿Í ¾Æ·§±ÛÀ» ¿Ï¼ºÇÒ°Í.
+	// ³» ¹ÙÀÌÅ©´Â "maker"ÀÇ ccCC "type"ÀÎ "name"ÀÔ´Ï´Ù.
 
 	String maker[];
 	int cc[];
@@ -12,10 +12,10 @@ public class Bike extends Scan {
 	String who;
 
 	public Bike() {
-		maker = new String[] { "ëŒ€ë¦¼", "A&T", "ìŠ¤ì¦ˆí‚¤", "BMW", "DUCATI", "í˜¼ë‹¤" };
+		maker = new String[] { "´ë¸²", "A&T", "½ºÁîÅ°", "BMW", "DUCATI", "È¥´Ù" };
 		cc = new int[] { 125, 250, 400, 650, 1000 };
-		type = new String[] { "ì•„ë©”ë¦¬ì¹¸", "ì˜¤í”„ë¡œë“œ", "ë ˆí”Œë¦¬ì¹´", "ìŠ¤ì¿ í„°" };
-		name = new String[] { "ë°ì´ìŠ¤íƒ€", "ì–´ë“œë ˆìŠ¤", "ë¯¸ë¼ì¥¬", "City 100", "ì¸í…Œê·¸ë¼", "HYPERSTRADA" };
+		type = new String[] { "¾Æ¸Ş¸®Ä­", "¿ÀÇÁ·Îµå", "·¹ÇÃ¸®Ä«", "½ºÄíÅÍ" };
+		name = new String[] { "µ¥ÀÌ½ºÅ¸", "¾îµå·¹½º", "¹Ì¶óÁê", "City 100", "ÀÎÅ×±×¶ó", "HYPERSTRADA" };
 		who = null;
 	}
 
@@ -25,7 +25,7 @@ public class Bike extends Scan {
 		int c = (int) Math.floor(Math.random() * cc.length);
 		int t = (int) Math.floor(Math.random() * type.length);
 		int n = (int) Math.floor(Math.random() * name.length);
-		System.out.println(super.who + " " + maker[m] + "ì˜ " + cc[c] + "CC " + type[t] + "ì¸ " + name[n] + "ì…ë‹ˆë‹¤." + "\n");
+		System.out.println(super.who + " " + maker[m] + "ÀÇ " + cc[c] + "CC " + type[t] + "ÀÎ " + name[n] + "ÀÔ´Ï´Ù." + "\n");
 
 		Act n1 = new Act(super.speed, super.geer, super.feul);
 		n1.Now();
@@ -38,13 +38,13 @@ public class Bike extends Scan {
 		Scan su = model;
 		su.Method();
 		((Bike) su).MethodA();
-		// ((Act) su).Now(); // suì— Actë¥¼ ë„£ì§€ ì•Šì•—ìœ¼ë‹ˆê¹Œ ì‘ë™ë˜ì§€ ì•ŠëŠ”ë‹¤.
+		// ((Act) su).Now(); // su¿¡ Act¸¦ ³ÖÁö ¾Ê¾ÑÀ¸´Ï±î ÀÛµ¿µÇÁö ¾Ê´Â´Ù.
 
 	}
 }
 
 class Act extends Scan {
-	// í˜„ì¬ ì†ë„ëŠ” : speedkm/h ì´ë©° geerë‹¨ì…ë‹ˆë‹¤. feul%ì˜ ê¸°ë¦„ì´ ë‚¨ì•˜ìŠµë‹ˆë‹¤.
+	// ÇöÀç ¼Óµµ´Â : speedkm/h ÀÌ¸ç geer´ÜÀÔ´Ï´Ù. feul%ÀÇ ±â¸§ÀÌ ³²¾Ò½À´Ï´Ù.
 	//int speed, geer, feul;
 
 	Act() {
@@ -59,7 +59,7 @@ class Act extends Scan {
 	}
 
 	public void Now() {
-		System.out.println("í˜„ì¬ ì†ë„ëŠ” : " + speed + "km/h ì´ë©° " + geer + "ë‹¨ì…ë‹ˆë‹¤. " + feul + "%ì˜ ê¸°ë¦„ì´ ë‚¨ì•˜ìŠµë‹ˆë‹¤.");
+		System.out.println("ÇöÀç ¼Óµµ´Â : " + speed + "km/h ÀÌ¸ç " + geer + "´ÜÀÔ´Ï´Ù. " + feul + "%ÀÇ ±â¸§ÀÌ ³²¾Ò½À´Ï´Ù.");
 	}
 }
 
@@ -68,16 +68,16 @@ class Scan {
 	int speed, geer, feul;
 
 	public void Method() {
-		System.out.println("ëˆ„êµ¬ì˜ ë°”ì´í¬ ì…ë‹ˆê¹Œ?");
+		System.out.println("´©±¸ÀÇ ¹ÙÀÌÅ© ÀÔ´Ï±î?");
 		Scanner whoin = new Scanner(System.in);
 		who = whoin.next();
-		System.out.println("ì†ë„ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+		System.out.println("¼Óµµ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 		Scanner speedin = new Scanner(System.in);
 		speed = speedin.nextInt();
-		System.out.println("ë‹¨ìˆ˜ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+		System.out.println("´Ü¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 		Scanner geerin = new Scanner(System.in);
 		geer = geerin.nextInt();
-		System.out.println("ê¸°ë¦„ ì”ëŸ‰ì„ ì…ë ¥í•˜ì„¸ìš”.");
+		System.out.println("±â¸§ ÀÜ·®À» ÀÔ·ÂÇÏ¼¼¿ä.");
 		Scanner feulin = new Scanner(System.in);
 		feul = feulin.nextInt();
 

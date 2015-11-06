@@ -1,6 +1,5 @@
 package Lecture.ch10;
 
-import java.awt.Color;
 import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.Toolkit;
@@ -39,20 +38,20 @@ public class KeyEventEx extends JFrame implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		ta.append(e.getKeyChar() + " ê°€ ì…ë ¥\n");
+		ta.append(e.getKeyChar() + " °¡ ÀÔ·Â\n");
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		ta.append(e.getKeyChar() + " ê°€ ëˆŒë¦¼\n");
+		ta.append(e.getKeyChar() + " °¡ ´­¸²\n");
 		if (e.getKeyChar() == KeyEvent.VK_SPACE) {
-			System.out.println("ìŠ¤í˜ì´ìŠ¤ê°€ ì…ë ¥ë˜ì—ˆìŠµë‹ˆë‹¤.");
+			System.out.println("½ºÆäÀÌ½º°¡ ÀÔ·ÂµÇ¾ú½À´Ï´Ù.");
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		ta.append(e.getKeyChar() + " ë¥¼ ë†“ì•˜ìŒ\n");
+		ta.append(e.getKeyChar() + " ¸¦ ³õ¾ÒÀ½\n");
 	}
 
 	public static void main(String[] args) {

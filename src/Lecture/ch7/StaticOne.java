@@ -1,14 +1,14 @@
 package Lecture.ch7;
 
 /*
-ê¸°íƒ€ ì œì–´ì  (ìˆ˜ì •ì)
-í˜•ì‹ )
+±âÅ¸ Á¦¾îÀÚ  (¼öÁ¤ÀÚ)
+Çü½Ä )
 * final : 
-	- class : ìƒì†ì´ ì•ˆë¨
-	- method : ì¬ì‚¬ìš©ì´ ì•ˆë¨
-	- varible : ìƒìˆ˜í™”
+	- class : »ó¼ÓÀÌ ¾ÈµÊ
+	- method : Àç»ç¿ëÀÌ ¾ÈµÊ
+	- varible : »ó¼öÈ­
 * static : 
-	- ê°ì²´ ìƒì„± ì—†ì´ ì‚¬ìš©ê°€ëŠ¥ (ì •ì  ë©”ëª¨ë¦¬)
+	- °´Ã¼ »ı¼º ¾øÀÌ »ç¿ë°¡´É (Á¤Àû ¸Ş¸ğ¸®)
 */
 // ex)
 public final class StaticOne {
@@ -23,11 +23,11 @@ public final class StaticOne {
 	public static void main(String args[]) {
 
 		/*
-		1) final í´ë˜ìŠ¤ ì‚¬ìš©
-		2) ìƒìˆ˜ ì‚¬ìš©
-		3) static ì‚¬ìš© (StaticOne.b = 50;)
-		4) final ë©”ì†Œë“œ ì‚¬ìš©
-		5) abstract í´ë˜ìŠ¤, ë©”ì†Œë“œ ì‚¬ìš©(ì¶”ìƒ ê°œë…ì—ì„œ ë” ìì„¸íˆ...)
+		1) final Å¬·¡½º »ç¿ë
+		2) »ó¼ö »ç¿ë
+		3) static »ç¿ë (StaticOne.b = 50;)
+		4) final ¸Ş¼Òµå »ç¿ë
+		5) abstract Å¬·¡½º, ¸Ş¼Òµå »ç¿ë(Ãß»ó °³³ä¿¡¼­ ´õ ÀÚ¼¼È÷...)
 		*/
 		
 	}

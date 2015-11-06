@@ -51,18 +51,18 @@ public class BankSystem {
 				break;
 			}
 		} while (input != 6);
-		System.out.println("ì´ìš©í•´ ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤.");
+		System.out.println("ÀÌ¿ëÇØ ÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù.");
 	}
 
 	public void menu() {
 		System.out.println("BankSystem v 0.1");
 		System.out.println("================");
-		System.out.println("[1] ê³ ê° ì •ë³´ ì…ë ¥");
-		System.out.println("[2] ê³ ê° ì •ë³´ ì¶œë ¥");
-		System.out.println("[3] ì „ì²´ ê³ ê° ì •ë³´ ì¶œë ¥");
-		System.out.println("[4] ê¸ˆì•¡ ì…ê¸ˆ");
-		System.out.println("[5] ê¸ˆì•¡ ì¶œê¸ˆ");
-		System.out.println("[6] í”„ë¡œê·¸ë¨ ì¢…ë£Œ");
+		System.out.println("[1] °í°´ Á¤º¸ ÀÔ·Â");
+		System.out.println("[2] °í°´ Á¤º¸ Ãâ·Â");
+		System.out.println("[3] ÀüÃ¼ °í°´ Á¤º¸ Ãâ·Â");
+		System.out.println("[4] ±İ¾× ÀÔ±İ");
+		System.out.println("[5] ±İ¾× Ãâ±İ");
+		System.out.println("[6] ÇÁ·Î±×·¥ Á¾·á");
 		System.out.println("================");
 
 	}
@@ -71,9 +71,9 @@ public class BankSystem {
 		custs[cust_idx] = new Customer();
 
 		String temp = null;
-		System.out.println("ê³ ê° ì •ë³´ ì…ë ¥");
+		System.out.println("°í°´ Á¤º¸ ÀÔ·Â");
 		System.out.println("===========");
-		System.out.print("ì‚¬ìš©ì ì•„ì´ë””ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
+		System.out.print("»ç¿ëÀÚ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
 		//		cust_id[cust_idx] = inputStr();
 		//		custs[cust_idx].setId(inputStr());
 		loop: do {
@@ -82,7 +82,7 @@ public class BankSystem {
 				for (int i = 0; i <= cust_idx - 1; i++) {
 					if (custs[i].getId().equals(id)) {
 						System.out
-								.println("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” IDì…ë‹ˆë‹¤. ë‹¤ë¥¸ IDë¥¼ ì‚¬ìš©í•´ ì£¼ì„¸ìš”.");
+								.println("ÀÌ¹Ì Á¸ÀçÇÏ´Â IDÀÔ´Ï´Ù. ´Ù¸¥ ID¸¦ »ç¿ëÇØ ÁÖ¼¼¿ä.");
 						continue loop;
 					}
 				}
@@ -92,29 +92,29 @@ public class BankSystem {
 		} while (true);
 
 		do {
-			System.out.print("ì‚¬ìš©ì ì•”í˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
+			System.out.print("»ç¿ëÀÚ ¾ÏÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
 			custs[cust_idx].setPw(inputStr());
-			System.out.print("ì‚¬ìš©ì ì•”í˜¸ í™•ì¸ : ");
+			System.out.print("»ç¿ëÀÚ ¾ÏÈ£ È®ÀÎ : ");
 			temp = inputStr();
 		} while (!custs[cust_idx].getPw().equals(temp));
 
-		System.out.println("ì‚¬ìš©ì ìµœì´ˆ ì…ê¸ˆì•¡ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”.");
+		System.out.println("»ç¿ëÀÚ ÃÖÃÊ ÀÔ±İ¾×À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
 		custs[cust_idx].setMoney(inputInt());
 
-		System.out.println("ìš°ìˆ˜ ì—¬ë¶€ ( yes / no )");
+		System.out.println("¿ì¼ö ¿©ºÎ ( yes / no )");
 		while (true) {
 			String tax = inputStr();
 			if (tax.equalsIgnoreCase("y") || tax.equalsIgnoreCase("yes")) {
-				custs[cust_idx].setVip("ìš°ìˆ˜ ê³ ê°");
+				custs[cust_idx].setVip("¿ì¼ö °í°´");
 				custs[cust_idx].setTax(0);
 				break;
 			} else if (tax.equalsIgnoreCase("n")
 					|| tax.equalsIgnoreCase("no")) {
-				custs[cust_idx].setVip("ì¼ë°˜ ê³ ê°");
+				custs[cust_idx].setVip("ÀÏ¹İ °í°´");
 				custs[cust_idx].setTax(500);
 				break;
 			} else
-				System.out.println("ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+				System.out.println("´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.");
 		}
 
 		++cust_idx;
@@ -122,116 +122,116 @@ public class BankSystem {
 
 	public void outInfo() {
 		String wantId = null;
-		System.out.println("ê³ ê° ì •ë³´ ì¶œë ¥");
+		System.out.println("°í°´ Á¤º¸ Ãâ·Â");
 		System.out.println("===========");
-		System.out.println("ì›í•˜ëŠ” ì‚¬ìš©ì ì•„ì´ë””ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ");
+		System.out.println("¿øÇÏ´Â »ç¿ëÀÚ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ");
 		wantId = inputStr();
 		if (cust_idx != 0) {
 			for (int i = 0; i < cust_idx; i++) {
 				if (wantId.equals(custs[i].getId())) {
-					System.out.println("ì‚¬ìš©ìì˜ ì•„ì´ë””ëŠ” : " + custs[i].getId()
-							+ "\nì‚¬ìš©ì ì•”í˜¸ëŠ” : " + custs[i].getPw()
-							+ "\nì‚¬ìš©ìì˜ ì”ì•¡ì€ " + custs[i].getMoney()
-							+ "ì›ì…ë‹ˆë‹¤.\n" + custs[i].getVip() + "ì…ë‹ˆë‹¤.\n");
+					System.out.println("»ç¿ëÀÚÀÇ ¾ÆÀÌµğ´Â : " + custs[i].getId()
+							+ "\n»ç¿ëÀÚ ¾ÏÈ£´Â : " + custs[i].getPw()
+							+ "\n»ç¿ëÀÚÀÇ ÀÜ¾×Àº " + custs[i].getMoney()
+							+ "¿øÀÔ´Ï´Ù.\n" + custs[i].getVip() + "ÀÔ´Ï´Ù.\n");
 					break;
 				} else
-					System.out.println("ì¼ì¹˜í•˜ëŠ” ì•„ì´ë””ê°€ ì—†ìŠµë‹ˆë‹¤. ì¬ì…ë ¥í•´ì£¼ì„¸ìš”.");
+					System.out.println("ÀÏÄ¡ÇÏ´Â ¾ÆÀÌµğ°¡ ¾ø½À´Ï´Ù. ÀçÀÔ·ÂÇØÁÖ¼¼¿ä.");
 				continue;
 			}
 		} else {
-			System.out.println("ì¡´ì¬ í•˜ëŠ” ì•„ì´ë””ê°€ ì—†ìŠµë‹ˆë‹¤. ì‚¬ìš©ì ì •ë³´ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”.");
+			System.out.println("Á¸Àç ÇÏ´Â ¾ÆÀÌµğ°¡ ¾ø½À´Ï´Ù. »ç¿ëÀÚ Á¤º¸¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
 		}
 	}
 
 	public void outAllcustinfo() {
-		System.out.println("ì „ì²´ ê³ ê° ì •ë³´ ì¶œë ¥");
+		System.out.println("ÀüÃ¼ °í°´ Á¤º¸ Ãâ·Â");
 		System.out.println("===============");
 		for (int i = 0; i < cust_idx; i++) {
 			if (custs[i].getId() != null) {
-				System.out.println("ì‚¬ìš©ìì˜ ì•„ì´ë””ëŠ” : " + custs[i].getId()
-						+ "\nì‚¬ìš©ì ì•”í˜¸ëŠ” : " + custs[i].getPw()
-						+ "\nì‚¬ìš©ìì˜ ì”ì•¡ì€ " + custs[i].getMoney() + "ì›ì…ë‹ˆë‹¤.\n"
-						+ custs[i].getVip() + "ì…ë‹ˆë‹¤.\n");
+				System.out.println("»ç¿ëÀÚÀÇ ¾ÆÀÌµğ´Â : " + custs[i].getId()
+						+ "\n»ç¿ëÀÚ ¾ÏÈ£´Â : " + custs[i].getPw()
+						+ "\n»ç¿ëÀÚÀÇ ÀÜ¾×Àº " + custs[i].getMoney() + "¿øÀÔ´Ï´Ù.\n"
+						+ custs[i].getVip() + "ÀÔ´Ï´Ù.\n");
 			}
 		}
 	}
 
 	public void deposit() {
-		System.out.println("ê¸ˆì•¡ ì…ê¸ˆ");
+		System.out.println("±İ¾× ÀÔ±İ");
 		System.out.println("=======");
 
 		loop: while (true) {
 			for (int i = 0; i < cust_idx; i++) {
-				System.out.println("ì‚¬ìš©ì ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+				System.out.println("»ç¿ëÀÚ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 				String id = inputStr();
 				if (id.equals(custs[i].getId())) {
-					System.out.println("ì‚¬ìš©ì ì•”í˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+					System.out.println("»ç¿ëÀÚ ¾ÏÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 					String pw = inputStr();
 					if (pw.equals(custs[i].getPw())) {
-						System.out.println("ì‚¬ìš©ì ì¸ì¦ ë˜ì—ˆìŠµë‹ˆë‹¤.");
-						System.out.println("ì›í•˜ì‹œëŠ” ì…ê¸ˆì•¡ì„ ì…ë ¥í•˜ì„¸ìš”.");
+						System.out.println("»ç¿ëÀÚ ÀÎÁõ µÇ¾ú½À´Ï´Ù.");
+						System.out.println("¿øÇÏ½Ã´Â ÀÔ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä.");
 						custs[i].setMoney(custs[i].getMoney() + inputInt());
-						System.out.println("ì‚¬ìš©ìì˜ ì”ì•¡ì€ "
-								+ custs[i].getMoney() + "ì…ë‹ˆë‹¤.");
+						System.out.println("»ç¿ëÀÚÀÇ ÀÜ¾×Àº "
+								+ custs[i].getMoney() + "ÀÔ´Ï´Ù.");
 						break loop;
 					} else
-						System.out.println("ì•”í˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ì¬ì…ë ¥í•´ì£¼ì„¸ìš”.");
+						System.out.println("¾ÏÈ£°¡ Æ²·È½À´Ï´Ù. ÀçÀÔ·ÂÇØÁÖ¼¼¿ä.");
 				} else
-					System.out.println("ì‚¬ìš©ì ì•„ì´ë””ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ì¬ ì…ë ¥ í•´ì£¼ì„¸ìš”.");
+					System.out.println("»ç¿ëÀÚ ¾ÆÀÌµğ°¡ Æ²·È½À´Ï´Ù. Àç ÀÔ·Â ÇØÁÖ¼¼¿ä.");
 			}
 		}
 
 		/*
-		System.out.print("ì•„ì´ë”” ì…ë ¥ : ");
+		System.out.print("¾ÆÀÌµğ ÀÔ·Â : ");
 		String id = inputStr();
-		System.out.print("ì•”í˜¸ ì…ë ¥ : ");
+		System.out.print("¾ÏÈ£ ÀÔ·Â : ");
 		String pw = inputStr();
 
 		for (int i = 0; i < cust_idx; i++) {
 			if (cust_id[i].equals(id)) {
 				do {
 					if (cust_pw[i].equals(pw)) {
-						System.out.print("ì…ê¸ˆì•¡ì„ ì…ë ¥í•˜ì„¸ìš”.");
+						System.out.print("ÀÔ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä.");
 						cust_money[i] += inputInt();
 						break;
 					} else
-						System.out.println("ì•”í˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤.");
+						System.out.println("¾ÏÈ£°¡ Æ²¸³´Ï´Ù.");
 				} while (true);
 			} else {
-				System.out.println("ì•„ì´ë””ê°€ ì—†ìŠµë‹ˆë‹¤.");
+				System.out.println("¾ÆÀÌµğ°¡ ¾ø½À´Ï´Ù.");
 			}
 		}
 		*/
 	}
 
 	public void withdraw() {
-		System.out.println("ê¸ˆì•¡ ì¶œê¸ˆ");
+		System.out.println("±İ¾× Ãâ±İ");
 		System.out.println("=======");
 		loop: while (true) {
 			for (int i = 0; i < cust_idx; i++) {
-				System.out.println("ì‚¬ìš©ì ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+				System.out.println("»ç¿ëÀÚ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 				String id = inputStr();
 				if (id.equals(custs[i].getId())) {
-					System.out.println("ì‚¬ìš©ì ì•”í˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+					System.out.println("»ç¿ëÀÚ ¾ÏÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 					String pw = inputStr();
 					if (pw.equals(custs[i].getPw())) {
-						System.out.println("ì‚¬ìš©ì ì¸ì¦ ë˜ì—ˆìŠµë‹ˆë‹¤.");
-						System.out.println("ì›í•˜ì‹œëŠ” ì¶œê¸ˆì•¡ì„ ì…ë ¥í•˜ì„¸ìš”.");
+						System.out.println("»ç¿ëÀÚ ÀÎÁõ µÇ¾ú½À´Ï´Ù.");
+						System.out.println("¿øÇÏ½Ã´Â Ãâ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä.");
 						int money = inputInt();
 						if (money < custs[i].getMoney()) {
 							custs[i].setMoney(custs[i].getMoney()
 									- (money + custs[i].getTax()));
-							System.out.println("ì‚¬ìš©ìì˜ ì”ì•¡ì€ "
-									+ custs[i].getMoney() + "ì…ë‹ˆë‹¤.");
+							System.out.println("»ç¿ëÀÚÀÇ ÀÜ¾×Àº "
+									+ custs[i].getMoney() + "ÀÔ´Ï´Ù.");
 							break loop;
 						} else
-							System.out.println("ì”ì•¡ì´ ë¶€ì¡±í•©ë‹ˆë‹¤.");
+							System.out.println("ÀÜ¾×ÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
 						break;
 					} else
-						System.out.println("ì•”í˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ì¬ì…ë ¥í•´ì£¼ì„¸ìš”.");
+						System.out.println("¾ÏÈ£°¡ Æ²·È½À´Ï´Ù. ÀçÀÔ·ÂÇØÁÖ¼¼¿ä.");
 					break;
 				} else
-					System.out.println("ì‚¬ìš©ì ì•„ì´ë””ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤. ì¬ ì…ë ¥ í•´ì£¼ì„¸ìš”.");
+					System.out.println("»ç¿ëÀÚ ¾ÆÀÌµğ°¡ Æ²·È½À´Ï´Ù. Àç ÀÔ·Â ÇØÁÖ¼¼¿ä.");
 			}
 		}
 	}

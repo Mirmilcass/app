@@ -7,29 +7,29 @@ public class equalsEx {
 		Value v2 = new Value(10);
 
 		if (v1.equals(v2)) {
-			System.out.println("v1 ê³¼  v2 ëŠ” ê°™ìŠµë‹ˆë‹¤.");
+			System.out.println("v1 °ú  v2 ´Â °°½À´Ï´Ù.");
 		} else {
-			System.out.println("v1 ê³¼  v2 ëŠ” ë‹¤ë¦…ë‹ˆë‹¤.");
+			System.out.println("v1 °ú  v2 ´Â ´Ù¸¨´Ï´Ù.");
 		}
 		System.out.println();
 		if (v1 == v2) {
-			System.out.println("v1 ê³¼  v2 ëŠ” ê°™ìŠµë‹ˆë‹¤.");
+			System.out.println("v1 °ú  v2 ´Â °°½À´Ï´Ù.");
 		} else {
-			System.out.println("v1 ê³¼  v2 ëŠ” ë‹¤ë¦…ë‹ˆë‹¤.");
+			System.out.println("v1 °ú  v2 ´Â ´Ù¸¨´Ï´Ù.");
 		}
 
 		v2 = v1;
 
 		if (v1.equals(v2)) {
-			System.out.println("v1 ê³¼  v2 ëŠ” ê°™ìŠµë‹ˆë‹¤.");
+			System.out.println("v1 °ú  v2 ´Â °°½À´Ï´Ù.");
 		} else {
-			System.out.println("v1 ê³¼  v2 ëŠ” ë‹¤ë¦…ë‹ˆë‹¤.");
+			System.out.println("v1 °ú  v2 ´Â ´Ù¸¨´Ï´Ù.");
 		}
 		System.out.println();
 		if (v1 == v2) {
-			System.out.println("v1 ê³¼  v2 ëŠ” ê°™ìŠµë‹ˆë‹¤.");
+			System.out.println("v1 °ú  v2 ´Â °°½À´Ï´Ù.");
 		} else {
-			System.out.println("v1 ê³¼  v2 ëŠ” ë‹¤ë¦…ë‹ˆë‹¤.");
+			System.out.println("v1 °ú  v2 ´Â ´Ù¸¨´Ï´Ù.");
 		}
 	}
 }

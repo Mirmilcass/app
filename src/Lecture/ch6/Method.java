@@ -3,34 +3,34 @@ package Lecture.ch6;
 import java.util.Scanner;
 
 public class Method {
-	// ë©”ì†Œë“œ(Method)
+	// ¸Ş¼Òµå(Method)
 	/*
-	- [ì ‘ê·¼ ì œì–´ì][ìˆ˜ì •ì][ë°˜í™˜í˜•] ë©”ì†Œë“œ ëª… (ì¸ìë“¤) {
-		ì‹¤í–‰ êµ¬ë¬¸(êµ¬í˜„);
+	- [Á¢±Ù Á¦¾îÀÚ][¼öÁ¤ÀÚ][¹İÈ¯Çü] ¸Ş¼Òµå ¸í (ÀÎÀÚµé) {
+		½ÇÇà ±¸¹®(±¸Çö);
 	}
 	
-	* ì ‘ê·¼ ì œì–´ì (Modifiers) : private, default(friendly), protected, public
-	* ìˆ˜ì •ì : static, final, abstract, native ...
-	* ë°˜í™˜í˜•(return type) :
-		- ìë°” ë°ì´í„° ìë£Œí˜•(ê¸°ë³¸í˜•, ì°¸ì¡°í˜•) ì „ë¶€ ì‚¬ìš©í•  ìˆ˜ ìˆìŒ.
-		- void : ë°˜í™˜í˜•ì´ ì—†ëŠ” ë©”ì†Œë“œ ì •ì˜ì‹œ ì‚¬ìš©.
-	* ë©”ì†Œë“œí˜• : ì‹ë³„ìë¡œ ì„ì˜ì˜ ì´ë¦„ ì •ì˜.
-	* ì¸ì(Arguments) : ë§¤ê°œ ë³€ìˆ˜ë¼ê³  í•˜ë©° ë©”ì†Œë“œ í˜¸ì¶œì‹œ ë°ì´í„°ë¥¼ ì „ë‹¬ í•˜ê¸° ìœ„í•œ ìš©ë„ë¡œ ì‚¬ìš©í•¨.
+	* Á¢±Ù Á¦¾îÀÚ (Modifiers) : private, default(friendly), protected, public
+	* ¼öÁ¤ÀÚ : static, final, abstract, native ...
+	* ¹İÈ¯Çü(return type) :
+		- ÀÚ¹Ù µ¥ÀÌÅÍ ÀÚ·áÇü(±âº»Çü, ÂüÁ¶Çü) ÀüºÎ »ç¿ëÇÒ ¼ö ÀÖÀ½.
+		- void : ¹İÈ¯ÇüÀÌ ¾ø´Â ¸Ş¼Òµå Á¤ÀÇ½Ã »ç¿ë.
+	* ¸Ş¼ÒµåÇü : ½Äº°ÀÚ·Î ÀÓÀÇÀÇ ÀÌ¸§ Á¤ÀÇ.
+	* ÀÎÀÚ(Arguments) : ¸Å°³ º¯¼ö¶ó°í ÇÏ¸ç ¸Ş¼Òµå È£Ãâ½Ã µ¥ÀÌÅÍ¸¦ Àü´Ş ÇÏ±â À§ÇÑ ¿ëµµ·Î »ç¿ëÇÔ.
 	
-	í‘œí˜„ - 1)
+	Ç¥Çö - 1)
 	public int intA() {
-		êµ¬í˜„;
-		return n; // n -> int ê¸°ë³¸ ìë£Œí˜•ì— ë§ëŠ” ë°ì´í„° ë°˜í™˜ 
+		±¸Çö;
+		return n; // n -> int ±âº» ÀÚ·áÇü¿¡ ¸Â´Â µ¥ÀÌÅÍ ¹İÈ¯ 
 	}
 	
-	í‘œí˜„ - 2)
+	Ç¥Çö - 2)
 	public void intB(int a, ...) {
-		êµ¬í˜„;
-		// return êµ¬ë¬¸ì„ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ.
+		±¸Çö;
+		// return ±¸¹®À» »ç¿ëÇÏÁö ¾ÊÀ½.
 	}
 	*/
 	
-	// ìë°”ì—ì„œëŠ” ì´ë ‡ê²Œ ë©”ì†Œë“œ êµ¬ë¶„ì— ì‚¬ìš©ë˜ëŠ” ë©”ì†Œë“œ ì´ë¦„, íŒŒë¼ë¯¸í„° ë³€ìˆ˜ì˜ ìˆ˜, íƒ€ì…, ìˆœì„œë¥¼ ë¬¶ì–´ì„œ ë©”ì†Œë“œ ì‹œê·¸ë‹ˆì³(signature, ì„œëª…) ë¼ê³  ë¶€ë¥¸ë‹¤.
+	// ÀÚ¹Ù¿¡¼­´Â ÀÌ·¸°Ô ¸Ş¼Òµå ±¸ºĞ¿¡ »ç¿ëµÇ´Â ¸Ş¼Òµå ÀÌ¸§, ÆÄ¶ó¹ÌÅÍ º¯¼öÀÇ ¼ö, Å¸ÀÔ, ¼ø¼­¸¦ ¹­¾î¼­ ¸Ş¼Òµå ½Ã±×´ÏÃÄ(signature, ¼­¸í) ¶ó°í ºÎ¸¥´Ù.
 	/*
 	ex)
 	class a {
@@ -54,7 +54,7 @@ public class Method {
 			
 		}
 		
-		a(String e, int c) { // ì´ ìƒí™©ì—ì„œëŠ” ìœ„ ë©”ì†Œë“œì™€ ì‹œê·¸ë‹ˆì²˜ ì¶©ëŒì´ ì¼ì–´ë‚˜ ì˜¤ë¥˜ë‚œë‹¤.
+		a(String e, int c) { // ÀÌ »óÈ²¿¡¼­´Â À§ ¸Ş¼Òµå¿Í ½Ã±×´ÏÃ³ Ãæµ¹ÀÌ ÀÏ¾î³ª ¿À·ù³­´Ù.
 			
 		}
 	}
@@ -64,12 +64,12 @@ public class Method {
 
 	public int intA() {
 		int num = 10;
-		System.out.println("intA ë©”ì†Œë“œ ì‹¤í–‰");
+		System.out.println("intA ¸Ş¼Òµå ½ÇÇà");
 		return num;
 	}
 
 	public void intB() {
-		System.out.println("intB ë©”ì†Œë“œ ì‹¤í–‰");
+		System.out.println("intB ¸Ş¼Òµå ½ÇÇà");
 	}
 
 	/*
@@ -81,15 +81,15 @@ public class Method {
 	}
 	*/
 
-	// êµ¬êµ¬ë‹¨ ë©”ì„œë“œ
+	// ±¸±¸´Ü ¸Ş¼­µå
 	public void gugudan(int dan) {
-		System.out.println("<" + dan + "ë‹¨>");
+		System.out.println("<" + dan + "´Ü>");
 		for (int x = 2; x < 10; x++) {
 			System.out.println(dan + " * " + x + " = " + (dan * x));
 		}
 	}
 
-	// 1~100ê¹Œì§€ í™€ìˆ˜ ì¶œë ¥ returnì„ ëª»í•˜ëŠ” ë©”ì„œë“œ
+	// 1~100±îÁö È¦¼ö Ãâ·Â returnÀ» ¸øÇÏ´Â ¸Ş¼­µå
 	public void odd() {
 		int sum = 0;
 		int j;
@@ -113,25 +113,25 @@ public class Method {
 
 	public static void main(String[] args) {
 		Method m = new Method();
-		// ë©”ì„œë“œ í˜¸ì¶œ
+		// ¸Ş¼­µå È£Ãâ
 		int result = m.intA();
 		m.intB();
-		// ë©”ì„œë“œ í˜¸ì¶œ ì´í›„ ë°˜í™˜ ê°’ í™•ì¸
-		System.out.println("ë°˜í™˜ ê°’ : " + result);
+		// ¸Ş¼­µå È£Ãâ ÀÌÈÄ ¹İÈ¯ °ª È®ÀÎ
+		System.out.println("¹İÈ¯ °ª : " + result);
 
 		//result = m.intc(5,10);
-		//System.out.println("ê²°ê³¼ : " + result);
+		//System.out.println("°á°ú : " + result);
 
 		System.out.println();
 		/*
-		ì‹¤ìŠµë¬¸ì œ )
-		1. êµ¬êµ¬ë‹¨ì„ ì¶œë ¥í•˜ì‹œì˜¤. (ë©”ì†Œë“œ ì‚¬ìš©)
+		½Ç½À¹®Á¦ )
+		1. ±¸±¸´ÜÀ» Ãâ·ÂÇÏ½Ã¿À. (¸Ş¼Òµå »ç¿ë)
 		ex) void gugudan(int dan)
 		*/
 
-		// ì…ë ¥ ë‹¨ìˆ˜ ì¶œë ¥
+		// ÀÔ·Â ´Ü¼ö Ãâ·Â
 
-		System.out.println("ì›í•˜ëŠ” ê°’ì„ ì…ë ¥í•˜ì„¸ìš”.");
+		System.out.println("¿øÇÏ´Â °ªÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
 		want = new Scanner(System.in);
 		int dan = want.nextInt();
 
@@ -142,16 +142,16 @@ public class Method {
 
 		//////////////
 		loops: while (true) {
-			System.out.println("ì›í•˜ëŠ” ê°’ì„ ì…ë ¥í•˜ì„¸ìš”.");
+			System.out.println("¿øÇÏ´Â °ªÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
 			dan = want.nextInt();
 
 			m.gugudan(dan);
 
-			System.out.println("ë°˜ë³µ í•˜ì‹œê² ìŠµë‹ˆê¹Œ? í•˜ì‹ ë‹¤ë©´ goë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+			System.out.println("¹İº¹ ÇÏ½Ã°Ú½À´Ï±î? ÇÏ½Å´Ù¸é go¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 			String loop = want.next();
 
 			if (loop.equals("go")) {
-				// if ì¡°ê±´ì‹ì€ ê¸°ë³¸ ì •ìˆ˜ê°’ì„ ë°›ìœ¼ë©° ë¬¸ìê°’ì„ ì›í• ì‹œ ë³€ìˆ˜.equals() ë¡œ í•´ì•¼ëœë‹¤.
+				// if Á¶°Ç½ÄÀº ±âº» Á¤¼ö°ªÀ» ¹ŞÀ¸¸ç ¹®ÀÚ°ªÀ» ¿øÇÒ½Ã º¯¼ö.equals() ·Î ÇØ¾ßµÈ´Ù.
 				continue loops;
 			} else {
 				break;

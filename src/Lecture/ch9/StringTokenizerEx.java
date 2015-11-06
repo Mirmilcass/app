@@ -4,7 +4,7 @@ import java.util.StringTokenizer;
 
 public class StringTokenizerEx {
 	public static void main(String args[]) {
-		String str = "ìë°” SE,ìë°” EE,ìë°” ME";
+		String str = "ÀÚ¹Ù SE,ÀÚ¹Ù EE,ÀÚ¹Ù ME";
 		//		String delim = args[0];
 		String delim = ",";
 		StringTokenizer st;
@@ -14,7 +14,7 @@ public class StringTokenizerEx {
 		int count = 0;
 		System.out.println(st.countTokens());
 		while (st.hasMoreTokens()) {
-			System.out.println("ìë°”ê³¼ì • " + ++count + " : " + st.nextToken());
+			System.out.println("ÀÚ¹Ù°úÁ¤ " + ++count + " : " + st.nextToken());
 		}
 
 //		System.out.println(st.countTokens());

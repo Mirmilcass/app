@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class array {
 	public static void main(String[] args) {
 		/*
-		ë°°ì—´ (array)
-		- ê°™ì€ ìë£Œí˜•ì˜ ë°ì´í„°
+		¹è¿­ (array)
+		- °°Àº ÀÚ·áÇüÀÇ µ¥ÀÌÅÍ
 		*/
 
 		//ex1)
@@ -27,11 +27,11 @@ public class array {
 		System.out.println("");
 
 		/*
-		ì‘ìš©ë¬¸ì œ )
-			ì •ìˆ˜ íƒ€ì…ì˜ ë°°ì—´ì„ ìƒì„±í•˜ì—¬ 1 ~ 10 ê¹Œì§€ ì €ì¥í•˜ê³  ì¶œë ¬í•˜ì‹œì˜¤ (ë°˜ë³µë¬¸ ì´ìš©)
+		ÀÀ¿ë¹®Á¦ )
+			Á¤¼ö Å¸ÀÔÀÇ ¹è¿­À» »ı¼ºÇÏ¿© 1 ~ 10 ±îÁö ÀúÀåÇÏ°í Ãâ·ÄÇÏ½Ã¿À (¹İº¹¹® ÀÌ¿ë)
 		*/
 
-		// í–¥ìƒëœ forë¬¸ 5ë²„ì „ ì´ìƒ ì‚¬ìš©.
+		// Çâ»óµÈ for¹® 5¹öÀü ÀÌ»ó »ç¿ë.
 		int[] arr3 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		for (int a : arr3) {
 			System.out.println("arr [ " + (a - 1) + " ] " + " : " + a);
@@ -45,7 +45,7 @@ public class array {
 		}
 		System.out.println();
 
-		// í–¥ìƒëœ forë¬¸ì„ ì´ìš©í•œ ìë™ ì¶œë ¥.
+		// Çâ»óµÈ for¹®À» ÀÌ¿ëÇÑ ÀÚµ¿ Ãâ·Â.
 		int[] dan = new int[] { 2, 4, 6, 7 };
 		for (int i = 2; i < 10; i++) {
 			for (int j : dan)
@@ -54,8 +54,8 @@ public class array {
 		}
 		System.out.println();
 
-		// ì§€ì • ì¶œë ¥ / ì…ë ¥ëœ ê°’ì— ë”°ë¥¸ ë°°ì—´ danì˜ ê°’ì„ ê°€ì ¸ì™€ ê³±ì…ˆì„ ì§„í–‰í•œë‹¤. 
-		System.out.println("ì›í•˜ëŠ” ê°’ì„ ì…ë ¥í•˜ì„¸ìš”.");
+		// ÁöÁ¤ Ãâ·Â / ÀÔ·ÂµÈ °ª¿¡ µû¸¥ ¹è¿­ danÀÇ °ªÀ» °¡Á®¿Í °ö¼ÀÀ» ÁøÇàÇÑ´Ù. 
+		System.out.println("¿øÇÏ´Â °ªÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
 		Scanner dan1 = new Scanner(System.in);
 		int c = dan1.nextInt();
 
@@ -66,10 +66,10 @@ public class array {
 		System.out.println("");
 		dan1.close();
 
-		// ì§€ì •ì¶œë ¥ 2 / args[]ì´ìš©ì‹.
+		// ÁöÁ¤Ãâ·Â 2 / args[]ÀÌ¿ë½Ä.
 		int[] ar = new int[10];
 		for (int i = 0; i < ar.length; i++) {
-			ar[i] = Integer.parseInt(args[i]); // Sting mainì—ì„œ args ê°’ì— intë¥¼ ë„£ì„ ë•Œ ì‚¬ìš©í•˜ëŠ” ë°©ì‹.
+			ar[i] = Integer.parseInt(args[i]); // Sting main¿¡¼­ args °ª¿¡ int¸¦ ³ÖÀ» ¶§ »ç¿ëÇÏ´Â ¹æ½Ä.
 			for (int j = 2; j < 10; j++) {
 				System.out.print((ar[i] * j) + "\t");
 			}
@@ -85,9 +85,9 @@ public class array {
 			System.out.println();
 		}
 		System.out.println();
-		// ì§€ì • args / ì‹¤íŒ¨ : ì…ë ¥ê°’ì„ args ì¸ìë¡œ ë„£ì–´ ì§„í–‰ í•˜ë ¤ í–ˆìœ¼ë‚˜ ì‹¤íŒ¨.
+		// ÁöÁ¤ args / ½ÇÆĞ : ÀÔ·Â°ªÀ» args ÀÎÀÚ·Î ³Ö¾î ÁøÇà ÇÏ·Á ÇßÀ¸³ª ½ÇÆĞ.
 
-		System.out.println("ì›í•˜ëŠ” ê°’ì„ ì…ë ¥í•˜ì„¸ìš”.");
+		System.out.println("¿øÇÏ´Â °ªÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
 		Scanner dan2 = new Scanner(System.in);
 		int o = dan2.nextInt();
 

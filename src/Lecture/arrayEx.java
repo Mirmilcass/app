@@ -2,9 +2,9 @@ package Lecture;
 
 public class arrayEx {
 	public static void main(String args[]) {
-		// ë‹¤ì°¨ì› ë°°ì—´(array) í–‰ê³¼ ì—´
+		// ´ÙÂ÷¿ø ¹è¿­(array) Çà°ú ¿­
 		/*
-		í‘œí˜„ )
+		Ç¥Çö )
 			- int[][] arr = new int[n][n];
 			- int[][] arr = {{n,n}, {n,n}, {n,n}};
 		*/
@@ -43,7 +43,7 @@ public class arrayEx {
 		}
 		System.out.println();
 
-		// length ì‚¬ìš©
+		// length »ç¿ë
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr[i].length; j++) {
 				System.out.println("for.length : " + arr[i][j]);
@@ -51,7 +51,7 @@ public class arrayEx {
 		}
 		System.out.println();
 
-		// í–¥ìƒëœ for ë¬¸
+		// Çâ»óµÈ for ¹®
 		for (int[] i : arr) {
 			for (int j : i) {
 				System.out.println("upgrade for : " + j);
@@ -209,7 +209,7 @@ public class arrayEx {
 		System.out.println();
 
 		///////////////////////
-		// ë°°ì—´
+		// ¹è¿­
 		//////////////////////
 
 		int[][] star = new int[9][9];
@@ -229,10 +229,10 @@ public class arrayEx {
 		}
 		System.out.println();
 
-		// ë°°ì—´ ì´ìš© ë° ì†Œê±° ë²•
+		// ¹è¿­ ÀÌ¿ë ¹× ¼Ò°Å ¹ı
 		for (int i = 0; i < star.length; i++) {
 			for (int j = 0; j < star[i].length; j++) {
-				// '||'ì„ ì‚¬ìš©í•œ ì¢…í•©í¸ì´ì§€ë§Œ. ì´ ë²”ìœ„ê°’ì„ ì¤„ì´ê³  í•˜ë‚˜ì”©ë§Œ ì‚¬ìš©í•œë‹¤ë©´? ì‚¼ê°í˜•ì”© í˜•íƒœë¥¼ ì´ë£° ìˆ˜ ìˆë‹¤.
+				// '||'À» »ç¿ëÇÑ Á¾ÇÕÆíÀÌÁö¸¸. ÃÑ ¹üÀ§°ªÀ» ÁÙÀÌ°í ÇÏ³ª¾¿¸¸ »ç¿ëÇÑ´Ù¸é? »ï°¢Çü¾¿ ÇüÅÂ¸¦ ÀÌ·ê ¼ö ÀÖ´Ù.
 				if (i + j < 4 || j - i > 4 || j + i > 12 || j - i < -4) {
 					System.out.print(" ");
 				} else {
@@ -284,7 +284,7 @@ public class arrayEx {
 		 *****
 		 */
 		
-		//ë¯¸ì™„
+		//¹Ì¿Ï
 		for(int i = 0; i < star2.length; i++) {
 			for(int j = 0; j <= i; j++) {
 				System.out.print(i+j);

@@ -3,7 +3,7 @@ package Lecture;
 public class Operator {
 	public static void main(String args[]) {
 		/*
-		 * ë°ì´í„° ì—°ì‚°ì ìˆ˜í•™ì (ì‚°ìˆ ) ì—°ì‚°ì í‘œí˜„) + => ë”í•˜ê¸° - => ë¹¼ê¸° * => ê³±í•˜ê¸° / => ë‚˜ëˆ„ê¸° % => ë‚˜ë¨¸ì§€
+		 * µ¥ÀÌÅÍ ¿¬»êÀÚ ¼öÇĞÀû(»ê¼ú) ¿¬»êÀÚ Ç¥Çö) + => ´õÇÏ±â - => »©±â * => °öÇÏ±â / => ³ª´©±â % => ³ª¸ÓÁö
 		 */
 
 		// ex)
@@ -11,8 +11,8 @@ public class Operator {
 		int b = 20;
 		int result = 0;
 		result = a + b;
-		System.out.println("ê²°ê³¼ : " + result);
-		// ì¶œë ¥ ê²°ê³¼ => 10 % 20 = 10
+		System.out.println("°á°ú : " + result);
+		// Ãâ·Â °á°ú => 10 % 20 = 10
 
 		result = a % b;
 		System.out.println(a + " % " + b + " = " + result);
@@ -32,27 +32,27 @@ public class Operator {
 		boolean result5 = x == y;
 		boolean result6 = x != y;
 		boolean result7 = !result1;
-		// boolean result8 = x ! y; ë³€ìˆ˜ ë¼ë¦¬ì˜ ì§ë¹„êµì‹œ !ë§Œìœ¼ë¡  ì‚¬ìš©í•˜ì§€ ëª»í•œë‹¤.
-		System.out.println("ê²°ê³¼1 : " + result1);
-		System.out.println("ê²°ê³¼2 : " + result2);
-		System.out.println("ê²°ê³¼3 : " + result3);
-		System.out.println("ê²°ê³¼4 : " + result4);
-		System.out.println("ê²°ê³¼5 : " + result5);
-		System.out.println("ê²°ê³¼6 : " + result6);
-		System.out.println("ê²°ê³¼7 : " + result7);
-		// System.out.println("ê²°ê³¼8 : " + result8);
+		// boolean result8 = x ! y; º¯¼ö ³¢¸®ÀÇ Á÷ºñ±³½Ã !¸¸À¸·Ğ »ç¿ëÇÏÁö ¸øÇÑ´Ù.
+		System.out.println("°á°ú1 : " + result1);
+		System.out.println("°á°ú2 : " + result2);
+		System.out.println("°á°ú3 : " + result3);
+		System.out.println("°á°ú4 : " + result4);
+		System.out.println("°á°ú5 : " + result5);
+		System.out.println("°á°ú6 : " + result6);
+		System.out.println("°á°ú7 : " + result7);
+		// System.out.println("°á°ú8 : " + result8);
 
 		/*
-		 * ì‚¼í•­ ì—°ì‚°ì - í˜•ì‹) ë°ì´í„°í˜• ë³€ìˆ˜ = ì¡°ê±´ì‹ ? ê°’1 : ê°’2;
+		 * »ïÇ× ¿¬»êÀÚ - Çü½Ä) µ¥ÀÌÅÍÇü º¯¼ö = Á¶°Ç½Ä ? °ª1 : °ª2;
 		 */
 		// ex)
-		String result8 = 10 < 20 ? "ì°¸" : "ê±°ì§“";
-		System.out.println("ê²°ê³¼ : " + result8);
+		String result8 = 10 < 20 ? "Âü" : "°ÅÁş";
+		System.out.println("°á°ú : " + result8);
 
 		/*
-		 * ë…¼ë¦¬ ì—°ì‚°ì | ë‘˜ ì¤‘ í•˜ë‚˜ë¼ë„ ì°¸ ì´ë¼ë©´ ì°¸, ë‘˜ ë‹¤ ê±°ì§“ì´ì—¬ì•¼ ê±°ì§“. & ë‘˜ ì¤‘ í•˜ë‚˜ë¼ë„ ê±°ì§“ì´ë¼ë©´ ê±°ì§“ || |ê³¼
-		 * ë¹„ìŠ·í•˜ì§€ë§Œ ì• ì¡°ê±´ì´ ì°¸ì¼ ê²½ìš° ë’· ì¡°ê±´ì˜ ì—°ì‚°ì„ í•˜ì§€ ì•ŠëŠ”ë‹¤. && &ì™€ ë¹„ìŠ·í•˜ì§€ë§Œ ì• ì¡°ê±´ì´ ê±°ì§“ì¼ ê²½ìš° ë’· ì¡°ê±´ì˜
-		 * ì—°ì‚°ì„ í•˜ì§€ ì•ŠëŠ”ë‹¤.
+		 * ³í¸® ¿¬»êÀÚ | µÑ Áß ÇÏ³ª¶óµµ Âü ÀÌ¶ó¸é Âü, µÑ ´Ù °ÅÁşÀÌ¿©¾ß °ÅÁş. & µÑ Áß ÇÏ³ª¶óµµ °ÅÁşÀÌ¶ó¸é °ÅÁş || |°ú
+		 * ºñ½ÁÇÏÁö¸¸ ¾Õ Á¶°ÇÀÌ ÂüÀÏ °æ¿ì µŞ Á¶°ÇÀÇ ¿¬»êÀ» ÇÏÁö ¾Ê´Â´Ù. && &¿Í ºñ½ÁÇÏÁö¸¸ ¾Õ Á¶°ÇÀÌ °ÅÁşÀÏ °æ¿ì µŞ Á¶°ÇÀÇ
+		 * ¿¬»êÀ» ÇÏÁö ¾Ê´Â´Ù.
 		 */
 
 		int su1 = 10;
@@ -71,8 +71,8 @@ public class Operator {
 		System.out.println("14-1 " + "su2 = " + su2);
 
 		/*
-		 * ì—°ì‚° í›„ ëŒ€ì… ì—°ì‚°ì í˜•ì‹) += ì—°ì‚° ê²°ê³¼ì— ì¦ê°€. -= ì—°ì‚° ê²°ê³¼ì— ê°ì†Œ.= ì—°ì‚° ê²°ê³¼ì— ê³±. /= ì—°ì‚° ê²°ê³¼ì— ë‚˜ëˆ”.
-		 * %= ì—°ì‚° ê²°ê³¼ì˜ ë‚˜ë¨¸ì§€ ê°’. int a = 5; a %= 10; // a = a % 10;
+		 * ¿¬»ê ÈÄ ´ëÀÔ ¿¬»êÀÚ Çü½Ä) += ¿¬»ê °á°ú¿¡ Áõ°¡. -= ¿¬»ê °á°ú¿¡ °¨¼Ò.= ¿¬»ê °á°ú¿¡ °ö. /= ¿¬»ê °á°ú¿¡ ³ª´®.
+		 * %= ¿¬»ê °á°úÀÇ ³ª¸ÓÁö °ª. int a = 5; a %= 10; // a = a % 10;
 		 */
 		// ex)
 		int sum = 0;
@@ -81,11 +81,11 @@ public class Operator {
 		sum = a + b;
 		sum += a; // sum = sum + 10 -> 40
 		sum -= b; // sum = sum - 20 -> 20
-		System.out.println("15 " + "ê²°ê³¼  : " + sum);
+		System.out.println("15 " + "°á°ú  : " + sum);
 
 		/*
-		 * ì¦ê°€, ê°ì†Œ ì—°ì‚°ì í˜•ì‹) -- ê°ì†Œ ++ ì¦ê°€ int a = 0; ++a; // => ê²°ê³¼ : 1 --a; // => ê²°ê³¼
-		 * : 0 // ì„ í–‰ê³¼ í›„í–‰ ++a : ì„ í–‰ìœ¼ë¡œ aì„ ì½ê¸° ì „ì— ì—°ì‚° ëœë‹¤. a++ : í›„í–‰ìœ¼ë¡œ aì„ ì½ì€ í›„ ì—°ì‚° ëœë‹¤.
+		 * Áõ°¡, °¨¼Ò ¿¬»êÀÚ Çü½Ä) -- °¨¼Ò ++ Áõ°¡ int a = 0; ++a; // => °á°ú : 1 --a; // => °á°ú
+		 * : 0 // ¼±Çà°ú ÈÄÇà ++a : ¼±ÇàÀ¸·Î aÀ» ÀĞ±â Àü¿¡ ¿¬»ê µÈ´Ù. a++ : ÈÄÇàÀ¸·Î aÀ» ÀĞÀº ÈÄ ¿¬»ê µÈ´Ù.
 		 */
 		// ex)
 		// 0 + 1 = 1
@@ -99,7 +99,7 @@ public class Operator {
 		System.out.println(a); // 2;
 
 		int i = 10;
-		// \t : íƒ­ ì‚¬ì´ì¦ˆ ë§í¼ ë„ìš°ê² ë‹¤
+		// \t : ÅÇ »çÀÌÁî ¸¹Å­ ¶ç¿ì°Ú´Ù
 		// 10 / 11 / 11 / 12 / i = 10 ++i = 11 i++ = 11 i=12
 		System.out.println("i = " + i + "\t++i = " + ++i + "\ti++ = " + i++
 				+ "\ti= " + i);
@@ -112,10 +112,10 @@ public class Operator {
 		
 		sum = i - j;
 		boolean result16 = sum < 0;
-		System.out.println("ì²«ë²ˆì§¸ ê²°ê³¼ : " + result16); // true;
+		System.out.println("Ã¹¹øÂ° °á°ú : " + result16); // true;
 		
 		result16 = sum > j || result16;
-		System.out.println("ë‘ë²ˆì§¸ ê²°ê³¼ : " + result16); // true;
+		System.out.println("µÎ¹øÂ° °á°ú : " + result16); // true;
 
 	}
 }

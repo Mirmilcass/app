@@ -36,13 +36,13 @@ public class Ex extends Frame implements ItemListener {
 
 		ch = new CheckboxGroup();
 
-		c1 = new Checkbox("ì•„ì¹¨", true, ch);
-		c2 = new Checkbox("ì ì‹¬", false, ch);
-		c3 = new Checkbox("ì €ë…", false, ch);
+		c1 = new Checkbox("¾ÆÄ§", true, ch);
+		c2 = new Checkbox("Á¡½É", false, ch);
+		c3 = new Checkbox("Àú³á", false, ch);
 
-		c4 = new Checkbox("ì‚¬ê³¼", false);
-		c5 = new Checkbox("ë”¸ê¸°", false);
-		c6 = new Checkbox("ë°°", false);
+		c4 = new Checkbox("»ç°ú", false);
+		c5 = new Checkbox("µş±â", false);
+		c6 = new Checkbox("¹è", false);
 
 		c1.addItemListener(this);
 		c2.addItemListener(this);
@@ -60,12 +60,12 @@ public class Ex extends Frame implements ItemListener {
 		l7 = new Label("");
 		l8 = new Label("");
 
-		ta = new TextArea("  << ìë°” ìˆ˜ê°•ìƒ ì‹ìƒí™œ >>", 20, 30);
+		ta = new TextArea("  << ÀÚ¹Ù ¼ö°­»ı ½Ä»ıÈ° >>", 20, 30);
 
 		cho = new Choice();
-		cho.add("ì•„ì¹¨");
-		cho.add("ì ì‹¬");
-		cho.add("ì €ë…");
+		cho.add("¾ÆÄ§");
+		cho.add("Á¡½É");
+		cho.add("Àú³á");
 		cho.addItemListener(this);
 
 		f.setLayout(new BorderLayout());
@@ -147,11 +147,11 @@ public class Ex extends Frame implements ItemListener {
 		Object obj = e.getSource();
 		if (obj == cho) {
 			String str = cho.getSelectedItem();
-			if (str.equals("ì•„ì¹¨")) {
+			if (str.equals("¾ÆÄ§")) {
 				c1.setState(true);
-			} else if (str.equals("ì ì‹¬")) {
+			} else if (str.equals("Á¡½É")) {
 				c2.setState(true);
-			} else if (str.equals("ì €ë…")) {
+			} else if (str.equals("Àú³á")) {
 				c3.setState(true);
 			}
 		}

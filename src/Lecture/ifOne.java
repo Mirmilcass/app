@@ -6,15 +6,15 @@ public class ifOne {
 		// Ex1)
 		int num = 10;
 		if (num > 10) {
-			System.out.println("ì°¸ ìž…ë‹ˆë‹¤.");
+			System.out.println("Âü ÀÔ´Ï´Ù.");
 		}
-		System.out.println("ì‹¤í–‰ êµ¬ë¬¸");
+		System.out.println("½ÇÇà ±¸¹®");
 
 		// Ex2)
 		if (num > 10) {
-			System.out.println("ì°¸ ìž…ë‹ˆë‹¤.");
+			System.out.println("Âü ÀÔ´Ï´Ù.");
 		} else if (false) {
-			System.out.println("ê±°ì§“ ìž…ë‹ˆë‹¤.");
+			System.out.println("°ÅÁþ ÀÔ´Ï´Ù.");
 		}
 		/////////////////////////////////////////
 		
@@ -23,28 +23,28 @@ public class ifOne {
 		//int score = 70;
 		
 		if( score > 50 && score < 81 ) {
-			System.out.println("ì‹¤í–‰ êµ¬ë¬¸ 1"); 
+			System.out.println("½ÇÇà ±¸¹® 1"); 
 		} else if ( score < 91 ) {
-			System.out.println("ì‹¤í–‰ êµ¬ë¬¸ 2");			
-		} // ì‹¤í–‰ êµ¬ë¬¸ 2 / ì‹¤í–‰êµ¬ë¬¸ 1
+			System.out.println("½ÇÇà ±¸¹® 2");			
+		} // ½ÇÇà ±¸¹® 2 / ½ÇÇà±¸¹® 1
 		
 		// Ex2)
 		if( score > 50 && score < 81 ) {
-			System.out.println("ì‹¤í–‰ êµ¬ë¬¸ 1");
+			System.out.println("½ÇÇà ±¸¹® 1");
 		} else {
-			System.out.println("ì‹¤í–‰ êµ¬ë¬¸ 2");			
-		} // ì‹¤í–‰ êµ¬ë¬¸ 2 / êµ¬ë¬¸ 1
+			System.out.println("½ÇÇà ±¸¹® 2");			
+		} // ½ÇÇà ±¸¹® 2 / ±¸¹® 1
 		
 		if( score > 80 && score < 91 ) {
-			System.out.println("ì‹¤í–‰ êµ¬ë¬¸ 3");
+			System.out.println("½ÇÇà ±¸¹® 3");
 		} else {
-			System.out.println("ì‹¤í–‰ êµ¬ë¬¸ 4");			
-		} // ì‹¤í–‰ êµ¬ë¬¸ 4 / ì‹¤í–‰ êµ¬ë¬¸ 4
+			System.out.println("½ÇÇà ±¸¹® 4");			
+		} // ½ÇÇà ±¸¹® 4 / ½ÇÇà ±¸¹® 4
 		
 		/*
-		 * ì‘ìš©ë¬¸ì œ )	int score = 0 ~ 60 ê¹Œì§€		 -> ë¬¸ìžì—´ C ì¶œë ¥
-		 * 			int score = 61 ~ 80 ê¹Œì§€ 		 -> ë¬¸ìžì—´ B ì¶œë ¥
-		 *          int score = 81 ~ 100 ê¹Œì§€	     -> ë¬¸ìžì—´ A ì¶œë ¥
+		 * ÀÀ¿ë¹®Á¦ )	int score = 0 ~ 60 ±îÁö		 -> ¹®ÀÚ¿­ C Ãâ·Â
+		 * 			int score = 61 ~ 80 ±îÁö 		 -> ¹®ÀÚ¿­ B Ãâ·Â
+		 *          int score = 81 ~ 100 ±îÁö	     -> ¹®ÀÚ¿­ A Ãâ·Â
 		 */
 		
 		if( score >= 0 && score >= 60 ) {
@@ -52,9 +52,9 @@ public class ifOne {
 		} else if ( score >= 61 && score <= 80 ) {
 			System.out.println("B");
 		} else if ( score >= 81 && score <= 100 ) {
-//		} else if ( 81 < score < 100) { jsì—ì„œë§Œ ê°€ëŠ¥.
+//		} else if ( 81 < score < 100) { js¿¡¼­¸¸ °¡´É.
 			System.out.println("A");
 		} else 
-			System.out.println("ìž˜ëª»ëœ ê°’ì„ ìž…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤. 0~100 ì‚¬ì´ì˜ ê°’ì„ ìž…ë ¥í•˜ì„¸ìš”.");
+			System.out.println("Àß¸øµÈ °ªÀ» ÀÔ·ÂÇÏ¼Ì½À´Ï´Ù. 0~100 »çÀÌÀÇ °ªÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
 	}
 }

@@ -2,7 +2,7 @@ package game;
 
 public class maincharter {
 
-	// ì£¼ì¸ê³µ ì¼€ë¦­í„°ì˜ ì´ë¦„ê³¼ ì§ì—…, ë ˆë²¨ê³¼ ê²½í—˜ì¹˜ë¥¼ ì§€ì •.
+	// ÁÖÀÎ°ø ÄÉ¸¯ÅÍÀÇ ÀÌ¸§°ú Á÷¾÷, ·¹º§°ú °æÇèÄ¡¸¦ ÁöÁ¤.
 	String name;
 	String job;
 	int level;
@@ -21,14 +21,14 @@ public class maincharter {
 		mp = 100;
 	}
 	
-	// battle í´ë˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ì„œ ì „íˆ¬ë§Œ ì¹˜ë£¨ê²Œ í•˜ê³  ê±°ê¸°ì„œ ì–»ê²Œë˜ëŠ” expë§Œ ë°›ì•„ì„œ ì‚¬ìš©í•œë‹¤.
+	// battle Å¬·¡½º¸¦ ¸¸µé¾î¼­ ÀüÅõ¸¸ Ä¡·ç°Ô ÇÏ°í °Å±â¼­ ¾ò°ÔµÇ´Â exp¸¸ ¹Ş¾Æ¼­ »ç¿ëÇÑ´Ù.
 	public int getexp() {
 		battle getexp = new battle();
 		exp += getexp;
 		return exp;
 	}
 
-	// ë ˆë²¨ í…Œì´ë¸”ì€ ì–´ë–»ê²Œ ë§Œë“¤ì–´ì•¼ ë ê¹Œ???
+	// ·¹º§ Å×ÀÌºíÀº ¾î¶»°Ô ¸¸µé¾î¾ß µÉ±î???
 	public int level() {
 		if (exp >= 100) {
 			++level;
@@ -38,14 +38,14 @@ public class maincharter {
 	}
 
 	public void charterinfo() {
-		System.out.println("ì£¼ì¸ê³µ ì´ë¦„ì€ " + name + "ì´ë©° ì§ì—…ì€ " + job + "ì…ë‹ˆë‹¤. í˜„ì¬ ë ˆë²¨ì€ "
-				+ level + "ì˜ " + exp + "ì…ë‹ˆë‹¤.");
+		System.out.println("ÁÖÀÎ°ø ÀÌ¸§Àº " + name + "ÀÌ¸ç Á÷¾÷Àº " + job + "ÀÔ´Ï´Ù. ÇöÀç ·¹º§Àº "
+				+ level + "ÀÇ " + exp + "ÀÔ´Ï´Ù.");
 	}
 
 }
 
 class monster {
-	// ëª¬ìŠ¤í„° ì •ë³´ ì œì‘
+	// ¸ó½ºÅÍ Á¤º¸ Á¦ÀÛ
 	String name;
 	String hp;
 	

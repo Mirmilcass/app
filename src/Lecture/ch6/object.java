@@ -7,23 +7,23 @@ public class object {
 
 	public object() {
 		age = 20;
-		name = "í™ê¸¸ë™";
+		name = "È«±æµ¿";
 	}
 
 	public void methodA() {
-		System.out.println(name + "ì˜ ë‚˜ì´ëŠ” " + age + "ì…ë‹ˆë‹¤.");
+		System.out.println(name + "ÀÇ ³ªÀÌ´Â " + age + "ÀÔ´Ï´Ù.");
 	}
 
 	public static void main(String args[]) {
 		object object = new object();
 //		object.age = 10;
-//		object.name = "í™ê¸¸ë™";
+//		object.name = "È«±æµ¿";
 		object.methodA();
 		System.out.println();
 		/*
-		í‘œí˜„)
-		- í´ë˜ìŠ¤ :
-			[ì ‘ê·¼ì œì–´ì] class í´ë˜ìŠ¤ëª… {
+		Ç¥Çö)
+		- Å¬·¡½º :
+			[Á¢±ÙÁ¦¾îÀÚ] class Å¬·¡½º¸í {
 			*/
 		}
 	}

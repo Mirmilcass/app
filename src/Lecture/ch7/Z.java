@@ -43,15 +43,15 @@ public class Z extends Y {
 		Y y = z;
 		X x = z;
 
-		// ë¬¸ì œ )
+		// ¹®Á¦ )
 		z.print();
 		y.print();
 		x.print();
 		super.print();
 		play();
-		super.play(); // ì›ë¡ ì ìœ¼ë¡  Zê´€ì ì—ì„œ ì‹œì‘ë˜ì–´ Yì˜ ê°’ì„ ê°€ì ¸ì™€ì•¼ í•˜ë‚˜ Yì— ì¡´ì¬ í•˜ì§€ ì•Šê¸°ì— Yì˜ ë¶€ëª¨ì¸ Xì—ì„œ ê°€ì ¸ì˜¨ë‹¤.
-		//y.doz(); // ë¶€ëª¨ê°€ ìì‹ì„ ì¸ì‹í•  ìˆ˜ ì—†ë‹¤.
-		//super.super.print(); // í‚¤ì›Œë“œë¥¼ ì—°ì†ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤. ê³ ë¡œ ë” ìƒìœ„ ë‚´ì—­ì„ ì“°ê³  ì‹¶ë‹¤ë©´, í˜•ë³€í™˜ ì‹œì¼œì„œ ì‚¬ìš©í•´ì•¼ëœë‹¤.
+		super.play(); // ¿ø·ĞÀûÀ¸·Ğ Z°üÁ¡¿¡¼­ ½ÃÀÛµÇ¾î YÀÇ °ªÀ» °¡Á®¿Í¾ß ÇÏ³ª Y¿¡ Á¸Àç ÇÏÁö ¾Ê±â¿¡ YÀÇ ºÎ¸ğÀÎ X¿¡¼­ °¡Á®¿Â´Ù.
+		//y.doz(); // ºÎ¸ğ°¡ ÀÚ½ÄÀ» ÀÎ½ÄÇÒ ¼ö ¾ø´Ù.
+		//super.super.print(); // Å°¿öµå¸¦ ¿¬¼ÓÀ¸·Î »ç¿ëÇÒ ¼ö ¾ø´Ù. °í·Î ´õ »óÀ§ ³»¿ªÀ» ¾²°í ½Í´Ù¸é, Çüº¯È¯ ½ÃÄÑ¼­ »ç¿ëÇØ¾ßµÈ´Ù.
 		System.out.println("\ni = " + i);
 		System.out.println("this.i = " + this.i);
 		System.out.println("super.i = " + super.i);
@@ -59,7 +59,7 @@ public class Z extends Y {
 		System.out.println("x.i = " + x.i);
 		System.out.println("((Y)this).i = " + ((Y) this).i);
 		System.out.println("((X)this).i = " + ((X) this).i);
-		//super.super.i = 10; // í‚¤ì›Œë“œ ì—°ì† ì˜¤ë¥˜
+		//super.super.i = 10; // Å°¿öµå ¿¬¼Ó ¿À·ù
 	}
 
 	public static void main(String args[]) {

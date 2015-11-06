@@ -20,7 +20,7 @@ public class CanvasOne extends Canvas implements ActionListener {
 	public int x = 50, y = 50, w = 10, h = 20;
 
 	public CanvasOne() {
-		b = new Button("ë³€ê²½");
+		b = new Button("º¯°æ");
 
 		Toolkit tool = Toolkit.getDefaultToolkit();
 
@@ -52,7 +52,7 @@ public class CanvasOne extends Canvas implements ActionListener {
 		g.setColor(Color.BLUE);
 		g.fillOval(x + 50, y, w + 10, h);
 		g.setColor(Color.DARK_GRAY);
-		g.drawString("ë¡œë§¨ìŠ¤ ê·¸ë ˆì´ëŠ” ì—†ë‚˜?", x, y + 40);
+		g.drawString("·Î¸Ç½º ±×·¹ÀÌ´Â ¾ø³ª?", x, y + 40);
 		*/
 		g.drawImage(img, x, y, this);
 	}

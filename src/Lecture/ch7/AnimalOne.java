@@ -8,7 +8,7 @@ public class AnimalOne extends Cat {
 
 	public void bark() {
 		super.bark();
-		System.out.println("ê¿€ê¿€~");
+		System.out.println("²Ü²Ü~");
 	}
 
 	public void setAge(int age) {
@@ -22,16 +22,16 @@ public class AnimalOne extends Cat {
 	public static void main(String[] args) {
 		AnimalOne animal = new AnimalOne();
 		animal.setAge(10);
-		//		animal.setName("ë¼ì§€");
-		//		System.out.println(animal.name + "ì˜ ë‚˜ì´ëŠ” " + animal.age);
+		//		animal.setName("µÅÁö");
+		//		System.out.println(animal.name + "ÀÇ ³ªÀÌ´Â " + animal.age);
 		//		animal.bark();
 		Cat dark = animal;
-		//		(í´ë˜ìŠ¤) (ì‹ë³„ì) = (AnimalOne ê°ì²´ì‹ë³„ì);
+		//		(Å¬·¡½º) (½Äº°ÀÚ) = (AnimalOne °´Ã¼½Äº°ÀÚ);
 		System.out.println(dark.age);
-		// ì˜¤ë²„ë¼ì´ë“œëœ ë¶€ëª¨(Cat) bark();
+		// ¿À¹ö¶óÀÌµåµÈ ºÎ¸ğ(Cat) bark();
 		dark.bark();
-		// ìì‹(AnimalOne)ì—ë§Œ ì¡´ì¬í•˜ëŠ” ë©”ì„œë“œë¡œ ë¶€ëª¨(Cat)ì€ ì¸ì§€í•˜ì§€ ëª»í•¨.
-		// ê°•ì œ í˜•ë³€í™˜ì„ ì´ìš©í•˜ë©´ ì¸ì§€ í•¨.
+		// ÀÚ½Ä(AnimalOne)¿¡¸¸ Á¸ÀçÇÏ´Â ¸Ş¼­µå·Î ºÎ¸ğ(Cat)Àº ÀÎÁöÇÏÁö ¸øÇÔ.
+		// °­Á¦ Çüº¯È¯À» ÀÌ¿ëÇÏ¸é ÀÎÁö ÇÔ.
 		((AnimalOne) dark).setAge(15);
 		System.out.println(((AnimalOne) dark).age);
 	}
@@ -41,7 +41,7 @@ class Animal {
 	public static void main(String[] args) {
 		new Cat();
 		System.out.println();
-		new Cat("ë‹¤í¬", 2, "ìˆ˜ì»·");
+		new Cat("´ÙÅ©", 2, "¼öÄÆ");
 	}
 }
 
@@ -53,20 +53,20 @@ class Cat {
 	private static Scanner scanner;
 
 	public Cat() {
-		System.out.println("ê³ ì–‘ì´ì˜ ì´ë¦„ì´ ë¬´ì—‡ì…ë‹ˆê¹Œ?");
+		System.out.println("°í¾çÀÌÀÇ ÀÌ¸§ÀÌ ¹«¾ùÀÔ´Ï±î?");
 		scanner = new Scanner(System.in);
 		this.name = scanner.next();
 
-		System.out.println("ê³ ì–‘ì´ì˜ ë‚˜ì´ëŠ” ì–´ë–»ê²Œ ë©ë‹ˆê¹Œ?");
+		System.out.println("°í¾çÀÌÀÇ ³ªÀÌ´Â ¾î¶»°Ô µË´Ï±î?");
 		scanner = new Scanner(System.in);
 		this.age = scanner.nextInt();
 
-		System.out.println("ê³ ì–‘ì´ì˜ ì„±ë³„ì€ ì–´ë–»ê²Œ ë©ë‹ˆê¹Œ?");
+		System.out.println("°í¾çÀÌÀÇ ¼ºº°Àº ¾î¶»°Ô µË´Ï±î?");
 		scanner = new Scanner(System.in);
 		this.gender = scanner.next();
 
-		System.out.println("ê³ ì–‘ì´ì˜ ì´ë¦„ì€ " + name + "ì´ê³  ë‚˜ì´ëŠ” " + age + "ì´ë©° "
-				+ gender + "ì…ë‹ˆë‹¤.");
+		System.out.println("°í¾çÀÌÀÇ ÀÌ¸§Àº " + name + "ÀÌ°í ³ªÀÌ´Â " + age + "ÀÌ¸ç "
+				+ gender + "ÀÔ´Ï´Ù.");
 		bark();
 
 	}
@@ -76,12 +76,12 @@ class Cat {
 		this.age = age;
 		this.gender = gender;
 
-		System.out.println("ê³ ì–‘ì´ì˜ ì´ë¦„ì€ " + name + "ì´ê³  ë‚˜ì´ëŠ” " + age + "ì´ë©° "
-				+ gender + "ì…ë‹ˆë‹¤.");
+		System.out.println("°í¾çÀÌÀÇ ÀÌ¸§Àº " + name + "ÀÌ°í ³ªÀÌ´Â " + age + "ÀÌ¸ç "
+				+ gender + "ÀÔ´Ï´Ù.");
 		bark();
 	}
 
 	void bark() {
-		System.out.println("ëƒì˜¹~");
+		System.out.println("³Ä¿Ë~");
 	}
 }

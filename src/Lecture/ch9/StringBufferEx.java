@@ -3,13 +3,13 @@ package Lecture.ch9;
 public class StringBufferEx {
 	public static void main(String args[]) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("í™˜ì˜");
-		sb.append("í•©ë‹ˆë‹¤");
+		sb.append("È¯¿µ");
+		sb.append("ÇÕ´Ï´Ù");
 		sb.append(" java ");
 		sb.append("application programming");
 		String result = sb.toString();
-		System.out.println("ê²°ê³¼ : " + result);
-		System.out.println("ê¸¸ì´ : " + sb.length());
-		System.out.println("ìš©ëŸ‰ : " + sb.capacity());
+		System.out.println("°á°ú : " + result);
+		System.out.println("±æÀÌ : " + sb.length());
+		System.out.println("¿ë·® : " + sb.capacity());
 	}
 }

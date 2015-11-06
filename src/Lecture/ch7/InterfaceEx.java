@@ -10,7 +10,7 @@ public class InterfaceEx /*extends WindowAdapter*/extends Frame {
 		f.setSize(300, 300);
 		f.setVisible(true);
 		//f.addWindowListener(this)
-		f.addWindowListener(new WindowAdapter() { // ìµëª… í´ë˜ìŠ¤
+		f.addWindowListener(new WindowAdapter() { // ÀÍ¸í Å¬·¡½º
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}

@@ -4,18 +4,18 @@ public class ThisAndSuper {
 	int a = 10;
 
 	public void MethodA() {
-		int a = 20; // ë©”ì†Œë“œ ë‚´ì—ì„œ í•œ ì„ ì–¸ìœ¼ë¡œ ì§€ì—­ ì„ ì–¸.
-		// (this.) a = 20; // ë§´ë²„ ê°’.. ë¶€ë³´ì¸ í´ë˜ìŠ¤ ê°’ì„ ê°€ì ¸ ì˜¬ë•Œ ì“°ëŠ” ì„ 
+		int a = 20; // ¸Ş¼Òµå ³»¿¡¼­ ÇÑ ¼±¾ğÀ¸·Î Áö¿ª ¼±¾ğ.
+		// (this.) a = 20; // ¸É¹ö °ª.. ºÎº¸ÀÎ Å¬·¡½º °ªÀ» °¡Á® ¿Ã¶§ ¾²´Â ¼±
 		System.out.println(a);
 	}
 
 	public static void main(String[] args) {
-		System.out.println("ìŒ?");
+		System.out.println("À½?");
 		System.out.println();
 		new ConstructorTwo();
 		System.out.println();
-		Product p1 = new Product("ì›¹ì¹˜ìŠ¤", 800);
-		Product p2 = new Product("ì»¤í”¼");
+		Product p1 = new Product("À¥Ä¡½º", 800);
+		Product p2 = new Product("Ä¿ÇÇ");
 		Product p3 = new Product(500);
 		Product p4 = new Product();
 		System.out.println(p1.name + ", " + p1.price);
@@ -29,7 +29,7 @@ public class ThisAndSuper {
 
 class ConstructorTwo {
 	ConstructorTwo() {
-		this(50, "í™ê¸¸ë™"); // ë§´ë²„
+		this(50, "È«±æµ¿"); // ¸É¹ö
 		System.out.println("Constructor!!");
 	}
 
@@ -57,11 +57,11 @@ class Product {
 	}
 
 	public Product(int p) {
-		this("ë¬¼", p);
+		this("¹°", p);
 	}
 
 	public Product() {
-		this("ë¬¼", 800);
+		this("¹°", 800);
 	}
 
 }

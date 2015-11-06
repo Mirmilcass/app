@@ -1,17 +1,17 @@
 package game;
 
 /*
-ì´ ê²Œìž„ì€ ì´ˆê¸° ê¸°ë³¸ ê°’ìœ¼ë¡œ ë§Œë“¤ì–´ì§„ í™œë¡œ ê³¼ë…˜ê²Œìž„ì„ í•˜ì—¬ ë§žì¶˜ ì ìˆ˜ë¡œ í™œì„ ì—…ê·¸ë ˆì´ë“œ í•´ê°€ë©° ê³¼ë…ê²Œìž„ì„ í•˜ëŠ”ê²ƒì´ë‹¤.
+ÀÌ °ÔÀÓÀº ÃÊ±â ±âº» °ªÀ¸·Î ¸¸µé¾îÁø È°·Î °ú³è°ÔÀÓÀ» ÇÏ¿© ¸ÂÃá Á¡¼ö·Î È°À» ¾÷±×·¹ÀÌµå ÇØ°¡¸ç °ú³á°ÔÀÓÀ» ÇÏ´Â°ÍÀÌ´Ù.
 
-í•„ìš”í•œê²ƒ 
+ÇÊ¿äÇÑ°Í 
 
-í™œ ëª¨í˜•, ì„±ëŠ¥ ì •ë³´.
+È° ¸ðÇü, ¼º´É Á¤º¸.
 
-ê³¼ë…íŒ
+°ú³áÆÇ
 
-ì ìˆ˜ ë°ì´í„°.
+Á¡¼ö µ¥ÀÌÅÍ.
 
-ì—…ê·¸ë ˆì´ë“œ ë°ì´í„°.
+¾÷±×·¹ÀÌµå µ¥ÀÌÅÍ.
 
 
 */
@@ -22,10 +22,10 @@ interface info {
 }
 
 abstract class BowInfo implements info {
-		
-	BowInfo(){
-		body = "ìž¬ì§ˆ";
-		string = "í™œì¤„";
+
+	BowInfo() {
+		body = "ÀçÁú";
+		string = "È°ÁÙ";
 	}
 
 	void bowInfo() {
@@ -41,18 +41,19 @@ public class Archer {
 class bow extends BowInfo {
 
 	/*
-	í™œì— í•„ìš”í•œ ì •ë³´ëŠ”?
+	È°¿¡ ÇÊ¿äÇÑ Á¤º¸´Â?
 	
-	í™œì˜ ê°•ë„, í™œì¤„ì˜ íž˜, í™œì˜ ìž¬ì§ˆ?ê°•ë„ëž‘ ê°™ì„ë ¤ë‚˜?
+	È°ÀÇ °­µµ, È°ÁÙÀÇ Èû, È°ÀÇ ÀçÁú?°­µµ¶û °°À»·Á³ª?
 	*/
 
 	public bow(int i) {
-		body = "ë‚˜ë¬´";
-		string = "ë‚˜ë¬´ ì¤„ê¸°";
+		body = "³ª¹«";
+		string = "³ª¹« ÁÙ±â";
 	}
 
 	public void bowInfo() {
-		System.out.println("í˜„ìž¬ í™œ ìƒíƒœëŠ” " + body + "ë¡œ ì´ë£¨ì–´ì ¸ ìžˆìœ¼ë©°" + string + "ë¥¼ ì‚¬ìš©ì¤‘ìž…ë‹ˆë‹¤.");
+		System.out.println("ÇöÀç È° »óÅÂ´Â " + body + "·Î ÀÌ·ç¾îÁ® ÀÖÀ¸¸ç" + string
+				+ "¸¦ »ç¿ëÁßÀÔ´Ï´Ù.");
 	}
 }
 

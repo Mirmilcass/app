@@ -1,33 +1,33 @@
 package Lecture.ch7;
 
 /*
-ì¶”ìƒ (abstract)
-	ê°ì²´ì˜ ëª¨í˜¸í•¨ì„ classë¡œ í‘œí˜„í•˜ê¸° ìœ„í•¨.
-	íŠ¹ì§•
-	- classì— ì‚¬ìš©ì‹œ ì¶”ìƒ classì˜ ì˜ë¯¸ (ex : abstract class).
-	- ì¼ë°˜ ë©”ì„œë“œì™€ ì¶”ìƒ ë©”ì„œë“œ ì‚¬ìš© ê°€ëŠ¥í•¨.
-	- ê°ì²´ë¥¼ ìƒì„± í•  ìˆ˜ ì—†ìŒ.
-	- ìƒì†ê´€ê³„ì—ì„œ ì¬ì •ì˜ í•¨.
-	- ë‚´ë¶€ ìµëª… í´ë˜ìŠ¤ (ë¬´ëª… anonoymous class)ë¡œ ê°ì²´ìƒì„± í•  ìˆ˜ëŠ” ìˆìŒ.
-	- ì¶”ìƒ ë©”ì„œë“œëŠ” ì¬ì •ì˜(Override)í•˜ì—¬ ì‚¬ìš©í•¨.
-	- ìƒì†ì‹œ extends keywordë¥¼ ì‚¬ìš©í•¨.
+Ãß»ó (abstract)
+	°´Ã¼ÀÇ ¸ğÈ£ÇÔÀ» class·Î Ç¥ÇöÇÏ±â À§ÇÔ.
+	Æ¯Â¡
+	- class¿¡ »ç¿ë½Ã Ãß»ó classÀÇ ÀÇ¹Ì (ex : abstract class).
+	- ÀÏ¹İ ¸Ş¼­µå¿Í Ãß»ó ¸Ş¼­µå »ç¿ë °¡´ÉÇÔ.
+	- °´Ã¼¸¦ »ı¼º ÇÒ ¼ö ¾øÀ½.
+	- »ó¼Ó°ü°è¿¡¼­ ÀçÁ¤ÀÇ ÇÔ.
+	- ³»ºÎ ÀÍ¸í Å¬·¡½º (¹«¸í anonoymous class)·Î °´Ã¼»ı¼º ÇÒ ¼ö´Â ÀÖÀ½.
+	- Ãß»ó ¸Ş¼­µå´Â ÀçÁ¤ÀÇ(Override)ÇÏ¿© »ç¿ëÇÔ.
+	- »ó¼Ó½Ã extends keyword¸¦ »ç¿ëÇÔ.
 	-
-	í‘œí˜„) 
+	Ç¥Çö) 
 		abstract class A{
 			int a;
 			ex) abstract void setA();
 				void setB(){}
 		}
-	ì‚¬ìš©)
+	»ç¿ë)
 		class B extends A{
-			super classì˜ ì¶”ìƒ ë©”ì„œë“œ ì¬ì •ì˜
+			super classÀÇ Ãß»ó ¸Ş¼­µå ÀçÁ¤ÀÇ
 		}
 */
 abstract class Abs {
 	int a = 10;
 
 	public void setA() {
-		System.out.println("ì¼ë°˜ì ì¸ ë©”ì„œë“œ ì‹¤í–‰...");
+		System.out.println("ÀÏ¹İÀûÀÎ ¸Ş¼­µå ½ÇÇà...");
 	}
 
 	public abstract int getA();
@@ -36,12 +36,12 @@ abstract class Abs {
 public class AbstractOne extends Abs {
 	// ex)
 	public int getA() {
-		System.out.println("ì¶”ìƒ ë©”ì„œë“œ ì¬ì •ì˜...");
+		System.out.println("Ãß»ó ¸Ş¼­µå ÀçÁ¤ÀÇ...");
 		return 100;
 	}
 
 	public static void main(String args[]) {
-		//A a = new Abs(); // ì¶”ìƒ í´ë˜ìŠ¤ë¡œ ê°ì²´ìƒì„± ë¶ˆê°€
+		//A a = new Abs(); // Ãß»ó Å¬·¡½º·Î °´Ã¼»ı¼º ºÒ°¡
 		AbstractOne at = new AbstractOne();
 		Abs a = at;
 		a.setA();
@@ -220,10 +220,10 @@ abstract class AnimalTwo {
 class Tiger extends AnimalTwo {
 	public Tiger() {
 		age = 10;
-		name = "í˜¸ë‘ì´";
+		name = "È£¶ûÀÌ";
 	}
 
 	void bark() {
-		System.out.println("ì–´í¥~");
+		System.out.println("¾îÈï~");
 	}
 }

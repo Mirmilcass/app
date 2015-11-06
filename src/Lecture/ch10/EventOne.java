@@ -21,9 +21,9 @@ public class EventOne extends Frame implements ActionListener {
 
 		p1 = new Panel();
 
-		b1 = new Button("ë²„íŠ¼ 1");
-		b2 = new Button("ë²„íŠ¼ 2");
-		b3 = new Button("ë²„íŠ¼ 3");
+		b1 = new Button("¹öÆ° 1");
+		b2 = new Button("¹öÆ° 2");
+		b3 = new Button("¹öÆ° 3");
 
 		b1.addActionListener(this);
 		b2.addActionListener(this);
@@ -44,8 +44,8 @@ public class EventOne extends Frame implements ActionListener {
 						Object obj = e.getSource();
 						Button b1 = (Button) obj;
 						String b1_label = b1.getLabel();
-						System.out.println(b1_label + " ë¥¼ ëˆŒë €ìŠµë‹ˆë‹¤.");
-						txt.setTx(b1_label + " ë¥¼ ëˆŒë €ìŠµë‹ˆë‹¤.");
+						System.out.println(b1_label + " ¸¦ ´­·¶½À´Ï´Ù.");
+						txt.setTx(b1_label + " ¸¦ ´­·¶½À´Ï´Ù.");
 						System.out.println(txt.getTx());
 						tf.setText(txt.getTx());
 					}
@@ -73,9 +73,9 @@ public class EventOne extends Frame implements ActionListener {
 		String b2_label = b2.getLabel();
 		String b3_label = b3.getLabel();
 
-		tf.setText(b1_label + " ë¥¼ ëˆŒë €ìŠµë‹ˆë‹¤.");
-		tf.setText(b2_label + " ë¥¼ ëˆŒë €ìŠµë‹ˆë‹¤.");
-		tf.setText(b3_label + " ë¥¼ ëˆŒë €ìŠµë‹ˆë‹¤.");
+		tf.setText(b1_label + " ¸¦ ´­·¶½À´Ï´Ù.");
+		tf.setText(b2_label + " ¸¦ ´­·¶½À´Ï´Ù.");
+		tf.setText(b3_label + " ¸¦ ´­·¶½À´Ï´Ù.");
 
 	}
 

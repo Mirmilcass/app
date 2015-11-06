@@ -21,15 +21,15 @@ public class StringEx {
 		// true
 		o = s;
 		String s3 = new String("Obj");
-		System.out.println("ê²°ê³¼1 : " + (s == s3));
-		// false / Objectì˜ equals
-		System.out.println("ê²°ê³¼2 : " + s.equals(s3));
-		// true / Stringì˜ equals
+		System.out.println("°á°ú1 : " + (s == s3));
+		// false / ObjectÀÇ equals
+		System.out.println("°á°ú2 : " + s.equals(s3));
+		// true / StringÀÇ equals
 		System.out.println("\n//////////\n");
 		//"//////////"
 
 		String str1 = "ABCDEFG";
-		String str2 = "ê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬";
+		String str2 = "°¡³ª´Ù¶ó¸¶¹Ù»ç";
 
 		char c = str1.charAt(3);
 		System.out.println(c);
@@ -37,7 +37,7 @@ public class StringEx {
 
 		String con = str1.concat(str2);
 		System.out.println(con);
-		// ABCDEFGê°€ë‚˜ë‹¤ë¼ë§ˆë°”ì‚¬
+		// ABCDEFG°¡³ª´Ù¶ó¸¶¹Ù»ç
 
 		boolean state = str1.equals(str2);
 		System.out.println(state);

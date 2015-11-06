@@ -3,46 +3,46 @@ package Lecture.ch7;
 public class EncapOne {
 
 	/*
-	ì ‘ê·¼ ì œì–´ì(Modifiers)
-		- ê°ì²´ì˜ ì‚¬ìš©ì„ ì œì–´í•˜ê¸° ìœ„í•œ ì œì–´ì
-	ì¢…ë¥˜)
+	Á¢±Ù Á¦¾îÀÚ(Modifiers)
+		- °´Ã¼ÀÇ »ç¿ëÀ» Á¦¾îÇÏ±â À§ÇÑ Á¦¾îÀÚ
+	Á¾·ù)
 		- Private, default(friendly), protected, public
-	í˜•ì‹)
-		- í´ë˜ìŠ¤ í‘œí˜„
-			[ì ‘ê·¼ì§€ì •ì] class í´ë˜ìŠ¤ëª…
-		- ë©”ì„œë“œ í‘œí˜„
-			[ì ‘ê·¼ ì§€ì •ì][ìë£Œí˜•] ë©”ì„œë“œëª… (ì¸ìë“¤) {
+	Çü½Ä)
+		- Å¬·¡½º Ç¥Çö
+			[Á¢±ÙÁöÁ¤ÀÚ] class Å¬·¡½º¸í
+		- ¸Ş¼­µå Ç¥Çö
+			[Á¢±Ù ÁöÁ¤ÀÚ][ÀÚ·áÇü] ¸Ş¼­µå¸í (ÀÎÀÚµé) {
 			
 		}
-		- ë³€ìˆ˜ í‘œí˜„
-			[ì ‘ê·¼ì§€ì •ì][ìë£Œí˜•] ë³€ìˆ˜ëª… = ë°ì´í„°;
-		-ìƒì„±ì í‘œí˜„
-			[ì ‘ê·¼ì§€ì •ì] í´ë˜ìŠ¤ëª… (ì¸ìë“¤){
+		- º¯¼ö Ç¥Çö
+			[Á¢±ÙÁöÁ¤ÀÚ][ÀÚ·áÇü] º¯¼ö¸í = µ¥ÀÌÅÍ;
+		-»ı¼ºÀÚ Ç¥Çö
+			[Á¢±ÙÁöÁ¤ÀÚ] Å¬·¡½º¸í (ÀÎÀÚµé){
 			
 		}
 	*/
 	//ex)
 //	public static void main(String[] args) {
 //		A obj = new A();
-//		System.out.println("ê²°ê³¼1 : " + obj.d);
-//		System.out.println("ê²°ê³¼2 : " + obj.c);
-//		System.out.println("ê²°ê³¼3 : " + obj.b);
-//		//		System.out.println("ê²°ê³¼4 : " + obj.a);
+//		System.out.println("°á°ú1 : " + obj.d);
+//		System.out.println("°á°ú2 : " + obj.c);
+//		System.out.println("°á°ú3 : " + obj.b);
+//		//		System.out.println("°á°ú4 : " + obj.a);
 //	}
 }
 
 class A {
-//	private String a;	// ê°™ì€ í´ë˜ìŠ¤ ë‚´ì—ì„œë§Œ ì ‘ê·¼ì´ ê°€ëŠ¥í•˜ë‹¤.
-	String b;			// ê°™ì€ íŒ¨í‚¤ì§€ ë‚´ì—ì„œë§Œ ì ‘ê·¼ì´ ê°€ëŠ¥í•˜ë‹¤.
-	protected String c; // ê°™ì€ package(í´ë”)ë‚´ì—ì„œ ë˜ëŠ” ë‹¤ë¥¸ packageì˜ ìì† í´ë˜ìŠ¤ì—ì„œ ì ‘ê·¼ì´ ê°€ëŠ¥í•˜ë‹¤.
-	public String d;	// ì ‘ê·¼ ì œí•œì´ ì „í˜€ ì—†ë‹¤.
+//	private String a;	// °°Àº Å¬·¡½º ³»¿¡¼­¸¸ Á¢±ÙÀÌ °¡´ÉÇÏ´Ù.
+	String b;			// °°Àº ÆĞÅ°Áö ³»¿¡¼­¸¸ Á¢±ÙÀÌ °¡´ÉÇÏ´Ù.
+	protected String c; // °°Àº package(Æú´õ)³»¿¡¼­ ¶Ç´Â ´Ù¸¥ packageÀÇ ÀÚ¼Õ Å¬·¡½º¿¡¼­ Á¢±ÙÀÌ °¡´ÉÇÏ´Ù.
+	public String d;	// Á¢±Ù Á¦ÇÑÀÌ ÀüÇô ¾ø´Ù.
 
 	//ex2)
 	public static void main(String[] args) {
 		AA a = new AA();
 		a.setId("001");
 		String id = a.getId();
-		System.out.println(id + " ë¡œ ë³€ê²½ ë˜ì—ˆìŠµë‹ˆë‹¤.");
+		System.out.println(id + " ·Î º¯°æ µÇ¾ú½À´Ï´Ù.");
 	}
 }
 

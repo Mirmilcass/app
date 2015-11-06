@@ -26,7 +26,7 @@ public class ScrollbarEx extends Frame implements AdjustmentListener {
 
 	public ScrollbarEx() {
 
-		f = new Frame("ì¬ë¯¸ìˆëŠ” ìŠ¤í¬ë¡¤ë°”");
+		f = new Frame("Àç¹ÌÀÖ´Â ½ºÅ©·Ñ¹Ù");
 
 		p1 = new Panel();
 		p2 = new Panel();
@@ -36,7 +36,7 @@ public class ScrollbarEx extends Frame implements AdjustmentListener {
 		l2 = new Label(" ");
 		l3 = new Label(" ");
 		l4 = new Label(" ");
-		l5 = new Label("í˜„ì¬ ìƒ‰ìƒ");
+		l5 = new Label("ÇöÀç »ö»ó");
 		l6 = new Label(" ");
 		l7 = new Label(" ");
 		l8 = new Label(" ");
@@ -106,8 +106,8 @@ public class ScrollbarEx extends Frame implements AdjustmentListener {
 
 		f.setSize(500, 500);
 
-		// ì°½ ì‹¤í–‰ ìœ„ì¹˜ ì„¤ì •
-		// ì „ì²´ ìŠ¤í¬ë¦° ì„¤ì •ì„ ê°€ì ¸ì˜¤ëŠ” ë°©ë²•.
+		// Ã¢ ½ÇÇà À§Ä¡ ¼³Á¤
+		// ÀüÃ¼ ½ºÅ©¸° ¼³Á¤À» °¡Á®¿À´Â ¹æ¹ı.
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screenSize = tk.getScreenSize();
 
@@ -124,7 +124,7 @@ public class ScrollbarEx extends Frame implements AdjustmentListener {
 	}
 
 	/*
-		// tfì— Colorê°’ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ë‚´ë¶€ í´ë˜ìŠ¤
+		// tf¿¡ Color°ªÀ» º¸¿©ÁÖ±â À§ÇÑ ³»ºÎ Å¬·¡½º
 		class Color {
 			int r, g, b;
 

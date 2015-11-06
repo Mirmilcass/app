@@ -23,7 +23,7 @@ public class InstanceOfEx {
 			System.out.println("child is instance of Parent");
 		}
 		System.out.println();
-		// ìž˜ëª» ì‚¬ìš©í•œ ì˜ˆ
+		// Àß¸ø »ç¿ëÇÑ ¿¹
 		if (child instanceof Object) {
 			System.out.println("child is instance of Object.");
 		} else if (child instanceof Interface) {

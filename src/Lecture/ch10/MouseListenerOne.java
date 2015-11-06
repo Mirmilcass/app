@@ -21,7 +21,7 @@ MouseMotionListener, MouseWheelListener*/{
 
 		p = new Panel();
 
-		l = new Label("ë°˜ì‘");
+		l = new Label("¹İÀÀ");
 
 		setLayout(new BorderLayout());
 		setSize(250, 250);
@@ -35,31 +35,31 @@ MouseMotionListener, MouseWheelListener*/{
 				p.addMouseWheelListener(this);
 		*/
 
-		// MouseAdapter ì‚¬ìš©
+		// MouseAdapter »ç¿ë
 		p.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				l.setText("í´ë¦­");
+				l.setText("Å¬¸¯");
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				l.setText("ëˆ„ë¦„");
+				l.setText("´©¸§");
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				l.setText("ë—Œ");
+				l.setText("¶À");
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				l.setText("ë“¤ì–´ì˜´");
+				l.setText("µé¾î¿È");
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				l.setText("ë‚˜ê°");
+				l.setText("³ª°¨");
 			}
 
 		});
@@ -69,13 +69,13 @@ MouseMotionListener, MouseWheelListener*/{
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				// TODO Auto-generated method stub
-				l.setText("ë“œë˜ê·¸");
+				l.setText("µå·¡±×");
 			}
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				// TODO Auto-generated method stub
-				l.setText("ë§ˆìš°ìŠ¤ ì›€ì§ì„");
+				l.setText("¸¶¿ì½º ¿òÁ÷ÀÓ");
 			}
 		});
 
@@ -83,7 +83,7 @@ MouseMotionListener, MouseWheelListener*/{
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				// TODO Auto-generated method stub
-				l.setText("íœ  ì›€ì§ì„");
+				l.setText("ÈÙ ¿òÁ÷ÀÓ");
 			}
 
 		});

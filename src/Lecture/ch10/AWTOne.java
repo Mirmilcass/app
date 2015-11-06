@@ -20,23 +20,23 @@ public class AWTOne extends Frame {
 	public AWTOne() {
 		Panel p = new Panel();
 		p.setLayout(new BorderLayout());
-		Button b = new Button("ë²„íŠ¼");
-		b.setLabel("ë³€ê²½ëœ ë¼ë²¨");
-		Checkbox ch1 = new Checkbox("ì²´í¬ ë°•ìŠ¤", true);
-		Checkbox ch2 = new Checkbox("ì²´í¬ ë°•ìŠ¤", false);
-		Checkbox ch3 = new Checkbox("ì²´í¬ ë°•ìŠ¤", false);
+		Button b = new Button("¹öÆ°");
+		b.setLabel("º¯°æµÈ ¶óº§");
+		Checkbox ch1 = new Checkbox("Ã¼Å© ¹Ú½º", true);
+		Checkbox ch2 = new Checkbox("Ã¼Å© ¹Ú½º", false);
+		Checkbox ch3 = new Checkbox("Ã¼Å© ¹Ú½º", false);
 
 		CheckboxGroup ch = new CheckboxGroup();
-		Checkbox ch4 = new Checkbox("ë¼ë””ì˜¤ ë²„íŠ¼", true, ch);
-		Checkbox ch5 = new Checkbox("ë¼ë””ì˜¤ ë²„íŠ¼", false, ch);
-		Checkbox ch6 = new Checkbox("ë¼ë””ì˜¤ ë²„íŠ¼", false, ch);
+		Checkbox ch4 = new Checkbox("¶óµğ¿À ¹öÆ°", true, ch);
+		Checkbox ch5 = new Checkbox("¶óµğ¿À ¹öÆ°", false, ch);
+		Checkbox ch6 = new Checkbox("¶óµğ¿À ¹öÆ°", false, ch);
 		Choice cho = new Choice();
-		cho.add("í•™ë…„ ì„ íƒ");
-		cho.add("1í•™ë…„");
-		cho.add("2í•™ë…„");
-		cho.add("3í•™ë…„");
-		cho.add("4í•™ë…„");
-		Label la = new Label("ìë°” ìˆ˜ê°•ìƒ");
+		cho.add("ÇĞ³â ¼±ÅÃ");
+		cho.add("1ÇĞ³â");
+		cho.add("2ÇĞ³â");
+		cho.add("3ÇĞ³â");
+		cho.add("4ÇĞ³â");
+		Label la = new Label("ÀÚ¹Ù ¼ö°­»ı");
 		List ls = new List(5);
 		ls.add("List 1");
 		ls.add("List 2");

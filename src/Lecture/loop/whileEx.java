@@ -2,38 +2,38 @@ package Lecture.loop;
 
 public class whileEx {
 	public static void main(String args[]) {
-		// ë°˜ë³µë¬¸(whileë¬¸)
+		// ¹İº¹¹®(while¹®)
 		/*
-		í‘œí˜„ )
-			while( ì¡°ê±´ì‹ ) {
-				ì‹¤í–‰êµ¬ë¬¸;
+		Ç¥Çö )
+			while( Á¶°Ç½Ä ) {
+				½ÇÇà±¸¹®;
 			}
 		 
 		 */
 
 		java.util.Scanner scan = new java.util.Scanner(System.in);
-		System.out.println("ë°˜ë³µ ì œí•œ : ");
+		System.out.println("¹İº¹ Á¦ÇÑ : ");
 		int result = scan.nextInt();
 
 		int count = 0;
 		while (count < result) {
 			count++;
-			System.out.println("ì‹¤í–‰ êµ¬ë¬¸ " + count);
+			System.out.println("½ÇÇà ±¸¹® " + count);
 		}
 		scan.close();
 		System.out.println("");
 
-		// ë°˜ë³µë¬¸ ( do ~ while ë¬¸)
+		// ¹İº¹¹® ( do ~ while ¹®)
 		/*
-		í‘œí˜„)
+		Ç¥Çö)
 			do{
-				ì‹¤í–‰ êµ¬ë¬¸;
-			} while ( ì¡°ê±´ì‹ );
+				½ÇÇà ±¸¹®;
+			} while ( Á¶°Ç½Ä );
 		*/
 		count = 0;
 		do {
 			count++;
-			System.out.println("ì‹¤í–‰ êµ¬ë¬¸" + count);
+			System.out.println("½ÇÇà ±¸¹®" + count);
 		} while (count < 10);
 		System.out.println();
 
@@ -43,12 +43,12 @@ public class whileEx {
 		do {
 			i++;
 			if (result1) {
-				System.out.println("ì‹¤í–‰ êµ¬ë¬¸ : " + i);
+				System.out.println("½ÇÇà ±¸¹® : " + i);
 				if (i == 5) {
 					result1 = false;
 				}
 				if (!result1) {
-					System.out.println("ì‹¤í–‰ êµ¬ë¬¸ ì¢…ë£Œí•©ë‹ˆë‹¤.");
+					System.out.println("½ÇÇà ±¸¹® Á¾·áÇÕ´Ï´Ù.");
 					break;
 				}
 			} else

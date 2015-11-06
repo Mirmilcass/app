@@ -10,7 +10,7 @@ public class Casting {
 		long long1;
 		double double1;
 
-		// ë¬µì‹œì  í˜• ë³€í™˜ Ex) / ì‘ì€ ê³³ì—ì„œ í° ê³³ìœ¼ë¡œ ë³€í™˜ (ìë™ìœ¼ë¡œ ì´ë£¨ì–´ì§„ë‹¤.)
+		// ¹¬½ÃÀû Çü º¯È¯ Ex) / ÀÛÀº °÷¿¡¼­ Å« °÷À¸·Î º¯È¯ (ÀÚµ¿À¸·Î ÀÌ·ç¾îÁø´Ù.)
 		short1 = byte1; // byte ( 8 bits ) => short ( 16 bits )
 		int1 = short1; // short ( 16 bits ) => int ( 32 bit )
 		int1 = char1; // char( 16 bit ) => int ( 32 bit )
@@ -19,7 +19,7 @@ public class Casting {
 		double1 = long1; // long ( 64 bit ) => double1 ( 32 bit )
 		System.out.println(float1 + double1);
 
-		// ëª…ì‹œì  í˜• ë³€í™˜ Ex) í° ê³³ì—ì„œ ì‘ì€ ê³³ìœ¼ë¡œ ê°•ì œ ë³€í™˜
+		// ¸í½ÃÀû Çü º¯È¯ Ex) Å« °÷¿¡¼­ ÀÛÀº °÷À¸·Î °­Á¦ º¯È¯
 		byte1 = (byte)short1; // short ( 16 bits ) => byte ( 8 bits )
 		int1 = (int)long1; // long ( 64 bit ) => int ( 32 bit )
 		

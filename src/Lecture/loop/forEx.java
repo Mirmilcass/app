@@ -4,31 +4,31 @@ import java.util.Scanner;
 
 public class forEx {
 	public static void main(String args[]) throws java.io.IOException {
-		// ë°˜ë³µë¬¸ ( forë¬¸ )
+		// ¹İº¹¹® ( for¹® )
 		/*
-		í‘œí˜„ )
-		 for( ë³€ìˆ˜ ì„ ì–¸(ì´ˆê¸°í™”); ì¡°ê±´ì‹; ì¦ê°€ í˜¹ì€ ê°ì†Œ ìˆ˜ì‹) {
-		 	ì‹¤í–‰ êµ¬ë¬¸;
+		Ç¥Çö )
+		 for( º¯¼ö ¼±¾ğ(ÃÊ±âÈ­); Á¶°Ç½Ä; Áõ°¡ È¤Àº °¨¼Ò ¼ö½Ä) {
+		 	½ÇÇà ±¸¹®;
 		 }
 		 */
 		// int i;
 
-		// forë¬¸ Ex1)
+		// for¹® Ex1)
 		for (int i = 0; i < 10; i++) {
-			System.out.println("ì‹¤í–‰ êµ¬ë¬¸ " + i);
+			System.out.println("½ÇÇà ±¸¹® " + i);
 		}
 		System.out.println("");
 
-		// ê¹Œì§€ì˜ í•© êµ¬í•˜ê¸°.
-		int sum = 0; // í•©ê³„ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë³€ìˆ˜.
+		// ±îÁöÀÇ ÇÕ ±¸ÇÏ±â.
+		int sum = 0; // ÇÕ°è¸¦ ÀúÀåÇÏ±â À§ÇÑ º¯¼ö.
 
 		for (int i = 1; i <= 10; i++) {
 			sum += i; //	sum = sum + i;
-			System.out.println(i + " ê¹Œì§€ì˜ í•©: " + sum);
+			System.out.println(i + " ±îÁöÀÇ ÇÕ: " + sum);
 		}
 		System.out.println("");
 
-		// ì§€ì • ê³±ì…ˆ ë‹¨ êµ¬í•˜ê¸°.
+		// ÁöÁ¤ °ö¼À ´Ü ±¸ÇÏ±â.
 		int multiply = 0;
 
 		for (int i = 1; i < 10; i++) {
@@ -37,7 +37,7 @@ public class forEx {
 		}
 		System.out.println("");
 
-		// 2~9ë‹¨ê¹Œì§€ì˜ ìë™ ë³€í™˜ ì‹¤í–‰.
+		// 2~9´Ü±îÁöÀÇ ÀÚµ¿ º¯È¯ ½ÇÇà.
 		for (int i = 2; i < 10; i++) {
 			for (int j = 2; j < 10; j++) {
 				multiply = i * j;
@@ -46,7 +46,7 @@ public class forEx {
 			System.out.println("");
 		}
 
-		// 2~9ë‹¨ê¹Œì§€ì˜ ìë™ ë³€í™˜ ì‹¤í–‰. / ì§ë ¬ì •ë ¬
+		// 2~9´Ü±îÁöÀÇ ÀÚµ¿ º¯È¯ ½ÇÇà. / Á÷·ÄÁ¤·Ä
 		for (int i = 2; i < 10; i++) {
 			for (int j = 2; j < 10; j++) {
 				multiply = i * j;
@@ -56,22 +56,22 @@ public class forEx {
 		}
 		System.out.println("");
 
-		// 2~9ë‹¨ê¹Œì§€ì˜ ìë™ ë³€í™˜ ì‹¤í–‰. / ë³‘ë ¬ì •ë ¬
+		// 2~9´Ü±îÁöÀÇ ÀÚµ¿ º¯È¯ ½ÇÇà. / º´·ÄÁ¤·Ä
 		for (int i = 2; i < 10; i++) {
 			for (int j = 2; j < 10; j++) {
 				multiply = i * j;
-				// iì™€ jì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½
+				// i¿Í jÀÇ À§Ä¡¸¦ º¯°æ
 				System.out.print(j + " * " + i + " = " + multiply + "\t");
 			}
 			System.out.println("");
 		}
 		System.out.println("");
 
-		// ì…ë ¥ ë‹¨
-		System.out.println("ì›í•˜ëŠ” ê³±ì…ˆ ë‹¨ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
-		//		char c = (char) System.in.read(); // intë¡œ í•  ì‹œ ì•„ìŠ¤í‚¤ ì½”ë“œ ê°’ì„ ì½ëŠ”ë‹¤.
+		// ÀÔ·Â ´Ü
+		System.out.println("¿øÇÏ´Â °ö¼À ´Ü¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		//		char c = (char) System.in.read(); // int·Î ÇÒ ½Ã ¾Æ½ºÅ° ÄÚµå °ªÀ» ÀĞ´Â´Ù.
 		Scanner scan = new Scanner(System.in);
-		int c = scan.nextInt(); // ì‚¬ìš©ì‹œ import java.util.Scanner; ì…ë ¥í•´ì•¼í•¨.
+		int c = scan.nextInt(); // »ç¿ë½Ã import java.util.Scanner; ÀÔ·ÂÇØ¾ßÇÔ.
 
 		for (int i = 2; i < 10; i++) {
 			multiply = c * i;
@@ -83,15 +83,15 @@ public class forEx {
 		// ForContinue Ex
 		int k = 0;
 		for ( int i = 0; i < 10; i++ ) {
-			System.out.println("ë°˜ë³µ ì‹¤í–‰ë¬¸");
+			System.out.println("¹İº¹ ½ÇÇà¹®");
 			k++;
 			if ( k > 4 ) {
 				continue;
 			}
-			System.out.println("ë°˜ë³µ ì‹¤í–‰ ì œí•œ");
+			System.out.println("¹İº¹ ½ÇÇà Á¦ÇÑ");
 		}
 		
-		// 5.0 í–¥ìƒëœ for
+		// 5.0 Çâ»óµÈ for
 		int[] arr = new int[]{1, 2, 3};
 		for ( int a : arr ) {
 			System.out.println(a);
