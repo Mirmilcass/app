@@ -30,8 +30,9 @@ public class InstanceOfEx {
 			System.out.println("child is intance of Interface.");
 		} else if (child instanceof Parent) {
 			System.out.println("child is instance of Parent");
-		} else if (child instanceof child) {
-			System.out.println("child is instance of child");
-		}
+		} 
+		//		else if (child instanceof child) {
+		//			System.out.println("child is instance of child");
+		//		}
 	}
 }

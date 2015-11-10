@@ -247,13 +247,14 @@ class CalenderEx extends JFrame implements ActionListener {
 						continue loop;
 					}
 				}
-
 			}
 			num[idx] = lotto;
 			jta.append(" " + num[idx]);
 			++idx;
 		} while (idx < 6);
 		jta.append("ÀÔ´Ï´Ù.");
+		jta.setEditable(false);
+		jta.setOpaque(true);
 
 		add(setMonth, BorderLayout.NORTH);
 		add(setMain, BorderLayout.CENTER);

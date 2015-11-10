@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
 import java.awt.Panel;
+import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Random;
 
 /*
 로그인 
@@ -47,7 +49,7 @@ public class BankEx extends Frame implements ActionListener,
 	Label check = new Label();
 
 	public BankEx() {
-		input1 = new Label("관리자 아이디와 패스워드를 입력하세요.");
+		input1 = new Label("관리자 아이디와 패스워드를 입력하세요.", Label.CENTER);
 		lid = new Label("아이디 : ");
 		lpw = new Label("비밀번호 : ");
 		conf = new Button("확인");
@@ -70,7 +72,6 @@ public class BankEx extends Frame implements ActionListener,
 		login2.setLayout(new GridLayout(6, 2));
 
 		login1.add(input1);
-		input1.setAlignment(Label.CENTER);
 		login1.add(new Label("\n"));
 
 		login2.add(lid);
@@ -78,9 +79,9 @@ public class BankEx extends Frame implements ActionListener,
 		login2.add(new Label("\n"));
 		login2.add(lpw);
 		login2.add(tfpw);
-		login2.add(new Label(" "));
+		login2.add(new Label(""));
 
-		login3.add(new Label(" "));
+		login3.add(new Label(""));
 		login3.add(conf);
 
 		login.add(login1, "North");
@@ -214,10 +215,8 @@ class main extends Frame implements ActionListener, BankSystemInterface {
 		setVisible(false);
 		if (obj.equals(create)) {
 			new CustomerCreate();
-			System.out.println(1);
 		} else if (obj.equals(reference)) {
 			new Customerreference();
-			System.out.println(2);
 		} else if (obj.equals(inout)) {
 
 		}
@@ -225,24 +224,27 @@ class main extends Frame implements ActionListener, BankSystemInterface {
 }
 
 class CustomerCreate extends Frame implements BankSystemInterface {
+
 	public int cust_idx;
 	public int accnum1, accnum2, accnum3;
 	public String name, id, pw;
 
 	private Panel mp, cp;
-	public Label accnum, accnum0, lid, lpw, lcpw, lname, lbal;
+	public Label accnum, lid, lpw, lcpw, lname, lbal;
 	private TextField tfid, tfpw, tfcpw, tfname, tfbal;
+	private TextArea accnum0;
 	public Button conf, back;
 
 	public CustomerCreate() {
+		++cust_idx;
 
 		setTitle("고객 정보 입력");
 
-		mp = new Panel();
+		mp = new Panel(new GridLayout(8, 2));
 		cp = new Panel();
 
 		accnum = new Label("계좌 번호 : ");
-		accnum0 = new Label(" ");
+
 		lid = new Label("아이디  : ");
 		lpw = new Label("패스워드 : ");
 		lcpw = new Label("패스워드 확인 : ");
@@ -255,10 +257,10 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 		tfname = new TextField(25);
 		tfbal = new TextField(25);
 
+		accnum0 = new TextArea(" ", 1, 25, 3);
+
 		conf = new Button("확인");
 		back = new Button("처음");
-
-		mp.setLayout(new GridLayout(8, 2));
 
 		mp.add(accnum);
 		mp.add(accnum0);
@@ -273,10 +275,10 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 		mp.add(lbal);
 		mp.add(tfbal);
 
-		cp.add(new Label(""));
+		cp.add(new Label(""), "North");
 		cp.add(conf);
 		cp.add(back);
-		cp.add(new Label(""));
+		cp.add(new Label(""), "South");
 
 		add(new Label(""), "North");
 		add(new Label(""), "West");
@@ -284,11 +286,6 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 		add(cp, "South");
 		add(mp, "Center");
 
-		setSize(350, 350);
-		setVisible(true);
-
-		setLocation(screenSize.width / 2 - (350 / 2), screenSize.height
-				/ 2 - (350 / 2));
 		conf.addActionListener(new ActionListener() {
 
 			@Override
@@ -306,6 +303,33 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 
 			}
 		});
+		accnum0.setText("620 - ");
+		Random ran = new Random();
+		int idx = 0;
+		int[] num = new int[7];
+		loop: do {
+			int num1 = ran.nextInt(10);
+			if (idx != 0) {
+				for (int i = 0; i < idx; i++) {
+					if (num[i] == num1) {
+						continue loop;
+					}
+				}
+			}
+			num[idx] = num1;
+			accnum0.append("" + num[idx]);
+			++idx;
+		} while (idx < 7);
+		int num2 = 000;
+		accnum0.append(" - " + (num2 + cust_idx));
+		accnum0.setEditable(false);
+		accnum0.isOpaque();
+
+		setSize(350, 350);
+		setVisible(true);
+
+		setLocation(screenSize.width / 2 - (350 / 2), screenSize.height
+				/ 2 - (350 / 2));
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
@@ -313,7 +337,6 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 		});
 
 	}
-
 }
 
 class Customerreference extends Frame implements BankSystemInterface {
@@ -327,35 +350,56 @@ class Customerreference extends Frame implements BankSystemInterface {
 
 		setTitle("고객 조회");
 
-		rmp = new Panel();
-		rep = new Panel();
-		viewp = new Panel();
+		rmp = new Panel(new BorderLayout());
+		rep = new Panel(new BorderLayout());
+		viewp = new Panel(new BorderLayout());
 
-		lname = new Label("이름 : ");
-		lid = new Label("아이디 : ");
-		lbal = new Label("잔액 : ");
+		lname = new Label("이름", Label.CENTER);
+		lid = new Label("아이디", Label.CENTER);
+		lbal = new Label("잔액", Label.CENTER);
 
-		tf = new TextField("");
+		tf = new TextField("", 25);
 
 		conf = new Button("조회");
+		back = new Button("처음");
 
 		Choice cho = new Choice();
-		cho.add("전체 조회");
-		cho.add("아이디 조회");
-		cho.add("이름 조회");
-
-		rep.setLayout(new BorderLayout());
+		cho.add("전체");
+		cho.add("아이디");
+		cho.add("이름");
 
 		rep.add(cho, "West");
 		rep.add(tf, "Center");
 		rep.add(conf, "East");
+		rep.add(new Label(""), "South");
 
-		viewp.add(lid);
-		viewp.add(lname);
-		viewp.add(lbal);
+		Panel viewHeader = new Panel(new GridLayout(1, 3));
+
+		viewHeader.add(lid);
+		viewHeader.add(lname);
+		viewHeader.add(lbal);
+
+		Panel view = new Panel(new GridLayout(cosArr.size(), 3));
+		for (int i = 0; i < cosArr.size(); i++) {
+			view.add(new Label(cosArr.get(i).getId()));
+			view.add(new Label(cosArr.get(i).getName()));
+			view.add(new Label("" + cosArr.get(i).getBal()));
+		}
+
+		viewp.add(viewHeader, "North");
+		viewp.add(view, "Center");
 
 		rmp.add(rep, "North");
 		rmp.add(viewp, "Center");
+		rmp.add(back, "South");
+		back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new main().setVisible(true);
+			}
+		});
 
 		add(new Label(""), "North");
 		add(new Label(""), "West");
@@ -400,15 +444,42 @@ interface BankSystemInterface {
 
 class Customer {
 
+	private int PersonalNum;
 	private String id;
 	private String pw;
-	private int money;
+	private String Name;
+	String checkpass;
+	private int Bal;
 	public int idx;
 	private String vip;
 	private int tax;
 
+	public int getPersonalNum() {
+		return PersonalNum;
+	}
+
+	public void setPersonalNum(int i) {
+		PersonalNum = i;
+	}
+
 	public void setId(String i) {
-		this.id = i;
+		id = i;
+		/*
+		do {
+			if (PersonalNum > 1) {
+				for (int j = 0; j < cosArr.size(); j++) {
+					if (i.equals(cosArr.get(j).getId())) {
+						System.out
+								.println("이미 존재하는 ID입니다. 다른 ID를 사용해 주세요.");
+						setId(scan.next());
+					}
+				}
+			}
+			id = i;
+			break;
+		} while (true);
+		}
+		*/
 	}
 
 	public String getId() {
@@ -423,12 +494,12 @@ class Customer {
 		this.pw = pw;
 	}
 
-	public int getMoney() {
-		return money;
-	}
-
-	public void setMoney(int money) {
-		this.money = money;
+	public void cheack(String i) {
+		if (i.equals(pw)) {
+		} else {
+			//			System.out.print("일치하지 않습니다. 다시 입력해주세요.");
+			//			cheack(scan.next());
+		}
 	}
 
 	public String getVip() {
@@ -437,6 +508,17 @@ class Customer {
 
 	public void setVip(String vip) {
 		this.vip = vip;
+		/*
+		if (i.equalsIgnoreCase("y") || i.equalsIgnoreCase("yes")) {
+			vip = "우수고객";
+		} else if (i.equalsIgnoreCase("n") || i.equalsIgnoreCase("no")) {
+			vip = "일반고객";
+		} else {
+			System.out.println("잘못입력하였습니다. 다시 입력해주세요.");
+			setVip(scan.next());
+		}
+		*/
+
 	}
 
 	public int getTax() {
@@ -445,6 +527,22 @@ class Customer {
 
 	public void setTax(int tax) {
 		this.tax = tax;
+	}
+
+	public int getBal() {
+		return Bal;
+	}
+
+	public void setBal(int bal) {
+		Bal = bal;
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
 	}
 
 }

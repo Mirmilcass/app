@@ -143,20 +143,7 @@ class Costomerin implements Input {
 		System.out.println("식별 번호 : " + PersonalNum);
 		cos.setPersonalNum(PersonalNum);
 		System.out.print("사용자 아이디를 입력해 주세요. : ");
-		loop: do {
-			String id = scan.next();
-			if (PersonalNum != 0) {
-				for (int j = 0; j <= PersonalNum - 1; j++) {
-					if (cosArr.get(j).getId().equals(id)) {
-						System.out
-								.println("이미 존재하는 ID입니다. 다른 ID를 사용해 주세요.");
-						continue loop;
-					}
-				}
-			}
-			cos.setId(id);
-			break;
-		} while (true);
+		cos.setId(scan.next());
 		System.out.print("사용자 암호를 입력해 주세요. : ");
 		cos.setPassWord(scan.next());
 		System.out.print("사용자 암호를 재입력해 주세요. : ");
@@ -212,12 +199,12 @@ class AllCostomerOut implements Input {
 	public void print(int i) {
 		System.out.println("전 고객 정보 출력");
 		System.out.println("식별번호 \t이름 \t잔액 \t우수여부");
-		for (i = 0; i < cosArr.size(); i++) {
+		for (int j = 0; j < cosArr.size(); j++) {
 
-			System.out.print(cosArr.get(i).getPersonalNum() + "\t"
-					+ cosArr.get(i).getName() + "\t"
-					+ cosArr.get(i).getMoney() + "\t"
-					+ cosArr.get(i).getVip());
+			System.out.print(cosArr.get(j).getPersonalNum() + "\t"
+					+ cosArr.get(j).getName() + "\t"
+					+ cosArr.get(j).getMoney() + "\t"
+					+ cosArr.get(j).getVip());
 
 			System.out.println();
 
@@ -371,26 +358,21 @@ class Costomer implements Input {
 	}
 
 	public void setId(String i) {
-		id = i;
-	}
-
-	/*
-		public void setId(String i) {
-			if (PersonalNum < 1) {
-				for (int j = 0; j < PersonalNum; j++) {
-					if (!i.equals(cosArr.get(j).getId())) {
-						id = i;
-						break;
-					} else {
-						System.out.println("중복되는 아이디 입니다. 다시 해주세요.");
+		do {
+			if (PersonalNum > 1) {
+				for (int j = 0; j < cosArr.size(); j++) {
+					if (i.equals(cosArr.get(j).getId())) {
+						System.out
+								.println("이미 존재하는 ID입니다. 다른 ID를 사용해 주세요.");
 						setId(scan.next());
 					}
 				}
-			} else {
-				id = i;
 			}
-		}
-	*/
+			id = i;
+			break;
+		} while (true);
+	}
+
 	public String getPassWord() {
 		return password;
 	}
@@ -406,8 +388,6 @@ class Costomer implements Input {
 			cheack(scan.next());
 		}
 	}
-
-	//	}
 
 	public String getName() {
 		return name;
