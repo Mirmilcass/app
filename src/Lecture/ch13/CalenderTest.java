@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -11,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class CalenderTest {
 
@@ -176,88 +179,117 @@ class repect {
 
 }
 
-class CalenderEx extends JFrame {
+class CalenderEx extends JFrame implements ActionListener {
 
-	Calendar cal = Calendar.getInstance();
-
-	public JPanel jup, jmain, jcal, jcal1, jcal2;
-	public JButton left, right;
-	public JLabel sub, lyoil[] = new JLabel[7];
-	public JButton b[] = new JButton[50];
-
-	int year = cal.get(Calendar.YEAR), month = cal.get(Calendar.MONTH);
-	String[] yoil = { "일", "월", "화", "수", "목", "금", "토" };
+	private Calendar cal = Calendar.getInstance();
+	private int year = cal.get(Calendar.YEAR), month = cal
+			.get(Calendar.MONTH);
+	private String[] yoil = { "일", "월", "화", "수", "목", "금", "토" };
 
 	public CalenderEx() {
-		jup = new JPanel(new GridLayout(1, 3));
-		jmain = new JPanel(new BorderLayout());
-		jcal = new JPanel(new BorderLayout());
-		jcal1 = new JPanel(new GridLayout(1, 7));
-		jcal2 = new JPanel(new GridLayout(6, 7));
+		super("달력");
 
-		left = new JButton("◀");
-		right = new JButton("▶");
+		JPanel setMonth = new JPanel(new BorderLayout());
+
+		JButton left = new JButton("◀");
+		JButton right = new JButton("▶");
+		JLabel ym = new JLabel(year + "년 " + (month + 1) + "월");
+		ym.setHorizontalAlignment(0);
+		setMonth.add(left, "West");
+		setMonth.add(right, "East");
+		setMonth.add(ym, "Center");
+
+		left.addActionListener(this);
+		right.addActionListener(this);
+
+		JPanel setMain = new JPanel(new GridLayout(6, 7));
+
+		JLabel lyoil[] = new JLabel[yoil.length];
+
+		for (int i = 0; i < yoil.length; i++) {
+			lyoil[i] = new JLabel(yoil[i]);
+			setMain.add(lyoil[i]);
+			lyoil[i].setHorizontalAlignment(0);
+		}
 
 		cal.set(year, month, 1);
-		int first = cal.get(cal.DAY_OF_WEEK);
 		int max = cal.getActualMaximum(cal.DATE);
+		int start = cal.get(cal.DAY_OF_WEEK);
+		int result = max + start;
 
-		for (int i = 0; i < yoil.length; i++) {
-			for (String j : yoil)
-				lyoil[i] = new JLabel("" + j);
-		}
-		/*
-		for (int i = 0; i < b.length; i++) {
-			b[i] = new JButton("" + i);
-		}
-		*/
-		for (int i = 0; i < first + max; i++) {
-			if (i < first) {
-				b[i] = new JButton("");
+		JButton days[] = new JButton[50];
+
+		for (int i = 1; i < result; i++) {
+			if (i < start) {
+				days[i] = new JButton("");
+				setMain.add(days[i]);
 				continue;
 			}
-			b[i] = new JButton("" + (i - first + 1));
+			days[i] = new JButton("" + (i - start + 1));
+			setMain.add(days[i]);
+			days[i].addActionListener(this);
 		}
 
-		sub = new JLabel(year + "년 " + (month + 1) + "월");
+		JTextArea jta = new JTextArea("", 2, 10);
 
-		setLayout(new BorderLayout());
+		Random ran = new Random();
 
-		jup.add(left);
-		jup.add(sub);
-		sub.setAlignmentY(CENTER_ALIGNMENT);
-		jup.add(right);
+		jta.setText("이 달의 길일은 " + (ran.nextInt(max) + 1)
+				+ "입니다.\n추천 로또 번호는 ");
 
-		for (int i = 0; i < yoil.length; i++) {
-			jcal1.add(lyoil[i]);
-		}
+		int[] num = new int[6];
+		int idx = 0;
+		loop: do {
+			int lotto = ran.nextInt(45) + 1;
+			if (idx != 0) {
+				for (int i = 0; i <= idx; i++) {
+					if (num[i] == lotto) {
+						continue loop;
+					}
+				}
 
-		for (int i = 0; i < first + max; i++) {
-			jcal2.add(b[i]);
-		}
+			}
+			num[idx] = lotto;
+			jta.append(" " + num[idx]);
+			++idx;
+		} while (idx < 6);
+		jta.append("입니다.");
 
-		jcal.add(jcal1, "North");
-		jcal.add(jcal2, "Center");
+		add(setMonth, BorderLayout.NORTH);
+		add(setMain, BorderLayout.CENTER);
+		add(jta, BorderLayout.SOUTH);
 
-		jmain.add(jup, "North");
-		jmain.add(jcal, "Center");
-
-		add(new JLabel(""), "North");
-		add(new JLabel(""), "South");
-		add(new JLabel(""), "West");
-		add(new JLabel(""), "East");
-		add(jmain, "Center");
-
-		setSize(500, 500);
+		setSize(350, 350);
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screenSize = tk.getScreenSize();
-
-		setLocation(screenSize.width / 2 - (500 / 2), screenSize.height
-				/ 2 - (500 / 2));
+		setLocation(screenSize.width / 2 - (350 / 2), screenSize.height
+				/ 2 - (350 / 2));
 
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	public static void main(String[] agrs) {
+		new CalenderEx();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		String act = e.getActionCommand();
+		System.out.println(e.getActionCommand());
+		switch (act) {
+		case "◀":
+			month -= 1;
+			break;
+		case "▶":
+			month += 1;
+			break;
+
+		default:
+			break;
+		}
 
 	}
 }
