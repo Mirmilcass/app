@@ -11,6 +11,7 @@ public class InterfaceEx /*extends WindowAdapter*/extends Frame {
 		f.setVisible(true);
 		//f.addWindowListener(this)
 		f.addWindowListener(new WindowAdapter() { // 익명 클래스
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}

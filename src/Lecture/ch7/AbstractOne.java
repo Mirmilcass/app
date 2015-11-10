@@ -35,6 +35,7 @@ abstract class Abs {
 
 public class AbstractOne extends Abs {
 	// ex)
+	@Override
 	public int getA() {
 		System.out.println("추상 메서드 재정의...");
 		return 100;
@@ -223,6 +224,7 @@ class Tiger extends AnimalTwo {
 		name = "호랑이";
 	}
 
+	@Override
 	void bark() {
 		System.out.println("어흥~");
 	}

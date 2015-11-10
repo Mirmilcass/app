@@ -51,6 +51,7 @@ class bow extends BowInfo {
 		string = "나무 줄기";
 	}
 
+	@Override
 	public void bowInfo() {
 		System.out.println("현재 활 상태는 " + body + "로 이루어져 있으며" + string
 				+ "를 사용중입니다.");

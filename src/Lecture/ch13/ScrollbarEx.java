@@ -1,4 +1,4 @@
-package Lecture.ch10;
+package Lecture.ch13;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -116,6 +116,7 @@ public class ScrollbarEx extends Frame implements AdjustmentListener {
 
 		f.setVisible(true);
 		f.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
@@ -159,6 +160,7 @@ public class ScrollbarEx extends Frame implements AdjustmentListener {
 		}
 	*/
 
+	@Override
 	public void adjustmentValueChanged(AdjustmentEvent e) {
 		int r = 255 - s1.getValue();
 		int g = 255 - s2.getValue();

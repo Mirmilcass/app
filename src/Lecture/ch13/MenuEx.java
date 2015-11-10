@@ -1,4 +1,4 @@
-package Lecture.ch10;
+package Lecture.ch13;
 
 import java.awt.Dialog;
 import java.awt.Frame;
@@ -51,12 +51,14 @@ public class MenuEx extends Frame implements ActionListener {
 		setSize(500, 500);
 		setVisible(true);
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj.equals(mi[4])) {
@@ -71,6 +73,7 @@ public class MenuEx extends Frame implements ActionListener {
 			dialog.add(can.b, "South");
 
 			dialog.addWindowListener(new WindowAdapter() {
+				@Override
 				public void windowClosing(WindowEvent e) {
 					dialog.dispose();
 				}

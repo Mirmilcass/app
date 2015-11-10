@@ -1,4 +1,4 @@
-package Lecture.ch10;
+package Lecture.ch13;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -63,6 +63,7 @@ public class CardLayoutEx extends Frame implements MouseListener {
 		setSize(200, 200);
 		setVisible(true);
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}

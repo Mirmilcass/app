@@ -6,6 +6,7 @@ public class AnimalOne extends Cat {
 	int age;
 	String name;
 
+	@Override
 	public void bark() {
 		super.bark();
 		System.out.println("²Ü²Ü~");

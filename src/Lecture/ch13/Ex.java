@@ -1,4 +1,4 @@
-package Lecture.ch10;
+package Lecture.ch13;
 
 import java.awt.BorderLayout;
 import java.awt.Checkbox;
@@ -103,6 +103,7 @@ public class Ex extends Frame implements ItemListener {
 		f.setSize(500, 500);
 		f.setVisible(true);
 		f.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
@@ -110,6 +111,7 @@ public class Ex extends Frame implements ItemListener {
 
 	}
 
+	@Override
 	public void itemStateChanged(ItemEvent e) {
 		/*
 				String cho1 = cho.getSelectedItem();

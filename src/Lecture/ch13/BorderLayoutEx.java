@@ -1,4 +1,4 @@
-package Lecture.ch10;
+package Lecture.ch13;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -25,6 +25,7 @@ public class BorderLayoutEx extends Frame {
 		setSize(500, 500);
 		setVisible(true);
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}

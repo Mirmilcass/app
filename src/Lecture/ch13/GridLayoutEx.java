@@ -1,25 +1,34 @@
-package Lecture.ch10;
+package Lecture.ch13;
 
 import java.awt.Button;
-import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class FlowLayoutEx extends Frame {
-	public Button b1, b2, b3;
+public class GridLayoutEx extends Frame {
+	public Button b1, b2, b3, b4, b5;
 
-	public FlowLayoutEx() {
+	public GridLayoutEx() {
 		b1 = new Button("1");
 		b2 = new Button("2");
 		b3 = new Button("3");
-		setLayout(new FlowLayout());
+		b4 = new Button("4");
+		b5 = new Button("5");
+
+		setLayout(new GridLayout(2, 3));
+
 		add(b1);
 		add(b2);
 		add(b3);
-		setSize(300, 300);
+		add(b4);
+		add(b5);
+
+		setSize(500, 500);
 		setVisible(true);
+
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
@@ -27,6 +36,6 @@ public class FlowLayoutEx extends Frame {
 	}
 
 	public static void main(String[] agrs) {
-		new FlowLayoutEx();
+		new GridLayoutEx();
 	}
 }

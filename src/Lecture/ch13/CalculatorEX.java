@@ -1,4 +1,4 @@
-package Lecture.ch10;
+package Lecture.ch13;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -12,10 +12,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class CalculatorEX extends Frame {
-	Panel p;
-	TextField tx;
-	Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, b10, b11, b12, b13,
-			b14, b15, b16;
+	public Panel p;
+	public TextField tx;
+	public Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, b10, b11, b12,
+			b13, b14, b15, b16;
 
 	public CalculatorEX() {
 		p = new Panel();
@@ -65,12 +65,14 @@ public class CalculatorEX extends Frame {
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screenSize = tk.getScreenSize();
+
 		setLocation(screenSize.width / 2 - 100,
 				screenSize.height / 2 - 100);
 
 		setSize(350, 350);
 		setVisible(true);
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}

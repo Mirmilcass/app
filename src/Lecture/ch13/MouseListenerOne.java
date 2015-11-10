@@ -1,4 +1,4 @@
-package Lecture.ch10;
+package Lecture.ch13;
 
 import java.awt.BorderLayout;
 import java.awt.Frame;
@@ -89,6 +89,7 @@ MouseMotionListener, MouseWheelListener*/{
 		});
 
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}

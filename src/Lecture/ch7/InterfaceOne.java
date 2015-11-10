@@ -55,10 +55,12 @@ abstract class abstractC {
 }
 
 public class InterfaceOne extends abstractC implements InterfaceA, InterfaceB {
+	@Override
 	public String method() {
 		return "Override method";
 	}
 
+	@Override
 	public void setA() {
 		System.out.println("setA method...");
 	}

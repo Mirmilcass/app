@@ -1,4 +1,4 @@
-package Lecture.ch10;
+package Lecture.ch13;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -56,6 +56,7 @@ public class EventOne extends Frame implements ActionListener {
 		setSize(500, 500);
 		setVisible(true);
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
@@ -63,6 +64,7 @@ public class EventOne extends Frame implements ActionListener {
 
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		Button b1 = (Button) obj;

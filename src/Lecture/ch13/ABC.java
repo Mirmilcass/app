@@ -1,4 +1,4 @@
-package Lecture.ch10;
+package Lecture.ch13;
 
 public class ABC {
 	public String msg = "A";

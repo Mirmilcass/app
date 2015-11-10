@@ -1,4 +1,4 @@
-package Lecture.ch10;
+package Lecture.ch13;
 
 import java.awt.Button;
 import java.awt.Canvas;
@@ -34,11 +34,12 @@ public class CanvasOne extends Canvas implements ActionListener {
 		f.setSize(500, 500);
 		f.setLocation(screenSize.width / 2 - 250,
 				screenSize.height / 2 - 250);
-		f.setVisible(false);
+		f.setVisible(true);
 
 		b.addActionListener(this);
 
 		f.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
@@ -46,6 +47,7 @@ public class CanvasOne extends Canvas implements ActionListener {
 
 	}
 
+	@Override
 	public void paint(Graphics g) {
 		/*
 		g.drawRect(x, y, w, h);

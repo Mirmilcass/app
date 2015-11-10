@@ -17,6 +17,7 @@ class Y extends X {
 	protected int i = 20;
 	protected String msg = "I am an Y.";
 
+	@Override
 	public void print() {
 		System.out.println(msg);
 	}
@@ -26,10 +27,12 @@ public class Z extends Y {
 	protected int i = 30;
 	protected String msg = "I am an Z.";
 
+	@Override
 	public void print() {
 		System.out.println(msg);
 	}
 
+	@Override
 	public void play() {
 		System.out.println("Play.." + msg);
 	}

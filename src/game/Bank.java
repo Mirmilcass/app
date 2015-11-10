@@ -71,6 +71,7 @@ class Menu implements Input {
 		print(0);
 	}
 
+	@Override
 	public void print(int i) {
 		System.out.println("BankSystem v 0.1");
 		System.out.println("================");
