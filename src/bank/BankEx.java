@@ -3,6 +3,8 @@ package bank;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Canvas;
+import java.awt.Checkbox;
+import java.awt.CheckboxGroup;
 import java.awt.Choice;
 import java.awt.Dialog;
 import java.awt.Dimension;
@@ -17,6 +19,8 @@ import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -150,40 +154,30 @@ public class BankEx extends Frame implements ActionListener,
 
 class main extends Frame implements ActionListener, BankSystemInterface {
 
-	public Image img;
 	public Panel pmain, pmenu;
-	public Button create, reference, inout;
+	public Button create, reference;
 	public Canvas can;
 
 	public main() {
 
-		pmenu = new Panel();
-		pmain = new Panel();
+		pmenu = new Panel(new GridLayout(3, 1));
+		pmain = new Panel(new GridLayout(1, 2));
 		can = new Can();
 
 		create = new Button("고객 생성");
 		reference = new Button("고객 조회");
-		inout = new Button("입 / 출금");
 
 		setTitle("메인 화면");
 		setLayout(new BorderLayout());
 
-		pmenu.setLayout(new GridLayout(5, 1));
-
 		pmenu.add(create);
 		pmenu.add(new Label(""));
 		pmenu.add(reference);
-		pmenu.add(new Label(""));
-		pmenu.add(inout);
 
 		create.addActionListener(this);
 		reference.addActionListener(this);
-		inout.addActionListener(this);
-
-		pmain.setLayout(new GridLayout(1, 2));
 
 		pmain.add(can);
-
 		pmain.add(pmenu);
 
 		add(new Label(""), "North");
@@ -205,10 +199,6 @@ class main extends Frame implements ActionListener, BankSystemInterface {
 
 	}
 
-	public void paint(Graphics g) {
-		g.drawImage(img, 0, 0, this);
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
@@ -217,8 +207,6 @@ class main extends Frame implements ActionListener, BankSystemInterface {
 			new CustomerCreate();
 		} else if (obj.equals(reference)) {
 			new Customerreference();
-		} else if (obj.equals(inout)) {
-
 		}
 	}
 }
@@ -235,15 +223,17 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 	private TextArea accnum0;
 	public Button conf, back;
 
+	CheckboxGroup ch = new CheckboxGroup();
+
 	public CustomerCreate() {
 		++cust_idx;
 
 		setTitle("고객 정보 입력");
 
-		mp = new Panel(new GridLayout(8, 2));
+		mp = new Panel(new GridLayout(9, 2));
 		cp = new Panel();
 
-		accnum = new Label("계좌 번호 : ");
+		accnum = new Label("", Label.CENTER);
 
 		lid = new Label("아이디  : ");
 		lpw = new Label("패스워드 : ");
@@ -262,18 +252,42 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 		conf = new Button("확인");
 		back = new Button("처음");
 
-		mp.add(accnum);
-		mp.add(accnum0);
+		Panel acc = new Panel(new BorderLayout());
+		Panel am = new Panel(new BorderLayout());
+
+		Checkbox ncust = new Checkbox("일반 고객", true, ch);
+		Checkbox vcust = new Checkbox("우수 고객", false, ch);
+
+		Panel vi = new Panel();
+
+		acc.add(accnum, "Center");
+		acc.add(new Label(""), "South");
+
 		mp.add(lid);
 		mp.add(tfid);
+		mp.add(new Label(""));
+		mp.add(new Label(""));
 		mp.add(lpw);
 		mp.add(tfpw);
+		mp.add(new Label(""));
+		mp.add(new Label(""));
 		mp.add(lcpw);
 		mp.add(tfcpw);
+		mp.add(new Label(""));
+		mp.add(new Label(""));
 		mp.add(lname);
 		mp.add(tfname);
+		mp.add(new Label(""));
+		mp.add(new Label(""));
 		mp.add(lbal);
 		mp.add(tfbal);
+
+		vi.add(ncust, "West");
+		vi.add(vcust, "East");
+
+		am.add(acc, "North");
+		am.add(mp, "Center");
+		am.add(vi, "South");
 
 		cp.add(new Label(""), "North");
 		cp.add(conf);
@@ -284,14 +298,22 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 		add(new Label(""), "West");
 		add(new Label(""), "East");
 		add(cp, "South");
-		add(mp, "Center");
+		add(am, "Center");
 
 		conf.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
+				cos.setPersonalNum(cust_idx);
+				cos.setId(tfid.getText());
+				cos.setPw(tfpw.getText());
+				cos.cheack(tfcpw.getText());
+				cos.setName(tfname.getText());
+				cos.setBal((Integer.parseInt(tfbal.getText())));
+				cos.setVip(ch.getSelectedCheckbox().getLabel());
+				System.out.println(cos.getVip());
+				cosArr.add(cos);
 			}
 		});
 		back.addActionListener(new ActionListener() {
@@ -322,8 +344,8 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 		} while (idx < 7);
 		int num2 = 000;
 		accnum0.append(" - " + (num2 + cust_idx));
-		accnum0.setEditable(false);
-		accnum0.isOpaque();
+
+		accnum.setText("계좌 번호 : " + accnum0.getText());
 
 		setSize(350, 350);
 		setVisible(true);
@@ -341,10 +363,15 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 
 class Customerreference extends Frame implements BankSystemInterface {
 
-	public Panel rmp, rep, viewp;
-	public Label lname, lid, lbal;
+	public Panel rmp, rep, viewp, view;
+	public Label lname, lid, lbal, lname2[] = new Label[cosArr.size()],
+			lid2[] = new Label[cosArr.size()], lbal2[] = new Label[cosArr
+					.size()];
 	public TextField tf;
-	public Button conf, back;
+	public Button conf, back, edit;
+
+	private Choice cho;
+	private Object choobj, confobj;
 
 	Customerreference() {
 
@@ -358,12 +385,19 @@ class Customerreference extends Frame implements BankSystemInterface {
 		lid = new Label("아이디", Label.CENTER);
 		lbal = new Label("잔액", Label.CENTER);
 
+		for (int i = 0; i < cosArr.size(); i++) {
+			lname2[i] = new Label("", Label.CENTER);
+			lid2[i] = new Label("", Label.CENTER);
+			lbal2[i] = new Label("", Label.CENTER);
+		}
+
 		tf = new TextField("", 25);
 
 		conf = new Button("조회");
 		back = new Button("처음");
+		edit = new Button("수정");
 
-		Choice cho = new Choice();
+		cho = new Choice();
 		cho.add("전체");
 		cho.add("아이디");
 		cho.add("이름");
@@ -379,19 +413,53 @@ class Customerreference extends Frame implements BankSystemInterface {
 		viewHeader.add(lname);
 		viewHeader.add(lbal);
 
-		Panel view = new Panel(new GridLayout(cosArr.size(), 3));
+		view = new Panel(new GridLayout(cosArr.size(), 3));
 		for (int i = 0; i < cosArr.size(); i++) {
-			view.add(new Label(cosArr.get(i).getId()));
-			view.add(new Label(cosArr.get(i).getName()));
-			view.add(new Label("" + cosArr.get(i).getBal()));
+			view.add(lid2[i]);
+			view.add(lname2[i]);
+			view.add(lbal2[i]);
 		}
 
 		viewp.add(viewHeader, "North");
 		viewp.add(view, "Center");
 
+		Panel footer = new Panel();
+
+		footer.add(edit);
+		footer.add(back);
+
 		rmp.add(rep, "North");
 		rmp.add(viewp, "Center");
-		rmp.add(back, "South");
+		rmp.add(footer, "South");
+
+		conf.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(conf.getLabel());
+				System.out.println(cho.getSelectedItem());
+
+				confobj = e.getSource();
+				if (cho.getSelectedItem().equals("전체")) {
+					for (int i = 0; i < cosArr.size(); i++) {
+
+						lid2[i].setText(cosArr.get(i).getId());
+						lname2[i].setText(cosArr.get(i).getName());
+						lbal2[i].setText("" + cosArr.get(i).getBal());
+					}
+				}
+
+			}
+		});
+
+		edit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		back.addActionListener(new ActionListener() {
 
 			@Override
@@ -406,6 +474,29 @@ class Customerreference extends Frame implements BankSystemInterface {
 		add(new Label(""), "East");
 		add(new Label(""), "South");
 		add(rmp, "Center");
+
+		setSize(350, 350);
+		setVisible(true);
+
+		setLocation(screenSize.width / 2 - (350 / 2), screenSize.height
+				/ 2 - (350 / 2));
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+	}
+}
+
+class inout extends Frame implements BankSystemInterface {
+	public inout() {
+		setLayout(new BorderLayout());
+		add(new Label(""), "North");
+		add(new Label(""), "South");
+		add(new Label(""), "West");
+		add(new Label(""), "East");
+
+		//		Panel in = new Panel(new B)
 
 		setSize(350, 350);
 		setVisible(true);
@@ -439,10 +530,11 @@ interface BankSystemInterface {
 	Dimension screenSize = tk.getScreenSize();
 
 	ArrayList<Customer> cosArr = new ArrayList<Customer>();
+	Customer cos = new Customer();
 
 }
 
-class Customer {
+class Customer implements BankSystemInterface {
 
 	private int PersonalNum;
 	private String id;
@@ -465,20 +557,19 @@ class Customer {
 	public void setId(String i) {
 		id = i;
 		/*
-		do {
-			if (PersonalNum > 1) {
-				for (int j = 0; j < cosArr.size(); j++) {
-					if (i.equals(cosArr.get(j).getId())) {
-						System.out
-								.println("이미 존재하는 ID입니다. 다른 ID를 사용해 주세요.");
-						setId(scan.next());
+				do {
+					if (PersonalNum > 1) {
+						for (int j = 0; j < cosArr.size(); j++) {
+							if (i.equals(cosArr.get(j).getId())) {
+								System.out
+										.println("이미 존재하는 ID입니다. 다른 ID를 사용해 주세요.");
+								setId(scan.next());
+							}
+						}
 					}
-				}
-			}
-			id = i;
-			break;
-		} while (true);
-		}
+					id = i;
+					break;
+				} while (true);
 		*/
 	}
 
@@ -507,18 +598,13 @@ class Customer {
 	}
 
 	public void setVip(String vip) {
-		this.vip = vip;
-		/*
-		if (i.equalsIgnoreCase("y") || i.equalsIgnoreCase("yes")) {
-			vip = "우수고객";
-		} else if (i.equalsIgnoreCase("n") || i.equalsIgnoreCase("no")) {
-			vip = "일반고객";
-		} else {
-			System.out.println("잘못입력하였습니다. 다시 입력해주세요.");
-			setVip(scan.next());
+		if (vip.equals("우수 고객")) {
+			this.vip = "우수 고객";
+			setTax(0);
+		} else if (vip.equals("일반 고객")) {
+			this.vip = "일반 고객";
+			setTax(500);
 		}
-		*/
-
 	}
 
 	public int getTax() {
