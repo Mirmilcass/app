@@ -1,8 +1,8 @@
-package bank;
+package bank2;
 
 import java.util.Random;
 
-class Customer implements Repect {
+class Customer2 implements Repect {
 
 	private int PersonalNum;
 	private String accountNum;
