@@ -1,9 +1,23 @@
 package bank2;
 
+/*
+ * 뱅크 시스템
+ * 
+ * 스윙 사용(JFrame)
+ * 
+ * 디자인
+ * 
+ * 로그인창 - 생성, 조회
+ * 
+ * 생성 - 계좌 번호 , 아이디 , 패스워드, 패스워드 체크, 
+ * 
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
@@ -97,9 +111,10 @@ class Login extends JFrame implements Repect, ActionListener {
 		exit.addActionListener(this);
 
 		setSize(350, 350);
+		Dimension d = this.getSize();
 
-		setLocation(screenSize.width / 2 - (350 / 2), screenSize.height
-				/ 2 - (350 / 2));
+		setLocation(screenSize.width / 2 - (d.width / 2),
+				screenSize.height / 2 - (d.height / 2));
 
 		setVisible(true);
 
@@ -138,8 +153,10 @@ class Login extends JFrame implements Repect, ActionListener {
 				d.setSize(100, 100);
 				d.setVisible(true);
 				d.add(no);
-				d.setLocation(screenSize.width / 2 - (100 / 2),
-						screenSize.height / 2 - (100 / 2));
+				Dimension s = this.getSize();
+
+				setLocation(screenSize.width / 2 - (s.width / 2),
+						screenSize.height / 2 - (s.height / 2));
 
 				d.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			}
@@ -192,8 +209,10 @@ class Main extends JFrame implements Repect, ActionListener {
 
 		setSize(350, 350);
 
-		setLocation(screenSize.width / 2 - (350 / 2), screenSize.height
-				/ 2 - (350 / 2));
+		Dimension d = this.getSize();
+
+		setLocation(screenSize.width / 2 - (d.width / 2),
+				screenSize.height / 2 - (d.height / 2));
 
 		setVisible(true);
 
@@ -242,6 +261,22 @@ class CustCreate extends JFrame implements Repect {
 		header.add(new Label(""), "North");
 		header.add(new JLabel("계좌 번호 : " + cust.getaccountNum(),
 				(int) CENTER_ALIGNMENT), "Center");
+		header.add(new Label(""), "South");
+
+		JPanel input = new JPanel(new GridBagLayout());
+
+		Main.add(input, "Center");
+
+		setSize(350, 350);
+
+		Dimension d = this.getSize();
+
+		setLocation(screenSize.width / 2 - (d.width / 2),
+				screenSize.height / 2 - (d.height / 2));
+
+		setVisible(true);
+
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		++cust_idx;
 	}

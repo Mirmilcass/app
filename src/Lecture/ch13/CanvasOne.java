@@ -34,7 +34,7 @@ public class CanvasOne extends Canvas implements ActionListener {
 		f.setSize(500, 500);
 		f.setLocation(screenSize.width / 2 - 250,
 				screenSize.height / 2 - 250);
-		f.setVisible(true);
+		f.setVisible(false);
 
 		b.addActionListener(this);
 
