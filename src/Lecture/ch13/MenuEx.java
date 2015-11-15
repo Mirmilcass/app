@@ -61,6 +61,7 @@ public class MenuEx extends Frame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
+		System.out.println(obj);
 		if (obj.equals(mi[4])) {
 			System.exit(0);
 		} else if (obj.equals(mi[1])) {
