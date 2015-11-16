@@ -40,7 +40,7 @@ public class EchoClient {
 				ec = new EchoClient(args[0], 1289);
 			} else {
 				ec = new EchoClient("localhost", 1289);
-				//				ec = new EchoClient("192.168.0.45", 1289);
+				//								ec = new EchoClient("192.168.0.45", 1289);
 			}
 			ec.echo();
 			ec.close();

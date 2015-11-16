@@ -46,7 +46,7 @@ public class EchoServer {
 		server.close();
 	}
 
-	/*public static void main(String args[]) {
+	public static void main(String args[]) {
 		try {
 			EchoServer es = new EchoServer(1289);
 			es.service();
@@ -54,5 +54,5 @@ public class EchoServer {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
 }

@@ -32,8 +32,8 @@ public class IOEx extends JFrame implements ActionListener {
 	public JTextArea jta;
 	public JScrollPane jsp;
 	public JPanel mjp;
+	public FileDialog fl, fs;
 	public String fileName;
-	public FileDialog fd;
 
 	private JMenuItem[] mi;
 
@@ -43,7 +43,6 @@ public class IOEx extends JFrame implements ActionListener {
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screenSize = tk.getScreenSize();
-		Dimension di = getSize();
 
 		mb = new JMenuBar();
 
@@ -93,69 +92,70 @@ public class IOEx extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 
 		Object obj = e.getSource();
+
 		if (obj.equals(mi[4])) {
 			System.exit(0);
 		} else if (obj.equals(mi[0])) {
 
 		} else if (obj.equals(mi[1])) {
+			fl = new FileDialog(this, "파일 열기", FileDialog.LOAD);
+			fl.setVisible(true);
+			fileName = fl.getDirectory() + fl.getFile();
 			try {
-				fileOpen();
+				FileReader fr = new FileReader(new File(fileName));
+				setTitle(fl.getFile() + " - 편집기");
+				System.out.println(getTitle());
+
+				String n = "";
+				while (fr.ready()) {
+					n += (char) fr.read();
+				}
+				jta.setText(n);
+				fr.close();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		} else if (obj.equals(mi[2])) {
+			fs = new FileDialog(this, "파일 열기", FileDialog.SAVE);
+
 			try {
-				fileSave();
+
+				String str = "";
+				if (!getTitle().equals("편집기")) {
+					FileWriter fw = new FileWriter(new File(fileName));
+					str = jta.getText();
+					fw.write(str);
+					fw.close();
+
+				} else {
+					fs.setVisible(true);
+					fileName = fs.getDirectory() + fs.getFile();
+
+					FileWriter fw = new FileWriter(new File(fileName));
+					fw.write(jta.getText());
+					setTitle(fs.getFile() + " - 편집기");
+
+					fw.close();
+				}
+
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		} else if (obj.equals(mi[3])) {
-			FileDialog fd = new FileDialog(this, "파일 저장", FileDialog.SAVE);
+			try {
+				fs.setVisible(true);
+				fileName = fs.getDirectory() + fs.getFile();
 
-			fd.setVisible(true);
-			//			String fileName = fd.getDirectory() + fd.getFile();
+				FileWriter fw = new FileWriter(new File(fileName));
+				fw.write(jta.getText());
+				setTitle(fs.getFile() + " - 편집기");
 
-		}
-	}
-
-	public void fileOpen() throws IOException {
-		fd = new FileDialog(this, "파일 열기", FileDialog.LOAD);
-		fileName = fd.getDirectory() + fd.getFile();
-		FileReader fr = new FileReader(new File(fileName));
-
-		fd.setVisible(true);
-
-		setTitle(fd.getFile() + " - 편집기");
-		System.out.println(getTitle());
-
-		String n = "";
-		while (fr.ready()) {
-			n += (char) fr.read();
-		}
-		jta.setText(n);
-		fr.close();
-	}
-
-	public void fileSave() throws IOException {
-		fd = new FileDialog(this, "파일 저장", FileDialog.SAVE);
-		fileName = fd.getDirectory() + fd.getFile();
-		FileWriter fw = new FileWriter(new File(fileName));
-		String str = "";
-		if (!getTitle().equals("편집기")) {
-			str = jta.getText();
-			fw.write(str);
-			System.out.println("동일 이름 저장");
-
-		} else {
-
-			fd.setVisible(true);
-			System.out.println("없는 파일 저장");
-			fw.write(jta.getText());
-			setTitle(fd.getFile() + " - 편집기");
+				fw.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 
 		}
-
-		fw.close();
 	}
 
 	public static void main(String args[]) throws Exception {
