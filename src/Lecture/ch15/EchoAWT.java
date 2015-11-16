@@ -7,11 +7,11 @@ import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,9 +21,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class EchoAWT extends JFrame implements Runnable, ActionListener {
+public class EchoAWT extends JFrame implements Runnable, ActionListener,
+		MouseListener {
 
-	public JPanel m, f, h;
+	public JPanel m, f, h, s;
 	public JTextArea jta;
 	public JScrollPane jsp;
 	public JTextField jtf, hi, pi, localport;
@@ -32,11 +33,14 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener {
 	public String hostin;
 	public int portin;
 
+	private BufferedReader con;
+
 	public EchoAWT() {
 
 		h = new JPanel(new GridLayout(2, 3));
 		m = new JPanel();
 		f = new JPanel(new BorderLayout());
+		s = new JPanel();
 
 		jta = new JTextArea("", 30, 30);
 
@@ -51,10 +55,16 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener {
 		textin = new JButton("입력");
 		clientin = new JButton("서버 접속");
 
+		// 각종 버튼 및 텍스트 필드 리스너
 		jtf.addActionListener(this);
 		hi.addActionListener(this);
 		pi.addActionListener(this);
 		localport.addActionListener(this);
+
+		jtf.addMouseListener(this);
+		hi.addMouseListener(this);
+		pi.addMouseListener(this);
+		localport.addMouseListener(this);
 
 		serveropen.addActionListener(this);
 		clientin.addActionListener(this);
@@ -78,8 +88,12 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener {
 		f.add(jtf, "Center");
 		f.add(textin, "East");
 
+		// 접속자 확인창
+		s.add(new JLabel("접속자", (int) CENTER_ALIGNMENT));
+
 		add(h, "North");
 		add(jsp, "Center");
+		add(s, "East");
 		add(f, "South");
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -114,13 +128,10 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
-		//		InputStream is = client.getInputStream();
-		//		OutputStream os = client.getOutputStream();
-		//		BufferedReader in = new BufferedReader(new InputStreamReader(is));
-		//		PrintWriter out = new PrintWriter(os, true);
+
 		if (obj.equals(jtf)) {
-			String str = jtf.getText();
-			jta.append(str + "\n");
+			//			String str = jtf.getText();
+			jta.append(jtf.getText() + "\n");
 			jtf.setText("");
 			//			ObjectStreamField os = jtf.setText("");
 		} else if (obj.equals(serveropen)) {
@@ -136,6 +147,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener {
 			EchoClient ec = new EchoClient(hi.getText(),
 					Integer.parseInt(pi.getText()));
 			jta.append("접속 하였습니다. 입력하세요\n");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -148,5 +160,40 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		Object obj = e.getSource();
+		if (obj.equals(jtf)) {
+			jtf.setText("");
+		} else if (obj.equals(hi)) {
+			hi.setText("");
+		} else if (obj.equals(pi)) {
+			pi.setText("");
+		} else if (obj.equals(localport)) {
+			localport.setText("");
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
 	}
 }

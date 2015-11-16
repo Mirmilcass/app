@@ -5,6 +5,7 @@ import java.net.*;
 
 public class EchoClient {
 	private Socket socket;
+	String msg;
 
 	public EchoClient(String host, int port) throws Exception {
 		socket = new Socket(host, port);
@@ -19,7 +20,7 @@ public class EchoClient {
 				System.in));
 
 		while (true) {
-			String msg = con.readLine();
+			msg = con.readLine();
 			out.println(msg);
 			if (msg.equals("bye")) {
 				break;
@@ -32,21 +33,22 @@ public class EchoClient {
 		socket.close();
 	}
 
-	/*public static void main(String args[]) {
-		try {
-			EchoClient ec;
-			System.out.println("메시지를 입력하세요.");
-			if (args.length > 0) {
-				ec = new EchoClient(args[0], 1289);
-			} else {
-				ec = new EchoClient("localhost", 1289);
-				//								ec = new EchoClient("192.168.0.45", 1289);
-			}
-			ec.echo();
-			ec.close();
+	//	public static void main(String args[]) {
+	//		try {
+	//			EchoClient ec;
+	//			System.out.println("메시지를 입력하세요.");
+	//			if (args.length > 0) {
+	//				ec = new EchoClient(args[0], 1289);
+	//			} else {
+	//				ec = new EchoClient("localhost", 1289);
+	//				//								ec = new EchoClient("192.168.0.45", 1289);
+	//			}
+	//			ec.echo();
+	//			ec.close();
+	//
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//	}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
 }
