@@ -7,15 +7,23 @@ import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -25,28 +33,43 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		MouseListener {
 
 	public JPanel m, f, h, s;
-	public JTextArea jta;
-	public JScrollPane jsp;
+	public JTextArea jta/*, clientList*/;
+	public JScrollPane jsp, list;
 	public JTextField jtf, hi, pi, localport;
 	public JButton serveropen, textin, clientin;
+	public JLabel name;
+	public JList clientList;
 
 	public String hostin;
 	public int portin;
 
-	private BufferedReader con;
+	private ChatServer server;
+	private InetAddress addr;
 
-	public EchoAWT() {
+	private BufferedReader ir;
+	private PrintWriter pw;
+	private Thread listener;
 
+	public EchoAWT() throws UnknownHostException {
+
+		super("채팅 프로그램");
+
+		// 각종 정의
 		h = new JPanel(new GridLayout(2, 3));
-		m = new JPanel();
+		m = new JPanel(new BorderLayout());
 		f = new JPanel(new BorderLayout());
-		s = new JPanel();
+		s = new JPanel(new BorderLayout());
 
-		jta = new JTextArea("", 30, 30);
+		name = new JLabel(" 사용자 이름 ");
+
+		jta = new JTextArea();
+		//		clientList = new JTextArea(0, 10);
+		clientList = new JList();
 
 		jsp = new JScrollPane(jta);
+		list = new JScrollPane(clientList);
 
-		jtf = new JTextField("글을 입력하세요.");
+		jtf = new JTextField("아이디를 입력하세요.");
 		hi = new JTextField("HOST IP 입력");
 		pi = new JTextField("PORT 입력");
 		localport = new JTextField("원하는 PORT 입력");
@@ -54,6 +77,8 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		serveropen = new JButton("서버 오픈");
 		textin = new JButton("입력");
 		clientin = new JButton("서버 접속");
+
+		addr = InetAddress.getLocalHost();
 
 		// 각종 버튼 및 텍스트 필드 리스너
 		jtf.addActionListener(this);
@@ -75,25 +100,32 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		h.add(pi);
 		h.add(clientin);
 
-		// 서버 생성
+		//		 서버 생성
+		h.add(new JLabel("IP : " + addr.getHostAddress(),
+				(int) CENTER_ALIGNMENT));
 		h.add(localport);
-		h.add(new Label());
 		h.add(serveropen);
 
 		// 채팅글창 글 작성 막기.
 		jta.setEditable(false);
+		//		clientList.setEditable(false);
 
 		// 입력 창
-		f.add(new JLabel(" 메시지 입력 "), "West");
+		f.add(name, "West");
 		f.add(jtf, "Center");
 		f.add(textin, "East");
 
 		// 접속자 확인창
-		s.add(new JLabel("접속자", (int) CENTER_ALIGNMENT));
+		s.add(new JLabel("접속자", (int) CENTER_ALIGNMENT), "North");
+		s.add(list, "Center");
+
+		// 메인 창
+
+		m.add(jsp, "Center");
+		m.add(s, "East");
 
 		add(h, "North");
-		add(jsp, "Center");
-		add(s, "East");
+		add(m, "Center");
 		add(f, "South");
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -111,17 +143,8 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public static void main(String args[]) {
-		EchoAWT ea = new EchoAWT();
-		Thread t1 = new Thread(ea);
-		t1.start();
-
+	public static void main(String args[]) throws UnknownHostException {
+		new EchoAWT();
 	}
 
 	@Override
@@ -130,12 +153,12 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		Object obj = e.getSource();
 
 		if (obj.equals(jtf)) {
-			//			String str = jtf.getText();
-			jta.append(jtf.getText() + "\n");
+			name.setText(" 메시지 입력 ");
+			pw.println(jtf.getText());
 			jtf.setText("");
-			//			ObjectStreamField os = jtf.setText("");
 		} else if (obj.equals(serveropen)) {
 			ServerOpen();
+			jta.setText("");
 		} else if (obj.equals(clientin)) {
 			ClientIn();
 		}
@@ -143,28 +166,20 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 	}
 
 	public void ClientIn() {
-		try {
-			EchoClient ec = new EchoClient(hi.getText(),
-					Integer.parseInt(pi.getText()));
-			jta.append("접속 하였습니다. 입력하세요\n");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		hostin = hi.getText();
+		portin = Integer.parseInt(pi.getText());
+		listener = new Thread(this);
+		listener.start();
 	}
 
 	public void ServerOpen() {
-		try {
-			EchoServer es = new EchoServer(Integer.parseInt(localport
-					.getText()));
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+		server = new ChatServer(Integer.parseInt(localport.getText()));
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		// TODO Clicked
 		Object obj = e.getSource();
 		if (obj.equals(jtf)) {
 			jtf.setText("");
@@ -194,6 +209,29 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		try {
+			Socket s = new Socket(hostin, portin);
+			InputStream ins = s.getInputStream();
+			OutputStream os = s.getOutputStream();
+			ir = new BufferedReader(new InputStreamReader(ins));
+			pw = new PrintWriter(new OutputStreamWriter(os), true);
+
+			while (true) {
+				String line = ir.readLine();
+				jta.append(line + "\n");
+				jsp.getVerticalScrollBar().setValue(
+						jsp.getVerticalScrollBar().getMaximum());
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 }

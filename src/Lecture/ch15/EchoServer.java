@@ -33,8 +33,10 @@ public class EchoServer {
 		clients.add(client);
 
 		for (int i = 0; i < clients.size(); i++) {
+
 			is = clients.get(i).getInputStream();
 			os = clients.get(i).getOutputStream();
+
 			in = new BufferedReader(new InputStreamReader(is));
 			out = new PrintWriter(os, true);
 

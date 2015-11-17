@@ -33,22 +33,22 @@ public class EchoClient {
 		socket.close();
 	}
 
-	//	public static void main(String args[]) {
-	//		try {
-	//			EchoClient ec;
-	//			System.out.println("메시지를 입력하세요.");
-	//			if (args.length > 0) {
-	//				ec = new EchoClient(args[0], 1289);
-	//			} else {
-	//				ec = new EchoClient("localhost", 1289);
-	//				//								ec = new EchoClient("192.168.0.45", 1289);
-	//			}
-	//			ec.echo();
-	//			ec.close();
-	//
-	//		} catch (Exception e) {
-	//			e.printStackTrace();
-	//		}
-	//	}
+	public static void main(String args[]) {
+		try {
+			EchoClient ec;
+			System.out.println("메시지를 입력하세요.");
+			if (args.length > 0) {
+				ec = new EchoClient(args[0], 1289);
+			} else {
+				//				ec = new EchoClient("localhost", 1289);
+				ec = new EchoClient("192.168.0.45", 1289);
+			}
+			ec.echo();
+			ec.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
