@@ -21,6 +21,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -49,6 +50,8 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 	private BufferedReader ir;
 	private PrintWriter pw;
 	private Thread listener;
+
+	public JDialog jd;
 
 	public EchoAWT() throws UnknownHostException {
 
@@ -80,6 +83,15 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 
 		addr = InetAddress.getLocalHost();
 
+		jd = new JDialog(this, "서버 상태");
+
+		// 사용자 해상도 및 창 크기 설정 및 가져오기.
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension screenSize = tk.getScreenSize();
+
+		setSize(500, 500);
+		Dimension d = getSize();
+
 		// 각종 버튼 및 텍스트 필드 리스너
 		jtf.addActionListener(this);
 		hi.addActionListener(this);
@@ -100,15 +112,17 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		h.add(pi);
 		h.add(clientin);
 
-		//		 서버 생성
+		// 서버 생성
 		h.add(new JLabel("IP : " + addr.getHostAddress(),
 				(int) CENTER_ALIGNMENT));
 		h.add(localport);
 		h.add(serveropen);
 
-		// 채팅글창 글 작성 막기.
+		// 채팅글창 글 작성 막기
 		jta.setEditable(false);
-		//		clientList.setEditable(false);
+
+		// 접속자 리스트 width 제한
+		clientList.setFixedCellWidth(d.width / 3);
 
 		// 입력 창
 		f.add(name, "West");
@@ -118,22 +132,18 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		// 접속자 확인창
 		s.add(new JLabel("접속자", (int) CENTER_ALIGNMENT), "North");
 		s.add(list, "Center");
+		//		clientList.setEditable(false);		
 
 		// 메인 창
-
 		m.add(jsp, "Center");
-		m.add(s, "East");
+		m.add(s, "West");
 
+		// 프레임 설정
 		add(h, "North");
 		add(m, "Center");
 		add(f, "South");
 
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		Dimension screenSize = tk.getScreenSize();
-
-		setSize(500, 500);
-		Dimension d = getSize();
-
+		// 창의 위치, 보임, EXIT 단추 활성화.
 		setLocation(screenSize.width / 2 - (d.width / 2),
 				screenSize.height / 2 - (d.height / 2));
 
@@ -174,7 +184,9 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 	}
 
 	public void ServerOpen() {
-		server = new ChatServer(Integer.parseInt(localport.getText()));
+		jd.setSize(100, 100);
+		portin = Integer.parseInt(localport.getText());
+		server = new ChatServer(portin);
 	}
 
 	@Override
