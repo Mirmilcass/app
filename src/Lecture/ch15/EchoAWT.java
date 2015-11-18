@@ -33,11 +33,11 @@ import javax.swing.JTextField;
 public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		MouseListener {
 
-	public JPanel m, f, h, s;
+	public JPanel m, f, h, s, login;
 	public JTextArea jta/*, clientList*/;
 	public JScrollPane jsp, list;
-	public JTextField jtf, hi, pi, localport;
-	public JButton serveropen, textin, clientin;
+	public JTextField jtf, hi, pi, localport, lid, lpw;
+	public JButton serveropen, textin, clientin, conf;
 	public JLabel name;
 	public JList clientList;
 
@@ -62,6 +62,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		m = new JPanel(new BorderLayout());
 		f = new JPanel(new BorderLayout());
 		s = new JPanel(new BorderLayout());
+		login = new JPanel(new GridLayout(4, 1));
 
 		name = new JLabel(" 사용자 이름 ");
 
@@ -76,10 +77,13 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		hi = new JTextField("HOST IP 입력");
 		pi = new JTextField("PORT 입력");
 		localport = new JTextField("원하는 PORT 입력");
+		lid = new JTextField("ID를 입력하세요.");
+		lpw = new JTextField("PW를 입력하세요.");
 
 		serveropen = new JButton("서버 오픈");
 		textin = new JButton("입력");
 		clientin = new JButton("서버 접속");
+		conf = new JButton("로그인");
 
 		addr = InetAddress.getLocalHost();
 
@@ -97,11 +101,15 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		hi.addActionListener(this);
 		pi.addActionListener(this);
 		localport.addActionListener(this);
+		lid.addActionListener(this);
+		lpw.addActionListener(this);
 
 		jtf.addMouseListener(this);
 		hi.addMouseListener(this);
 		pi.addMouseListener(this);
 		localport.addMouseListener(this);
+		lid.addMouseListener(this);
+		lpw.addMouseListener(this);
 
 		serveropen.addActionListener(this);
 		clientin.addActionListener(this);
@@ -138,10 +146,26 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		m.add(jsp, "Center");
 		m.add(s, "West");
 
+		// 로그인창
+		JPanel lm = new JPanel(new GridLayout(3, 1));
+		lm.add(lid);
+		lm.add(new Label());
+		lm.add(lpw);
+
+		login.add(new Label());
+		login.add(lm);
+		login.add(new Label());
+		login.add(conf);
+
 		// 프레임 설정
 		add(h, "North");
 		add(m, "Center");
 		add(f, "South");
+		add(login);
+
+		h.setVisible(false);
+		m.setVisible(false);
+		f.setVisible(false);
 
 		// 창의 위치, 보임, EXIT 단추 활성화.
 		setLocation(screenSize.width / 2 - (d.width / 2),
@@ -159,7 +183,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		// TODO action
 		Object obj = e.getSource();
 
 		if (obj.equals(jtf)) {
@@ -171,6 +195,8 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 			jta.setText("");
 		} else if (obj.equals(clientin)) {
 			ClientIn();
+		} else if (obj.equals(conf)) {
+			
 		}
 
 	}
@@ -201,6 +227,10 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 			pi.setText("");
 		} else if (obj.equals(localport)) {
 			localport.setText("");
+		} else if (obj.equals(lpw)) {
+			lpw.setText("");
+		} else if (obj.equals(lid)) {
+			lid.setText("");
 		}
 	}
 
