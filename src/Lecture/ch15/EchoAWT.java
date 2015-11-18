@@ -1,34 +1,12 @@
 package Lecture.ch15;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Label;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+import java.sql.*;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		MouseListener {
@@ -86,8 +64,6 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		conf = new JButton("로그인");
 
 		addr = InetAddress.getLocalHost();
-
-		jd = new JDialog(this, "서버 상태");
 
 		// 사용자 해상도 및 창 크기 설정 및 가져오기.
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -161,17 +137,22 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		add(h, "North");
 		add(m, "Center");
 		add(f, "South");
-		add(login);
 
-		h.setVisible(false);
-		m.setVisible(false);
-		f.setVisible(false);
+		// 로그인 다이얼로그
+		jd = new JDialog(this);
+		jd.add(login);
+		Dimension dd = jd.getSize();
+		jd.setSize(100, 100);
+		jd.setLocation(screenSize.width / 2 - (dd.width / 2),
+				screenSize.height / 2 - (dd.height / 2));
+		jd.setVisible(true);
+		jd.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		// 창의 위치, 보임, EXIT 단추 활성화.
 		setLocation(screenSize.width / 2 - (d.width / 2),
 				screenSize.height / 2 - (d.height / 2));
 
-		setVisible(true);
+		setVisible(false);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -196,7 +177,39 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		} else if (obj.equals(clientin)) {
 			ClientIn();
 		} else if (obj.equals(conf)) {
-			
+			String driver = "oracle.jdbc.driver.OracleDriver";
+			String url = "jdbc:oracle:thin:@localhost:1522:orcl2";
+			Connection con = null;
+			Statement stmt = null;
+			try {
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, "hr", "hr");
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("select id from test");
+				if (rs.next()) {
+					String id = rs.getString(1);
+					String pw = rs.getString(2);
+					if (id.equals(lid.getText())) {
+						if (pw.equals(lpw.getText())) {
+							jd.setVisible(false);
+							setVisible(true);
+						} else {
+							lpw.setText("일치하지 않습니다.");
+						}
+					} else
+						lid.setText("일치하지 않습니다.");
+				}
+			} catch (Exception e1) {
+				System.out.println("데이터 베이스 연결 실패!");
+			} finally {
+				try {
+					if (con != null)
+						con.close();
+				} catch (Exception e1) {
+					System.out.println(e1.getMessage());
+				}
+			}
+
 		}
 
 	}
