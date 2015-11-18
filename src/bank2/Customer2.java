@@ -27,7 +27,7 @@ class Customer2 implements Repect {
 		return accountNum;
 	}
 
-	public void setaccountNum(String i) {
+	public void setaccountNum(int i) {
 		int[] accnum = new int[7];
 		Random ran = new Random();
 		StringBuffer an = new StringBuffer();

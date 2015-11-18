@@ -24,6 +24,10 @@ import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -52,9 +56,8 @@ public class BankEx2 implements Repect {
 
 class Login extends JFrame implements Repect, ActionListener {
 
-	private JTextField jtfid = new JTextField(20), jtfpw = new JTextField(
-			20);
-	private JButton conf = new JButton("확인"), exit = new JButton("종료");
+	private JTextField jtfid, jtfpw;
+	private JButton conf, exit;
 
 	public Login() {
 
@@ -74,13 +77,16 @@ class Login extends JFrame implements Repect, ActionListener {
 		main.add(herder, "North");
 
 		herder.add(new Label(""), "North");
-		herder.add(new Label("관리자의 아이디와 패스워드를 입력하세요.", Label.CENTER),
+		herder.add(new JLabel("관리자의 아이디와 패스워드를 입력하세요.", Label.CENTER),
 				"Center");
 		herder.add(new Label(""), "South");
 
 		JPanel input = new JPanel(new GridLayout(9, 2));
 
 		main.add(input, "Center");
+
+		jtfid = new JTextField(20);
+		jtfpw = new JTextField(20);
 
 		input.add(new Label(""));
 		input.add(new Label(""));
@@ -104,6 +110,9 @@ class Login extends JFrame implements Repect, ActionListener {
 
 		main.add(footer, "South");
 
+		conf = new JButton("확인");
+		exit = new JButton("종료");
+
 		footer.add(conf);
 		footer.add(exit);
 
@@ -111,7 +120,7 @@ class Login extends JFrame implements Repect, ActionListener {
 		exit.addActionListener(this);
 
 		setSize(350, 350);
-		Dimension d = this.getSize();
+		Dimension d = getSize();
 
 		setLocation(screenSize.width / 2 - (d.width / 2),
 				screenSize.height / 2 - (d.height / 2));
@@ -128,38 +137,41 @@ class Login extends JFrame implements Repect, ActionListener {
 		Object obj = e.getSource();
 		JLabel no = new JLabel("일치 하지 않습니다.", (int) CENTER_ALIGNMENT);
 		JDialog d = new JDialog(this);
+		//		String driver = "oracle.jdbc.driver.OracleDriver";
+		//		String url = "jdbc:oracle:thin:@localhost:1522:orcl2";
+		//		Connection con = null;
+		//		Statement stmt = null;
 		String id = "admin";
 		String pw = "admin";
 
 		if (obj.equals(exit)) {
 			System.exit(0);
 		} else if (obj.equals(conf)) {
-			if (id.equals(jtfid.getText()) && pw.equals(jtfpw.getText())) {
-				//				System.out.println(id);
-				//				System.out.println(jtfid.getText());
-				//				System.out.println(pw);
-				//				System.out.println(jtfpw.getText());
-				setVisible(false);
-				new Main();
-				/*
-				d.setVisible(true);
-				d.setSize(100, 100);
-				d.add(new JLabel("일치 로그인 성공", (int) CENTER_ALIGNMENT));
-				d.setLocation(screenSize.width / 2 - (100 / 2),
-						screenSize.height / 2 - (100 / 2));
-				d.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				*/
-			} else {
-				d.setSize(100, 100);
-				d.setVisible(true);
-				d.add(no);
-				Dimension s = this.getSize();
+//			try {
+//				Class.forName(driver);
+//				con = DriverManager.getConnection(url, "hr", "hr");
+//				stmt = con.createStatement();
+//				ResultSet rs = stmt.executeQuery("select id from bank");
+//				String sid = rs.getString(1);
+//				String spw = rs.getString(2);
+				if (id.equals(jtfid.getText())
+						&& pw.equals(jtfpw.getText())) {
+					setVisible(false);
+					new Main();
+				} else {
+					d.setSize(100, 100);
+					d.setVisible(true);
+					d.add(no);
+					Dimension s = d.getSize();
 
-				setLocation(screenSize.width / 2 - (s.width / 2),
-						screenSize.height / 2 - (s.height / 2));
+					d.setLocation(screenSize.width / 2 - (s.width / 2),
+							screenSize.height / 2 - (s.height / 2));
 
-				d.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-			}
+					d.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				}
+			//			} catch (Exception e1) {
+			//
+			//			}
 		}
 
 	}
@@ -181,7 +193,7 @@ class Can extends Canvas implements Repect {
 
 class Main extends JFrame implements Repect, ActionListener {
 
-	JButton create = new JButton("고객 생성"), ref = new JButton("고객 조회");
+	JButton create, ref;
 
 	public Main() {
 
@@ -198,6 +210,9 @@ class Main extends JFrame implements Repect, ActionListener {
 
 		main.add(select);
 
+		create = new JButton("고객 생성");
+		ref = new JButton("고객 조회");
+
 		select.add(new Label(""));
 		select.add(create);
 		select.add(new Label(""));
@@ -209,7 +224,7 @@ class Main extends JFrame implements Repect, ActionListener {
 
 		setSize(350, 350);
 
-		Dimension d = this.getSize();
+		Dimension d = getSize();
 
 		setLocation(screenSize.width / 2 - (d.width / 2),
 				screenSize.height / 2 - (d.height / 2));
@@ -230,20 +245,20 @@ class Main extends JFrame implements Repect, ActionListener {
 			new CustCreate();
 		} else if (obj.equals(ref)) {
 			setVisible(false);
-
 		}
 	}
 }
 
 class CustCreate extends JFrame implements Repect {
 
-	int cust_idx = 0;
+	int cust_idx;
 	JButton conf, back;
 
 	public CustCreate() {
 
+		System.out.println(cust_idx);
 		cust.setPersonalNum(cust_idx + 1);
-		cust.setaccountNum("");
+		cust.setaccountNum(cust_idx);
 
 		add(new Label(""), "North");
 		add(new Label(""), "South");

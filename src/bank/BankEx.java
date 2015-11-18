@@ -48,7 +48,7 @@ public class BankEx extends Frame implements ActionListener,
 	public TextField tfid, tfpw;
 	public Dialog d;
 
-	Label check = new Label();
+	public Label check;
 
 	public BankEx() {
 		input1 = new Label("관리자 아이디와 패스워드를 입력하세요.", Label.CENTER);
@@ -134,8 +134,9 @@ public class BankEx extends Frame implements ActionListener,
 
 			d.setSize(100, 100);
 			d.setVisible(true);
-			d.setLocation(screenSize.width / 2 - (100 / 2),
-					screenSize.height / 2 - (100 / 2));
+			Dimension dd = d.getSize();
+			d.setLocation(screenSize.width / 2 - (dd.width / 2),
+					screenSize.height / 2 - (dd.height / 2));
 			d.add(no);
 
 			d.addWindowListener(new WindowAdapter() {
