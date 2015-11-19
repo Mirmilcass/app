@@ -137,25 +137,25 @@ class Login extends JFrame implements Repect, ActionListener {
 		Object obj = e.getSource();
 		JLabel no = new JLabel("일치 하지 않습니다.", (int) CENTER_ALIGNMENT);
 		JDialog d = new JDialog(this);
-		//		String driver = "oracle.jdbc.driver.OracleDriver";
-		//		String url = "jdbc:oracle:thin:@localhost:1522:orcl2";
-		//		Connection con = null;
-		//		Statement stmt = null;
+		String driver = "oracle.jdbc.driver.OracleDriver";
+		String url = "jdbc:oracle:thin:@localhost:1522:orcl2";
+		Connection con = null;
+		Statement stmt = null;
 		String id = "admin";
 		String pw = "admin";
 
 		if (obj.equals(exit)) {
 			System.exit(0);
 		} else if (obj.equals(conf)) {
-//			try {
-//				Class.forName(driver);
-//				con = DriverManager.getConnection(url, "hr", "hr");
-//				stmt = con.createStatement();
-//				ResultSet rs = stmt.executeQuery("select id from bank");
-//				String sid = rs.getString(1);
-//				String spw = rs.getString(2);
-				if (id.equals(jtfid.getText())
-						&& pw.equals(jtfpw.getText())) {
+			try {
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, "hr", "hr");
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("select id from bank");
+				String sid = rs.getString(1);
+				String spw = rs.getString(2);
+				if (sid.equals(jtfid.getText())
+						&& spw.equals(jtfpw.getText())) {
 					setVisible(false);
 					new Main();
 				} else {
@@ -169,9 +169,9 @@ class Login extends JFrame implements Repect, ActionListener {
 
 					d.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				}
-			//			} catch (Exception e1) {
-			//
-			//			}
+			} catch (Exception e1) {
+
+			}
 		}
 
 	}

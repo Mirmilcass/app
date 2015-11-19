@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class JDBC_Insert {
 	public static void main(String[] args) {
 		String driver = "oracle.jdbc.driver.OracleDriver";
-		String url = "jdbc:oracle:thin:@localhost:1522:orcl2";
+		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 		Connection con = null;
 		Statement stmt = null;
 		try {
@@ -30,7 +30,7 @@ public class JDBC_Insert {
 					stmt.close();
 				if (con != null)
 					con.close();
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
 		}
@@ -44,11 +44,7 @@ public class JDBC_Insert {
 		System.out.println(" customer 테이블에 값 입력하기 ....");
 		//		System.out.print("번호 입력 : ");
 
-		int num = 1;
-
-		//테이블에 추가할 name 필드 값을 입력 받음
-		//		System.out.print(" 이름 입력 : ");
-		//		String name = scan.next();
+		//		int num = 1;
 
 		// 테이블에 추가할 id 필드 값을 입력 받음
 		System.out.print(" 아이디 입력 : ");
@@ -57,6 +53,10 @@ public class JDBC_Insert {
 		// 테이블에 추가할 password 필드 값을 입력 받음
 		System.out.print(" 암  호 입력 : ");
 		String pw = scan.next();
+
+		//테이블에 추가할 name 필드 값을 입력 받음
+		System.out.print(" 이름 입력 : ");
+		String name = scan.next();
 
 		// 테이블에 추가할 gold 필드 값을 입력 받음
 		//		System.out.print(" 잔  고 입력 : ");
@@ -67,7 +67,8 @@ public class JDBC_Insert {
 		//		String vip = br.readLine(); // io사용시.
 
 		// INSERT 쿼리문을 작성
-		String sql = "INSERT into test values ('" + id + "','" + pw + "')";
+		String sql = "INSERT into chatuser values ('" + id + "','" + pw
+				+ "','" + name + "')";
 		return sql;
 
 	}

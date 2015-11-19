@@ -15,7 +15,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 	public JTextArea jta/*, clientList*/;
 	public JScrollPane jsp, list;
 	public JTextField jtf, hi, pi, localport, lid, lpw;
-	public JButton serveropen, textin, clientin, conf;
+	public JButton serveropen, textin, clientin, conf, join;
 	public JLabel name;
 	public JList clientList;
 
@@ -40,7 +40,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		m = new JPanel(new BorderLayout());
 		f = new JPanel(new BorderLayout());
 		s = new JPanel(new BorderLayout());
-		login = new JPanel(new GridLayout(4, 1));
+		login = new JPanel(new GridLayout(3, 1));
 
 		name = new JLabel(" 사용자 이름 ");
 
@@ -62,6 +62,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		textin = new JButton("입력");
 		clientin = new JButton("서버 접속");
 		conf = new JButton("로그인");
+		join = new JButton("회원가입");
 
 		addr = InetAddress.getLocalHost();
 
@@ -79,6 +80,8 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		localport.addActionListener(this);
 		lid.addActionListener(this);
 		lpw.addActionListener(this);
+		conf.addActionListener(this);
+		join.addActionListener(this);
 
 		jtf.addMouseListener(this);
 		hi.addMouseListener(this);
@@ -128,10 +131,9 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		lm.add(new Label());
 		lm.add(lpw);
 
-		login.add(new Label());
 		login.add(lm);
-		login.add(new Label());
 		login.add(conf);
+		login.add(join);
 
 		// 프레임 설정
 		add(h, "North");
@@ -139,10 +141,10 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		add(f, "South");
 
 		// 로그인 다이얼로그
-		jd = new JDialog(this);
+		jd = new JDialog();
 		jd.add(login);
+		jd.setSize(300, 300);
 		Dimension dd = jd.getSize();
-		jd.setSize(100, 100);
 		jd.setLocation(screenSize.width / 2 - (dd.width / 2),
 				screenSize.height / 2 - (dd.height / 2));
 		jd.setVisible(true);
@@ -177,39 +179,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		} else if (obj.equals(clientin)) {
 			ClientIn();
 		} else if (obj.equals(conf)) {
-			String driver = "oracle.jdbc.driver.OracleDriver";
-			String url = "jdbc:oracle:thin:@localhost:1522:orcl2";
-			Connection con = null;
-			Statement stmt = null;
-			try {
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, "hr", "hr");
-				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select id from test");
-				if (rs.next()) {
-					String id = rs.getString(1);
-					String pw = rs.getString(2);
-					if (id.equals(lid.getText())) {
-						if (pw.equals(lpw.getText())) {
-							jd.setVisible(false);
-							setVisible(true);
-						} else {
-							lpw.setText("일치하지 않습니다.");
-						}
-					} else
-						lid.setText("일치하지 않습니다.");
-				}
-			} catch (Exception e1) {
-				System.out.println("데이터 베이스 연결 실패!");
-			} finally {
-				try {
-					if (con != null)
-						con.close();
-				} catch (Exception e1) {
-					System.out.println(e1.getMessage());
-				}
-			}
-
+			login();
 		}
 
 	}
@@ -265,6 +235,48 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 	@Override
 	public void mouseReleased(MouseEvent e) {
 
+	}
+
+	public void login() {
+		String driver = "oracle.jdbc.driver.OracleDriver";
+		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		String id, pw, sql;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, "hr", "hr");
+			stmt = con.createStatement();
+			sql = "select * from chatuser where id = '" + lid.getText()
+					+ "'";
+			rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				pw = rs.getString(2);
+				if (lpw.getText().equals(pw)) {
+					jd.setVisible(false);
+					setVisible(true);
+				} else {
+					lpw.setText("일치하지 않습니다.");
+				}
+			} else {
+				lid.setText("일치하지 않습니다.");
+			}
+		} catch (Exception e1) {
+			System.out.println("데이터 베이스 연결 실패!");
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+				if (con != null)
+					con.close();
+			} catch (Exception e1) {
+				System.out.println(e1.getMessage());
+			}
+		}
 	}
 
 	@Override
