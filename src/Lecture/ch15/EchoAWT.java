@@ -40,7 +40,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		m = new JPanel(new BorderLayout());
 		f = new JPanel(new BorderLayout());
 		s = new JPanel(new BorderLayout());
-		login = new JPanel(new GridLayout(3, 1));
+		login = new JPanel(new BorderLayout());
 
 		name = new JLabel(" 사용자 이름 ");
 
@@ -125,16 +125,6 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		m.add(jsp, "Center");
 		m.add(s, "West");
 
-		// 로그인창
-		JPanel lm = new JPanel(new GridLayout(3, 1));
-		lm.add(lid);
-		lm.add(new Label());
-		lm.add(lpw);
-
-		login.add(lm);
-		login.add(conf);
-		login.add(join);
-
 		// 프레임 설정
 		add(h, "North");
 		add(m, "Center");
@@ -142,13 +132,31 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 
 		// 로그인 다이얼로그
 		jd = new JDialog();
+		jd.setTitle("채팅 로그인");
 		jd.add(login);
-		jd.setSize(300, 300);
+		jd.setSize(200, 200);
 		Dimension dd = jd.getSize();
 		jd.setLocation(screenSize.width / 2 - (dd.width / 2),
 				screenSize.height / 2 - (dd.height / 2));
 		jd.setVisible(true);
 		jd.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+		// 로그인창
+		JPanel lm = new JPanel(new GridLayout(4, 1));
+		lm.add(lid);
+		lm.add(new Label());
+		lm.add(lpw);
+		lm.add(new Label());
+
+		JPanel bt = new JPanel();
+		bt.add(conf);
+		bt.add(join);
+
+		login.add(new Label(), "North");
+		login.add(new Label(), "West");
+		login.add(new Label(), "East");
+		login.add(lm, "Center");
+		login.add(bt, "South");
 
 		// 창의 위치, 보임, EXIT 단추 활성화.
 		setLocation(screenSize.width / 2 - (d.width / 2),
@@ -169,15 +177,15 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		// TODO action
 		Object obj = e.getSource();
 
-		if (obj.equals(jtf)) {
+		if (obj.equals(jtf) || obj.equals(textin)) {
 			name.setText(" 메시지 입력 ");
 			pw.println(jtf.getText());
 			jtf.setText("");
 		} else if (obj.equals(serveropen)) {
 			ServerOpen();
-			jta.setText("");
-		} else if (obj.equals(clientin)) {
+		} else if (obj.equals(clientin) || obj.equals(pi)) {
 			ClientIn();
+			jta.setText("접속 되었습니다.\n");
 		} else if (obj.equals(conf)) {
 			login();
 		}
@@ -239,7 +247,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 
 	public void login() {
 		String driver = "oracle.jdbc.driver.OracleDriver";
-		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -264,6 +272,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 				lid.setText("일치하지 않습니다.");
 			}
 		} catch (Exception e1) {
+			e1.printStackTrace();
 			System.out.println("데이터 베이스 연결 실패!");
 		} finally {
 			try {
