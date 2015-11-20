@@ -31,6 +31,8 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 
 	public JDialog jd;
 
+	public String nick;
+
 	public EchoAWT() throws UnknownHostException {
 
 		super("채팅 프로그램");
@@ -42,7 +44,8 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		s = new JPanel(new BorderLayout());
 		login = new JPanel(new BorderLayout());
 
-		name = new JLabel(" 사용자 이름 ");
+		//		name = new JLabel(" 사용자 이름 ");
+		name = new JLabel(" 메세지 입력 ");
 
 		jta = new JTextArea();
 		//		clientList = new JTextArea(0, 10);
@@ -51,7 +54,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		jsp = new JScrollPane(jta);
 		list = new JScrollPane(clientList);
 
-		jtf = new JTextField("아이디를 입력하세요.");
+		jtf = new JTextField("입력하세요.");
 		hi = new JTextField("HOST IP 입력");
 		pi = new JTextField("PORT 입력");
 		localport = new JTextField("원하는 PORT 입력");
@@ -178,7 +181,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		Object obj = e.getSource();
 
 		if (obj.equals(jtf) || obj.equals(textin)) {
-			name.setText(" 메시지 입력 ");
+			//			name.setText(" 메시지 입력 ");
 			pw.println(jtf.getText());
 			jtf.setText("");
 		} else if (obj.equals(serveropen)) {
@@ -247,7 +250,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 
 	public void login() {
 		String driver = "oracle.jdbc.driver.OracleDriver";
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -262,6 +265,8 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				pw = rs.getString(2);
+				nick = rs.getString(3);
+				System.out.println(nick);
 				if (lpw.getText().equals(pw)) {
 					jd.setVisible(false);
 					setVisible(true);
@@ -273,7 +278,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
-			System.out.println("데이터 베이스 연결 실패!");
+			System.out.println("데이터 베이스 연결 실패!!");
 		} finally {
 			try {
 				if (rs != null)

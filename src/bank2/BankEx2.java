@@ -15,38 +15,38 @@ package bank2;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Checkbox;
+import java.awt.CheckboxGroup;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-interface Repect {
+import oracle.DBAction;
+
+interface Tool {
 	Toolkit tk = Toolkit.getDefaultToolkit();
 	Dimension screenSize = tk.getScreenSize();
-
-	public ArrayList<Customer2> custArr = new ArrayList<Customer2>();
-	public Customer2 cust = new Customer2();
-
 }
 
-public class BankEx2 implements Repect {
+public class BankEx2 implements Tool {
 	//TODO 메인
 
 	public static void main(String[] args) {
@@ -54,7 +54,7 @@ public class BankEx2 implements Repect {
 	}
 }
 
-class Login extends JFrame implements Repect, ActionListener {
+class Login extends JFrame implements Tool, ActionListener {
 
 	private JTextField jtfid, jtfpw;
 	private JButton conf, exit;
@@ -77,8 +77,8 @@ class Login extends JFrame implements Repect, ActionListener {
 		main.add(herder, "North");
 
 		herder.add(new Label(""), "North");
-		herder.add(new JLabel("관리자의 아이디와 패스워드를 입력하세요.", Label.CENTER),
-				"Center");
+		herder.add(new JLabel("관리자의 아이디와 패스워드를 입력하세요.",
+				(int) CENTER_ALIGNMENT), "Center");
 		herder.add(new Label(""), "South");
 
 		JPanel input = new JPanel(new GridLayout(9, 2));
@@ -116,8 +116,22 @@ class Login extends JFrame implements Repect, ActionListener {
 		footer.add(conf);
 		footer.add(exit);
 
+		jtfpw.addActionListener(this);
 		conf.addActionListener(this);
 		exit.addActionListener(this);
+
+		jtfid.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				jtfid.setText("");
+			}
+		});
+		jtfpw.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				jtfpw.setText("");
+			}
+		});
 
 		setSize(350, 350);
 		Dimension d = getSize();
@@ -135,49 +149,40 @@ class Login extends JFrame implements Repect, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
-		JLabel no = new JLabel("일치 하지 않습니다.", (int) CENTER_ALIGNMENT);
-		JDialog d = new JDialog(this);
-		String driver = "oracle.jdbc.driver.OracleDriver";
-		String url = "jdbc:oracle:thin:@localhost:1522:orcl2";
-		Connection con = null;
-		Statement stmt = null;
-		String id = "admin";
-		String pw = "admin";
 
 		if (obj.equals(exit)) {
 			System.exit(0);
-		} else if (obj.equals(conf)) {
+		} else if (obj.equals(conf) || obj.equals(jtfpw)) {
+			Connection conn = DBAction.getInstance().getConnection();
+
+			String sql = "select * from bankadmin where id = '"
+					+ jtfid.getText() + "'";
+
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
 			try {
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, "hr", "hr");
-				stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select id from bank");
-				String sid = rs.getString(1);
-				String spw = rs.getString(2);
-				if (sid.equals(jtfid.getText())
-						&& spw.equals(jtfpw.getText())) {
-					setVisible(false);
-					new Main();
-				} else {
-					d.setSize(100, 100);
-					d.setVisible(true);
-					d.add(no);
-					Dimension s = d.getSize();
-
-					d.setLocation(screenSize.width / 2 - (s.width / 2),
-							screenSize.height / 2 - (s.height / 2));
-
-					d.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				}
-			} catch (Exception e1) {
-
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					String pw = rs.getString("pw");
+					if (pw.equals(jtfpw.getText())) {
+						setVisible(false);
+						new Main();
+					} else {
+						jtfpw.setText("암호가 틀립니다.");
+					}
+				} else
+					jtfid.setText("아이디가 틀립니다.");
+			} catch (SQLException e1) {
+				System.out.println(e1.getMessage());
 			}
 		}
 
 	}
 }
 
-class Can extends Canvas implements Repect {
+class Can extends Canvas implements Tool {
 	public Image img;
 
 	public Can() {
@@ -191,8 +196,9 @@ class Can extends Canvas implements Repect {
 
 }
 
-class Main extends JFrame implements Repect, ActionListener {
+class Main extends JFrame implements Tool, ActionListener {
 
+	private static Main instance;
 	JButton create, ref;
 
 	public Main() {
@@ -218,6 +224,8 @@ class Main extends JFrame implements Repect, ActionListener {
 		select.add(new Label(""));
 		select.add(ref);
 		select.add(new Label(""));
+
+		add(main, "Center");
 
 		create.addActionListener(this);
 		ref.addActionListener(this);
@@ -249,16 +257,26 @@ class Main extends JFrame implements Repect, ActionListener {
 	}
 }
 
-class CustCreate extends JFrame implements Repect {
+class CustCreate extends JFrame implements Tool {
 
-	int cust_idx;
-	JButton conf, back;
+	int cust_idx = 0;
+
+	private JButton conf, back;
+
+	private TextField tfid, tfpw, tfcpw, tfname, tfbal;
+
+	private Customer2 cust;
+
+	CheckboxGroup ch;
+	Checkbox ncust, vcust;
 
 	public CustCreate() {
+		cust = new Customer2();
 
-		System.out.println(cust_idx);
-		cust.setPersonalNum(cust_idx + 1);
+		cust.setPersonalNum(cust_idx);
 		cust.setaccountNum(cust_idx);
+
+		setLayout(new BorderLayout());
 
 		add(new Label(""), "North");
 		add(new Label(""), "South");
@@ -278,9 +296,72 @@ class CustCreate extends JFrame implements Repect {
 				(int) CENTER_ALIGNMENT), "Center");
 		header.add(new Label(""), "South");
 
-		JPanel input = new JPanel(new GridBagLayout());
+		JPanel input = new JPanel(new GridLayout(9, 2));
 
 		Main.add(input, "Center");
+
+		tfid = new TextField(25);
+		tfpw = new TextField(25);
+		tfcpw = new TextField(25);
+		tfname = new TextField(25);
+		tfbal = new TextField(25);
+
+		ch = new CheckboxGroup();
+		ncust = new Checkbox("일반 고객", true, ch);
+		vcust = new Checkbox("우수 고객", false, ch);
+
+		input.add(new Label("아이디  : "));
+		input.add(tfid);
+		input.add(new Label(""));
+		input.add(new Label(""));
+		input.add(new Label("패스워드 : "));
+		input.add(tfpw);
+		input.add(new Label(""));
+		input.add(new Label(""));
+		input.add(new Label("패스워드 확인 : "));
+		input.add(tfcpw);
+		input.add(new Label(""));
+		input.add(new Label(""));
+		input.add(new Label("이름 : "));
+		input.add(tfname);
+		input.add(new Label(""));
+		input.add(new Label(""));
+		input.add(new Label("잔액 : "));
+		input.add(tfbal);
+
+		JPanel footer = new JPanel(new BorderLayout());
+
+		Main.add(footer, "South");
+
+		JPanel cho = new JPanel();
+
+		cho.add(ncust);
+		cho.add(vcust);
+
+		footer.add(cho, "North");
+
+		conf = new JButton("저장");
+		back = new JButton("뒤로");
+
+		conf.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cust_idx++;
+			}
+		});
+		back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//				Main.setVisible(true);
+			}
+		});
+
+		footer.add(conf, "West");
+		footer.add(back, "East");
+
+		add(Main, "Center");
 
 		setSize(350, 350);
 
@@ -292,7 +373,6 @@ class CustCreate extends JFrame implements Repect {
 		setVisible(true);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 		++cust_idx;
 	}
 }

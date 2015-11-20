@@ -1,17 +1,15 @@
-package bank2;
+package bank;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 
 import oracle.DBAction;
 
-class Customer2 implements Tool {
+public class Customer {
 
-	private int PersonalNum;
-	private String accountNum;
+	private int idx;
 	private String id;
 	private String pw;
 	private String Name;
@@ -21,32 +19,14 @@ class Customer2 implements Tool {
 	private int tax;
 
 	public int getPersonalNum() {
-		return PersonalNum;
+		return idx;
 	}
 
 	public void setPersonalNum(int i) {
-		PersonalNum = i + 1;
+		idx = i;
 	}
 
-	public String getaccountNum() {
-		return accountNum;
-	}
-
-	public void setaccountNum(int i) {
-		int[] accnum = new int[7];
-		Random ran = new Random();
-		StringBuffer an = new StringBuffer();
-		String personal = String.format("%03d", PersonalNum);
-
-		for (int j = 0; j < accnum.length; j++) {
-			accnum[j] = ran.nextInt(10);
-			an.append(accnum[j]);
-		}
-		accountNum = "620 - " + an + " - " + personal;
-
-	}
-
-	public void setId(String i) {
+	public void setId(String id) {
 		Connection conn = DBAction.getInstance().getConnection();
 
 		String sql;
@@ -55,16 +35,16 @@ class Customer2 implements Tool {
 		ResultSet rs = null;
 
 		try {
-			sql = "select id from customer where id ='" + i + "'";
+			sql = "select id from customer where id ='" + id + "'";
 
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				if (i.equals(rs.getShort("id"))) {
+				if (id.equals(rs.getShort("id"))) {
 
 				} else
-					id = i;
+					this.id = id;
 			}
 
 		} catch (SQLException e) {
@@ -96,7 +76,6 @@ class Customer2 implements Tool {
 	}
 
 	public void setVip(String vip) {
-
 		if (vip.equals("快荐 绊按")) {
 			this.vip = "快荐 绊按";
 			setTax(0);

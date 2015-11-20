@@ -21,8 +21,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+
+import oracle.DBAction;
 
 /*
 로그인 
@@ -109,6 +115,7 @@ public class BankEx extends Frame implements ActionListener,
 			}
 		});
 
+		tfpw.addActionListener(this);
 		conf.addActionListener(this);
 	}
 
@@ -118,37 +125,67 @@ public class BankEx extends Frame implements ActionListener,
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String id = "admin";
-		String pw = "admin";
+		//		String id = "admin";
+		//		String pw = "admin";
+
+		Connection conn = DBAction.getInstance().getConnection();
+
+		String sql;
+
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
 
 		Label no = new Label("일치하지 않습니다.");
 
-		if (id.equals(tfid.getText()) && pw.equals(tfpw.getText())) {
+		try {
 
-			setVisible(false);
-			new main();
+			sql = "select * from bankadmin where id = '" + tfid.getText()
+					+ "'";
 
-		} else {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 
-			check.setText(tfid.getText());
+			if (rs.next()) {
+				String pw = rs.getString("pw");
+				if (tfpw.getText().equals(pw)) {
 
-			d.setSize(100, 100);
-			d.setVisible(true);
-			Dimension dd = d.getSize();
-			d.setLocation(screenSize.width / 2 - (dd.width / 2),
-					screenSize.height / 2 - (dd.height / 2));
-			d.add(no);
+					setVisible(false);
+					new main();
 
-			d.addWindowListener(new WindowAdapter() {
-				@Override
-				public void windowClosing(WindowEvent e) {
+				} else {
 
-					d.dispose();
+					check.setText(tfid.getText());
+
+					d.setSize(100, 100);
+					d.setVisible(true);
+					Dimension dd = d.getSize();
+					d.setLocation(screenSize.width / 2 - (dd.width / 2),
+							screenSize.height / 2 - (dd.height / 2));
+					d.add(no);
+
+					d.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosing(WindowEvent e) {
+
+							d.dispose();
+						}
+					});
 				}
-			});
+			}
+
+		} catch (SQLException e1) {
+			System.out.println(e1.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException e1) {
+				System.out.println(e1.getMessage());
+			}
 		}
 	}
-
 }
 
 class main extends Frame implements ActionListener, BankSystemInterface {
@@ -205,7 +242,7 @@ class main extends Frame implements ActionListener, BankSystemInterface {
 		if (obj.equals(create)) {
 			new CustomerCreate();
 		} else if (obj.equals(reference)) {
-			new Customerreference();
+			new CustomerReference();
 		}
 	}
 }
@@ -304,15 +341,29 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				cos.setPersonalNum(cust_idx);
-				cos.setId(tfid.getText());
-				cos.setPw(tfpw.getText());
-				cos.cheack(tfcpw.getText());
-				cos.setName(tfname.getText());
-				cos.setBal((Integer.parseInt(tfbal.getText())));
-				cos.setVip(ch.getSelectedCheckbox().getLabel());
-				System.out.println(cos.getVip());
-				cosArr.add(cos);
+				Connection conn = DBAction.getInstance().getConnection();
+
+				String sql;
+
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+
+				try {
+					sql = "select * from customer where id ='" + id + "'";
+
+					pstmt = conn.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+
+					if (rs.next()) {
+						if (id.equals(rs.getShort("id"))) {
+
+						}
+						//							this.id = id;
+					}
+
+				} catch (SQLException e1) {
+					System.out.println(e1.getMessage());
+				}
 			}
 		});
 		back.addActionListener(new ActionListener() {
@@ -360,19 +411,17 @@ class CustomerCreate extends Frame implements BankSystemInterface {
 	}
 }
 
-class Customerreference extends Frame implements BankSystemInterface {
+class CustomerReference extends Frame implements BankSystemInterface {
 
 	public Panel rmp, rep, viewp, view;
-	public Label lname, lid, lbal, lname2[] = new Label[cosArr.size()],
-			lid2[] = new Label[cosArr.size()], lbal2[] = new Label[cosArr
-					.size()];
+	public Label lname, lid, lbal;
 	public TextField tf;
 	public Button conf, back, edit;
 
 	private Choice cho;
 	private Object choobj, confobj;
 
-	Customerreference() {
+	public CustomerReference() {
 
 		setTitle("고객 조회");
 
@@ -383,12 +432,6 @@ class Customerreference extends Frame implements BankSystemInterface {
 		lname = new Label("이름", Label.CENTER);
 		lid = new Label("아이디", Label.CENTER);
 		lbal = new Label("잔액", Label.CENTER);
-
-		for (int i = 0; i < cosArr.size(); i++) {
-			lname2[i] = new Label("", Label.CENTER);
-			lid2[i] = new Label("", Label.CENTER);
-			lbal2[i] = new Label("", Label.CENTER);
-		}
 
 		tf = new TextField("", 25);
 
@@ -412,15 +455,8 @@ class Customerreference extends Frame implements BankSystemInterface {
 		viewHeader.add(lname);
 		viewHeader.add(lbal);
 
-		view = new Panel(new GridLayout(cosArr.size(), 3));
-		for (int i = 0; i < cosArr.size(); i++) {
-			view.add(lid2[i]);
-			view.add(lname2[i]);
-			view.add(lbal2[i]);
-		}
-
 		viewp.add(viewHeader, "North");
-		viewp.add(view, "Center");
+		//		viewp.add(view, "Center");
 
 		Panel footer = new Panel();
 
@@ -435,19 +471,6 @@ class Customerreference extends Frame implements BankSystemInterface {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(conf.getLabel());
-				System.out.println(cho.getSelectedItem());
-
-				confobj = e.getSource();
-				if (cho.getSelectedItem().equals("전체")) {
-					for (int i = 0; i < cosArr.size(); i++) {
-
-						lid2[i].setText(cosArr.get(i).getId());
-						lname2[i].setText(cosArr.get(i).getName());
-						lbal2[i].setText("" + cosArr.get(i).getBal());
-					}
-				}
-
 			}
 		});
 
@@ -528,106 +551,6 @@ interface BankSystemInterface {
 	Toolkit tk = Toolkit.getDefaultToolkit();
 	Dimension screenSize = tk.getScreenSize();
 
-	ArrayList<Customer> cosArr = new ArrayList<Customer>();
 	Customer cos = new Customer();
-
-}
-
-class Customer implements BankSystemInterface {
-
-	private int PersonalNum;
-	private String id;
-	private String pw;
-	private String Name;
-	String checkpass;
-	private int Bal;
-	public int idx;
-	private String vip;
-	private int tax;
-
-	public int getPersonalNum() {
-		return PersonalNum;
-	}
-
-	public void setPersonalNum(int i) {
-		PersonalNum = i;
-	}
-
-	public void setId(String i) {
-		id = i;
-		/*
-				do {
-					if (PersonalNum > 1) {
-						for (int j = 0; j < cosArr.size(); j++) {
-							if (i.equals(cosArr.get(j).getId())) {
-								System.out
-										.println("이미 존재하는 ID입니다. 다른 ID를 사용해 주세요.");
-								setId(scan.next());
-							}
-						}
-					}
-					id = i;
-					break;
-				} while (true);
-		*/
-	}
-
-	public String getId() {
-		return this.id;
-	}
-
-	public String getPw() {
-		return pw;
-	}
-
-	public void setPw(String pw) {
-		this.pw = pw;
-	}
-
-	public void cheack(String i) {
-		if (i.equals(pw)) {
-		} else {
-			//			System.out.print("일치하지 않습니다. 다시 입력해주세요.");
-			//			cheack(scan.next());
-		}
-	}
-
-	public String getVip() {
-		return vip;
-	}
-
-	public void setVip(String vip) {
-		if (vip.equals("우수 고객")) {
-			this.vip = "우수 고객";
-			setTax(0);
-		} else if (vip.equals("일반 고객")) {
-			this.vip = "일반 고객";
-			setTax(500);
-		}
-	}
-
-	public int getTax() {
-		return tax;
-	}
-
-	public void setTax(int tax) {
-		this.tax = tax;
-	}
-
-	public int getBal() {
-		return Bal;
-	}
-
-	public void setBal(int bal) {
-		Bal = bal;
-	}
-
-	public String getName() {
-		return Name;
-	}
-
-	public void setName(String name) {
-		Name = name;
-	}
 
 }

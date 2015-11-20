@@ -9,7 +9,7 @@ public class ChatHandler extends Thread {
 	private BufferedReader i;
 	private PrintWriter o;
 	private ChatServer server;
-	private StringTokenizer st;
+	private String name;
 
 	public ChatHandler(ChatServer server, Socket s) throws IOException {
 		this.s = s;
@@ -21,9 +21,9 @@ public class ChatHandler extends Thread {
 	}
 
 	public void run() {
-		String name = "";
 		try {
-			name = i.readLine();
+			name = new EchoAWT().nick;
+			System.out.println(name);
 			server.register(this);
 			broadcast(name + "¥‘¿Ã πÊπÆ«œºÃΩ¿¥œ¥Ÿ.");
 			while (true) {

@@ -1,0 +1,9 @@
+
+
+
+
+alter table 테이블명 modify 컬럼명 데이터타잎;
+alter table 테이블명 add 컬럼명 테이터타잎; 
+alter table 테이블명 drop column 컬럼명;
+
+alter table 테이블명 add 컬럼명 date default sysdate; // 현재 시간의 정보를 기록;
