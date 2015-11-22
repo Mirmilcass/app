@@ -11,8 +11,16 @@ public class DBAction {
 	public DBAction() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection(
-					"jdbc:oracle:thin:@localhost:1521:orcl", "hr", "hr");
+			// 학원 사용
+			conn =
+					DriverManager
+							.getConnection(
+									"jdbc:oracle:thin:@localhost:1521:orcl",
+									"hr", "hr");
+
+			// 집 사용
+//			conn = DriverManager.getConnection(
+//					"jdbc:oracle:thin:@localhost:1521:xe", "hr", "hr");
 		} catch (ClassNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (SQLException e) {

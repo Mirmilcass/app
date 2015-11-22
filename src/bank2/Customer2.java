@@ -15,9 +15,9 @@ class Customer2 implements Tool {
 	private String id;
 	private String pw;
 	private String Name;
-	String checkpass;
+	public String checkpass;
 	private int Bal;
-	private String vip;
+	private int vip;
 	private int tax;
 
 	public int getPersonalNum() {
@@ -25,7 +25,8 @@ class Customer2 implements Tool {
 	}
 
 	public void setPersonalNum(int i) {
-		PersonalNum = i + 1;
+		PersonalNum =
+				i + 1;
 	}
 
 	public String getaccountNum() {
@@ -33,42 +34,69 @@ class Customer2 implements Tool {
 	}
 
 	public void setaccountNum(int i) {
-		int[] accnum = new int[7];
-		Random ran = new Random();
-		StringBuffer an = new StringBuffer();
-		String personal = String.format("%03d", PersonalNum);
+		int[] accnum =
+				new int[7];
+		Random ran =
+				new Random();
+		StringBuffer an =
+				new StringBuffer();
+		String personal =
+				String.format("%03d", PersonalNum);
 
-		for (int j = 0; j < accnum.length; j++) {
-			accnum[j] = ran.nextInt(10);
+		for (int j =
+				0; j < accnum.length; j++) {
+			accnum[j] =
+					ran.nextInt(10);
 			an.append(accnum[j]);
 		}
-		accountNum = "620 - " + an + " - " + personal;
+		accountNum =
+				"620 - "
+						+ an + " - " + personal;
 
 	}
 
 	public void setId(String i) {
-		Connection conn = DBAction.getInstance().getConnection();
+		Connection conn =
+				DBAction.getInstance().getConnection();
 
 		String sql;
 
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		PreparedStatement pstmt =
+				null;
+		ResultSet rs =
+				null;
 
 		try {
-			sql = "select id from customer where id ='" + i + "'";
+			sql =
+					"select id from customer where id ='"
+							+ i + "'";
 
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+			pstmt =
+					conn.prepareStatement(sql);
+			rs =
+					pstmt.executeQuery();
 
 			if (rs.next()) {
 				if (i.equals(rs.getShort("id"))) {
-
+					id =
+							null;
 				} else
-					id = i;
+					id =
+							i;
 			}
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 
@@ -81,28 +109,35 @@ class Customer2 implements Tool {
 	}
 
 	public void setPw(String pw) {
-		this.pw = pw;
+		this.pw =
+				pw;
 	}
 
 	public void cheack(String i) {
-		//		if (i.equals(pw)) {
-		//		} else {
-		//			pr.append("\n패스워드가 일치하지 않습니다. 다시 입력해주세요.");
-		//		}
+		if (i.equals(pw)) {
+
+		} else {
+			pw =
+					null;
+		}
 	}
 
-	public String getVip() {
+	public int getVip() {
 		return vip;
 	}
 
 	public void setVip(String vip) {
 
 		if (vip.equals("우수 고객")) {
-			this.vip = "우수 고객";
-			setTax(0);
+			this.vip =
+					1;
+			tax =
+					0;
 		} else if (vip.equals("일반 고객")) {
-			this.vip = "일반 고객";
-			setTax(500);
+			this.vip =
+					0;
+			tax =
+					500;
 		}
 	}
 
@@ -111,7 +146,8 @@ class Customer2 implements Tool {
 	}
 
 	public void setTax(int tax) {
-		this.tax = tax;
+		this.tax =
+				tax;
 	}
 
 	public int getBal() {
@@ -119,7 +155,8 @@ class Customer2 implements Tool {
 	}
 
 	public void setBal(int bal) {
-		Bal = bal;
+		Bal =
+				bal;
 	}
 
 	public String getName() {
@@ -127,7 +164,8 @@ class Customer2 implements Tool {
 	}
 
 	public void setName(String name) {
-		Name = name;
+		Name =
+				name;
 	}
 
 }

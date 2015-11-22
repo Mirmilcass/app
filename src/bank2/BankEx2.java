@@ -22,10 +22,11 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Label;
-import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
@@ -42,8 +43,10 @@ import javax.swing.JTextField;
 import oracle.DBAction;
 
 interface Tool {
-	Toolkit tk = Toolkit.getDefaultToolkit();
-	Dimension screenSize = tk.getScreenSize();
+	Toolkit tk =
+			Toolkit.getDefaultToolkit();
+	Dimension screenSize =
+			tk.getScreenSize();
 }
 
 public class BankEx2 implements Tool {
@@ -68,25 +71,30 @@ class Login extends JFrame implements Tool, ActionListener {
 		add(new Label(""), "West");
 		add(new Label(""), "East");
 
-		JPanel main = new JPanel(new BorderLayout());
+		JPanel main =
+				new JPanel(new BorderLayout());
 
 		add(main, "Center");
 
-		JPanel herder = new JPanel();
+		JPanel header =
+				new JPanel(new BorderLayout());
 
-		main.add(herder, "North");
+		main.add(header, "North");
 
-		herder.add(new Label(""), "North");
-		herder.add(new JLabel("관리자의 아이디와 패스워드를 입력하세요.",
+		header.add(new Label(""), "North");
+		header.add(new JLabel("관리자의 아이디와 패스워드를 입력하세요.",
 				(int) CENTER_ALIGNMENT), "Center");
-		herder.add(new Label(""), "South");
+		header.add(new Label(""), "South");
 
-		JPanel input = new JPanel(new GridLayout(9, 2));
+		JPanel input =
+				new JPanel(new GridLayout(9, 2));
 
 		main.add(input, "Center");
 
-		jtfid = new JTextField(20);
-		jtfpw = new JTextField(20);
+		jtfid =
+				new JTextField(20);
+		jtfpw =
+				new JTextField(20);
 
 		input.add(new Label(""));
 		input.add(new Label(""));
@@ -106,16 +114,20 @@ class Login extends JFrame implements Tool, ActionListener {
 		input.add(new Label(""));
 		input.add(new Label(""));
 
-		JPanel footer = new JPanel();
+		JPanel footer =
+				new JPanel();
 
 		main.add(footer, "South");
 
-		conf = new JButton("확인");
-		exit = new JButton("종료");
+		conf =
+				new JButton("확인");
+		exit =
+				new JButton("종료");
 
 		footer.add(conf);
 		footer.add(exit);
 
+		jtfid.addActionListener(this);
 		jtfpw.addActionListener(this);
 		conf.addActionListener(this);
 		exit.addActionListener(this);
@@ -134,10 +146,12 @@ class Login extends JFrame implements Tool, ActionListener {
 		});
 
 		setSize(350, 350);
-		Dimension d = getSize();
+		Dimension d =
+				getSize();
 
-		setLocation(screenSize.width / 2 - (d.width / 2),
-				screenSize.height / 2 - (d.height / 2));
+		setLocation(screenSize.width
+				/ 2 - (d.width / 2), screenSize.height
+				/ 2 - (d.height / 2));
 
 		setVisible(true);
 
@@ -148,24 +162,33 @@ class Login extends JFrame implements Tool, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		Object obj = e.getSource();
+		Object obj =
+				e.getSource();
 
 		if (obj.equals(exit)) {
 			System.exit(0);
-		} else if (obj.equals(conf) || obj.equals(jtfpw)) {
-			Connection conn = DBAction.getInstance().getConnection();
+		} else if (obj.equals(conf)
+				|| obj.equals(jtfpw) || obj.equals(jtfid)) {
+			Connection conn =
+					DBAction.getInstance().getConnection();
 
-			String sql = "select * from bankadmin where id = '"
-					+ jtfid.getText() + "'";
+			String sql =
+					"select * from bankadmin where id = '"
+							+ jtfid.getText() + "'";
 
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
+			PreparedStatement pstmt =
+					null;
+			ResultSet rs =
+					null;
 
 			try {
-				pstmt = conn.prepareStatement(sql);
-				rs = pstmt.executeQuery();
+				pstmt =
+						conn.prepareStatement(sql);
+				rs =
+						pstmt.executeQuery();
 				if (rs.next()) {
-					String pw = rs.getString("pw");
+					String pw =
+							rs.getString("pw");
 					if (pw.equals(jtfpw.getText())) {
 						setVisible(false);
 						new Main();
@@ -186,7 +209,8 @@ class Can extends Canvas implements Tool {
 	public Image img;
 
 	public Can() {
-		img = tk.getImage("d:/img/duke.jpg");
+		img =
+				tk.getImage("d:/img/duke.jpg");
 	}
 
 	@Override
@@ -198,7 +222,6 @@ class Can extends Canvas implements Tool {
 
 class Main extends JFrame implements Tool, ActionListener {
 
-	private static Main instance;
 	JButton create, ref;
 
 	public Main() {
@@ -208,16 +231,20 @@ class Main extends JFrame implements Tool, ActionListener {
 		add(new Label(""), "West");
 		add(new Label(""), "East");
 
-		JPanel main = new JPanel(new GridLayout(1, 2));
+		JPanel main =
+				new JPanel(new GridLayout(1, 2));
 
 		main.add(new Can());
 
-		JPanel select = new JPanel(new GridLayout(5, 1));
+		JPanel select =
+				new JPanel(new GridLayout(5, 1));
 
 		main.add(select);
 
-		create = new JButton("고객 생성");
-		ref = new JButton("고객 조회");
+		create =
+				new JButton("고객 생성");
+		ref =
+				new JButton("고객 조회");
 
 		select.add(new Label(""));
 		select.add(create);
@@ -232,10 +259,12 @@ class Main extends JFrame implements Tool, ActionListener {
 
 		setSize(350, 350);
 
-		Dimension d = getSize();
+		Dimension d =
+				getSize();
 
-		setLocation(screenSize.width / 2 - (d.width / 2),
-				screenSize.height / 2 - (d.height / 2));
+		setLocation(screenSize.width
+				/ 2 - (d.width / 2), screenSize.height
+				/ 2 - (d.height / 2));
 
 		setVisible(true);
 
@@ -246,7 +275,8 @@ class Main extends JFrame implements Tool, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		Object obj = e.getSource();
+		Object obj =
+				e.getSource();
 
 		if (obj.equals(create)) {
 			setVisible(false);
@@ -257,21 +287,23 @@ class Main extends JFrame implements Tool, ActionListener {
 	}
 }
 
-class CustCreate extends JFrame implements Tool {
+class CustCreate extends Main implements ItemListener {
 
-	int cust_idx = 0;
+	int cust_idx =
+			0;
 
 	private JButton conf, back;
 
-	private TextField tfid, tfpw, tfcpw, tfname, tfbal;
+	private JTextField tfid, tfpw, tfcpw, tfname, tfbal;
 
 	private Customer2 cust;
 
-	CheckboxGroup ch;
-	Checkbox ncust, vcust;
+	private CheckboxGroup ch;
+	private Checkbox ncust, vcust;
 
 	public CustCreate() {
-		cust = new Customer2();
+		cust =
+				new Customer2();
 
 		cust.setPersonalNum(cust_idx);
 		cust.setaccountNum(cust_idx);
@@ -283,32 +315,44 @@ class CustCreate extends JFrame implements Tool {
 		add(new Label(""), "West");
 		add(new Label(""), "East");
 
-		JPanel Main = new JPanel(new BorderLayout());
+		JPanel Main =
+				new JPanel(new BorderLayout());
 
 		add(Main, "Center");
 
-		JPanel header = new JPanel(new BorderLayout());
+		JPanel header =
+				new JPanel(new BorderLayout());
 
 		Main.add(header, "North");
 
 		header.add(new Label(""), "North");
-		header.add(new JLabel("계좌 번호 : " + cust.getaccountNum(),
-				(int) CENTER_ALIGNMENT), "Center");
+		header.add(new JLabel("계좌 번호 : "
+				+ cust.getaccountNum(), (int) CENTER_ALIGNMENT),
+				"Center");
 		header.add(new Label(""), "South");
 
-		JPanel input = new JPanel(new GridLayout(9, 2));
+		JPanel input =
+				new JPanel(new GridLayout(9, 2));
 
 		Main.add(input, "Center");
 
-		tfid = new TextField(25);
-		tfpw = new TextField(25);
-		tfcpw = new TextField(25);
-		tfname = new TextField(25);
-		tfbal = new TextField(25);
+		tfid =
+				new JTextField(25);
+		tfpw =
+				new JTextField(25);
+		tfcpw =
+				new JTextField(25);
+		tfname =
+				new JTextField(25);
+		tfbal =
+				new JTextField(25);
 
-		ch = new CheckboxGroup();
-		ncust = new Checkbox("일반 고객", true, ch);
-		vcust = new Checkbox("우수 고객", false, ch);
+		ch =
+				new CheckboxGroup();
+		ncust =
+				new Checkbox("일반 고객", true, ch);
+		vcust =
+				new Checkbox("우수 고객", false, ch);
 
 		input.add(new Label("아이디  : "));
 		input.add(tfid);
@@ -329,19 +373,26 @@ class CustCreate extends JFrame implements Tool {
 		input.add(new Label("잔액 : "));
 		input.add(tfbal);
 
-		JPanel footer = new JPanel(new BorderLayout());
+		JPanel footer =
+				new JPanel(new BorderLayout());
 
 		Main.add(footer, "South");
 
-		JPanel cho = new JPanel();
+		JPanel cho =
+				new JPanel();
 
 		cho.add(ncust);
 		cho.add(vcust);
 
+		ncust.addItemListener(this);
+		vcust.addItemListener(this);
+
 		footer.add(cho, "North");
 
-		conf = new JButton("저장");
-		back = new JButton("뒤로");
+		conf =
+				new JButton("저장");
+		back =
+				new JButton("뒤로");
 
 		conf.addActionListener(new ActionListener() {
 
@@ -354,25 +405,86 @@ class CustCreate extends JFrame implements Tool {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//				Main.setVisible(true);
 			}
 		});
 
 		footer.add(conf, "West");
 		footer.add(back, "East");
 
+		conf.addActionListener(this);
+
 		add(Main, "Center");
 
 		setSize(350, 350);
 
-		Dimension d = this.getSize();
+		Dimension d =
+				this.getSize();
 
-		setLocation(screenSize.width / 2 - (d.width / 2),
-				screenSize.height / 2 - (d.height / 2));
+		setLocation(screenSize.width
+				/ 2 - (d.width / 2), screenSize.height
+				/ 2 - (d.height / 2));
 
 		setVisible(true);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		++cust_idx;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO custcreate
+		Object obj =
+				e.getSource();
+
+		if (obj.equals(conf)) {
+			cust.setId(tfid.getText());
+			cust.setPw(tfpw.getText());
+			cust.cheack(tfcpw.getText());
+			cust.setName(tfname.getText());
+			cust.setBal(Integer.parseInt(tfbal.getText()));
+
+			Connection conn =
+					DBAction.getInstance().getConnection();
+
+			PreparedStatement pstmt =
+					null;
+
+			String sql =
+					"UPDATE customer SET num = '"
+							+ cust.getPersonalNum()
+							+ "', id = '" + cust.getId()
+							+ "', pw = '" + cust.getPw()
+							+ "', name= '" + cust.getName()
+							+ "', accountnum = '"
+							+ cust.getaccountNum()
+							+ "', bal = ' " + cust.getBal()
+							+ "', vip = '" + cust.getVip()
+							+ "', tax = ' " + cust.getTax()
+							+ "'";
+
+			try {
+				pstmt =
+						conn.prepareStatement(sql);
+
+				int result =
+						pstmt.executeUpdate();
+				String msg =
+						result > -1 ? "successful" : "fail";
+				System.out.println(msg);
+			} catch (SQLException e1) {
+				System.out.println(e1.getMessage());
+			}
+		}
+
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent arg0) {
+		// TODO radio
+
+		Checkbox temp =
+				ch.getSelectedCheckbox();
+
+		cust.setVip(temp.getLabel());
+
 	}
 }
