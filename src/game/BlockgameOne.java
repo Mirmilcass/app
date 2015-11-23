@@ -1,13 +1,16 @@
 package game;
 
+import java.awt.Button;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.WindowAdapter;
@@ -16,13 +19,16 @@ import java.util.Random;
 
 public class BlockgameOne extends Frame implements Runnable {
 
-	int x = 0, y = 20, w = 20, h = 20;
+	int x = 0, y = 20, w, h;
 	int xr = 150, yr, wr = 60, hr = 10;
 
 	boolean xOrient, yOrient;
 
+	Dimension d;
+
 	public BlockgameOne(String str) {
 		super(str);
+		w = h = 20;
 
 		addKeyListener(new KeyAdapter() {
 
@@ -43,18 +49,16 @@ public class BlockgameOne extends Frame implements Runnable {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				// TODO Auto-generated method stub
-				xr = (int) (e.getLocationOnScreen().getX() - getLocationOnScreen()
-						.getX());
+				xr = (int) (e.getLocationOnScreen().getX() - getLocationOnScreen().getX());
 			}
 		});
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screenSize = tk.getScreenSize();
 		setSize(300, 500);
-		Dimension d = getSize();
+		d = getSize();
 
-		setLocation(screenSize.width / 2 - (d.width / 2),
-				screenSize.height / 2 - (d.height / 2));
+		setLocation(screenSize.width / 2 - (d.width / 2), screenSize.height / 2 - (d.height / 2));
 
 		setVisible(true);
 		addWindowListener(new WindowAdapter() {
@@ -94,7 +98,7 @@ public class BlockgameOne extends Frame implements Runnable {
 			y++;
 			// 바에 튕기는 부분 설정 위치.
 			if ((y + (w / 4 * 3)) == yr && x > xr && x < xr + wr) {
-				//				y = d.height - 20;
+				// y = d.height - 20;
 				yOrient = true;
 			} else if (y >= d.height) {
 				// 프레임의 높이 값을 벗어나면 정지되거나... 게임 종료를 알리고 싶으나...뭘해야하지?
@@ -118,17 +122,15 @@ public class BlockgameOne extends Frame implements Runnable {
 		gr.fillOval(x, y, w, h);
 	}
 
-	//	public void update(Graphics g) {
-	//		paint(g);
-	//	}
-
 	public void run() {
 		while (true) {
-			repaint();
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			if (y < d.height) {
+				repaint();
+				try {
+					Thread.sleep(5);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 

@@ -25,8 +25,7 @@ class Customer2 implements Tool {
 	}
 
 	public void setPersonalNum(int i) {
-		PersonalNum =
-				i + 1;
+		PersonalNum = i + 1;
 	}
 
 	public String getaccountNum() {
@@ -34,57 +33,37 @@ class Customer2 implements Tool {
 	}
 
 	public void setaccountNum(int i) {
-		int[] accnum =
-				new int[7];
-		Random ran =
-				new Random();
-		StringBuffer an =
-				new StringBuffer();
-		String personal =
-				String.format("%03d", PersonalNum);
+		int[] accnum = new int[7];
+		Random ran = new Random();
+		StringBuffer an = new StringBuffer();
+		String personal = String.format("%03d", PersonalNum);
 
-		for (int j =
-				0; j < accnum.length; j++) {
-			accnum[j] =
-					ran.nextInt(10);
+		for (int j = 0; j < accnum.length; j++) {
+			accnum[j] = ran.nextInt(10);
 			an.append(accnum[j]);
 		}
-		accountNum =
-				"620 - "
-						+ an + " - " + personal;
+		accountNum = "620 - " + an + " - " + personal;
 
 	}
 
 	public void setId(String i) {
-		Connection conn =
-				DBAction.getInstance().getConnection();
+		Connection conn = DBAction.getInstance().getConnection();
 
-		String sql;
+		String sql = "select id from customer where id ='" + i + "'";
 
-		PreparedStatement pstmt =
-				null;
-		ResultSet rs =
-				null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
 		try {
-			sql =
-					"select id from customer where id ='"
-							+ i + "'";
-
-			pstmt =
-					conn.prepareStatement(sql);
-			rs =
-					pstmt.executeQuery();
-
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				if (i.equals(rs.getShort("id"))) {
-					id =
-							null;
+				if (i.equals(rs.getString(1))) {
+					return;
 				} else
-					id =
-							i;
-			}
-
+					id = i;
+			} else
+				id = i;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} finally {
@@ -93,7 +72,6 @@ class Customer2 implements Tool {
 					rs.close();
 				if (pstmt != null)
 					pstmt.close();
-
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
@@ -101,7 +79,7 @@ class Customer2 implements Tool {
 	}
 
 	public String getId() {
-		return this.id;
+		return id;
 	}
 
 	public String getPw() {
@@ -109,16 +87,14 @@ class Customer2 implements Tool {
 	}
 
 	public void setPw(String pw) {
-		this.pw =
-				pw;
+		this.pw = pw;
 	}
 
 	public void cheack(String i) {
 		if (i.equals(pw)) {
 
 		} else {
-			pw =
-					null;
+			pw = null;
 		}
 	}
 
@@ -129,15 +105,11 @@ class Customer2 implements Tool {
 	public void setVip(String vip) {
 
 		if (vip.equals("快荐 绊按")) {
-			this.vip =
-					1;
-			tax =
-					0;
+			this.vip = 1;
+			setTax(0);
 		} else if (vip.equals("老馆 绊按")) {
-			this.vip =
-					0;
-			tax =
-					500;
+			this.vip = 0;
+			setTax(500);
 		}
 	}
 
@@ -146,8 +118,7 @@ class Customer2 implements Tool {
 	}
 
 	public void setTax(int tax) {
-		this.tax =
-				tax;
+		this.tax = tax;
 	}
 
 	public int getBal() {
@@ -155,8 +126,7 @@ class Customer2 implements Tool {
 	}
 
 	public void setBal(int bal) {
-		Bal =
-				bal;
+		Bal = bal;
 	}
 
 	public String getName() {
@@ -164,8 +134,7 @@ class Customer2 implements Tool {
 	}
 
 	public void setName(String name) {
-		Name =
-				name;
+		Name = name;
 	}
 
 }
