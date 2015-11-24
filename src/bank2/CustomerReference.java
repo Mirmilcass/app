@@ -35,7 +35,8 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 
 	private Choice cho;
 
-	private Vector<String> rowData, columnNames;
+	private Vector<Object> rowData;
+	private Vector<Object> columnNames;
 	private DefaultTableModel model;
 
 	public CustomerReference() {
@@ -69,7 +70,8 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		rep.add(conf, "East");
 		rep.add(new Label(""), "South");
 
-		columnNames = new Vector<String>();
+		columnNames = new Vector<Object>();
+		model = new DefaultTableModel(rowData, columnNames);
 
 		tf.addFocusListener(new FocusAdapter() {
 			@Override
@@ -79,17 +81,23 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 			}
 		});
 
-		JPanel viewHeader = new JPanel(new GridLayout(1, 3));
+		// JPanel viewHeader = new JPanel(new GridLayout(1, 3));
+		//
+		// viewp.add(viewHeader, "North");
+		//
+		// viewHeader.add(lid);
+		// viewHeader.add(lname);
+		// viewHeader.add(laccnum);
+		// viewHeader.add(lbal);
+		// viewHeader.add(lvip);
 
-		viewp.add(viewHeader, "North");
+		columnNames.add("아이디");
+		columnNames.add("이름");
+		columnNames.add("계좌 번호");
+		columnNames.add("잔액");
+		columnNames.add("등급");
+		// model.addColumn(columnNames);
 
-		viewHeader.add(lid);
-		viewHeader.add(lname);
-		viewHeader.add(laccnum);
-		viewHeader.add(lbal);
-		viewHeader.add(lvip);
-
-		model = new DefaultTableModel();
 		JTable table = new JTable(model);
 		JScrollPane view = new JScrollPane(table);
 
@@ -116,11 +124,12 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		add(new Label(""), "South");
 		add(rmp, "Center");
 
-		setSize(350, 350);
+		setSize(500, 300);
 		setVisible(true);
 
 		setLocation(screenSize.width / 2 - (350 / 2), screenSize.height / 2 - (350 / 2));
 
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	@Override
@@ -157,7 +166,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		String sql = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		rowData = new Vector<String>();
+		rowData = new Vector<Object>();
 
 		if (selec.equals("전체")) {
 			sql = "select id,name,accountnum,bal,vip from customer order by num";
@@ -171,18 +180,12 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 			rs = pstmt.executeQuery();
 			ResultSetMetaData rsmd = rs.getMetaData();
 			int columncount = rsmd.getColumnCount();
-			for (int i = 1; i <= columncount; i++) {
-				columnNames.add(rsmd.getColumnName(i));
-				System.out.print(rsmd.getColumnName(i) + "\t");
-			}
-			model.addColumn(columnNames);
-			System.out.println("\n");
 			while (rs.next()) {
 				for (int i = 1; i <= columncount; i++) {
 					rowData.add(rs.getString(i));
 					System.out.print(rs.getString(i) + "\t");
-					model.addRow(rowData);
 				}
+				model.addRow(rowData);
 				System.out.println();
 			}
 		} catch (SQLException e1) {
