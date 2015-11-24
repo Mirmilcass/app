@@ -1,12 +1,6 @@
 package bank2;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Random;
-
-import oracle.DBAction;
 
 class Customer2 implements Tool {
 
@@ -15,7 +9,6 @@ class Customer2 implements Tool {
 	private String id;
 	private String pw;
 	private String Name;
-	public String checkpass;
 	private int Bal;
 	private int vip;
 	private int tax;
@@ -47,35 +40,7 @@ class Customer2 implements Tool {
 	}
 
 	public void setId(String i) {
-		Connection conn = DBAction.getInstance().getConnection();
-
-		String sql = "select id from customer where id ='" + i + "'";
-
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				if (i.equals(rs.getString(1))) {
-					return;
-				} else
-					id = i;
-			} else
-				id = i;
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
+		id = i;
 	}
 
 	public String getId() {
@@ -90,27 +55,13 @@ class Customer2 implements Tool {
 		this.pw = pw;
 	}
 
-	public void cheack(String i) {
-		if (i.equals(pw)) {
-
-		} else {
-			pw = null;
-		}
-	}
-
 	public int getVip() {
 		return vip;
 	}
 
-	public void setVip(String vip) {
+	public void setVip(int vip) {
 
-		if (vip.equals("快荐 绊按")) {
-			this.vip = 1;
-			setTax(0);
-		} else if (vip.equals("老馆 绊按")) {
-			this.vip = 0;
-			setTax(500);
-		}
+		this.vip = vip;
 	}
 
 	public int getTax() {

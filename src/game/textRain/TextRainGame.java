@@ -3,9 +3,8 @@ package game.textRain;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -14,10 +13,10 @@ import javax.swing.JTextField;
 
 public class TextRainGame extends JFrame implements Runnable {
 
-	public JPanel main, textin;
+	public JPanel s, textin;
 	public JTextField in;
-	public Iterator list;
-	public ArrayList arr;
+	// public Iterator list;
+	// public ArrayList arr;
 
 	int x, y;
 
@@ -25,17 +24,27 @@ public class TextRainGame extends JFrame implements Runnable {
 
 	public TextRainGame() {
 
-		list = arr.iterator();
+		// list = arr.iterator();
+
+		textin = new JPanel(new GridLayout(1, 1));
+
+		in = new JTextField("");
 
 		setLayout(new BorderLayout());
 
-		setSize(500, 300);
+		textin.add(in);
+
+		add(textin, "South");
+
+		setSize(300, 500);
 		Dimension d = getSize();
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension ss = tk.getScreenSize();
 
 		setLocation(ss.width / 2 - (d.width / 2), ss.height / 2 - (d.height / 2));
+
+		setVisible(true);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 

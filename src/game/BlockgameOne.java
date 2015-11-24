@@ -1,14 +1,10 @@
 package game;
 
-import java.awt.Button;
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -49,7 +45,7 @@ public class BlockgameOne extends Frame implements Runnable {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				// TODO Auto-generated method stub
-				xr = (int) (e.getLocationOnScreen().getX() - getLocationOnScreen().getX());
+				xr = (int) (e.getLocationOnScreen().getX() - getLocationOnScreen().getX()) - (wr / 2);
 			}
 		});
 
@@ -97,12 +93,9 @@ public class BlockgameOne extends Frame implements Runnable {
 		} else {
 			y++;
 			// 바에 튕기는 부분 설정 위치.
-			if ((y + (w / 4 * 3)) == yr && x > xr && x < xr + wr) {
+			if ((y + (h / 4 * 3)) == yr && x > xr && x < xr + wr) {
 				// y = d.height - 20;
 				yOrient = true;
-			} else if (y >= d.height) {
-				// 프레임의 높이 값을 벗어나면 정지되거나... 게임 종료를 알리고 싶으나...뭘해야하지?
-				// 다이얼로그로 창띄우기?? 프리즈 걸기?? 음...
 			}
 		}
 
