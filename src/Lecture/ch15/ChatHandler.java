@@ -22,7 +22,8 @@ public class ChatHandler extends Thread {
 
 	public void run() {
 		try {
-			name = new EchoAWT().nick;
+			broadcast("접속 되었습니다");
+			name = i.readLine();
 			System.out.println(name);
 			server.register(this);
 			broadcast(name + "님이 방문하셨습니다.");

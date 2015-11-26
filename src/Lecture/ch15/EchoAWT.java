@@ -8,11 +8,10 @@ import java.sql.*;
 
 import javax.swing.*;
 
-public class EchoAWT extends JFrame implements Runnable, ActionListener,
-		MouseListener {
+public class EchoAWT extends JFrame implements Runnable, ActionListener, FocusListener {
 
 	public JPanel m, f, h, s, login;
-	public JTextArea jta/*, clientList*/;
+	public JTextArea jta/* , clientList */;
 	public JScrollPane jsp, list;
 	public JTextField jtf, hi, pi, localport, lid, lpw;
 	public JButton serveropen, textin, clientin, conf, join;
@@ -44,11 +43,11 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		s = new JPanel(new BorderLayout());
 		login = new JPanel(new BorderLayout());
 
-		//		name = new JLabel(" 사용자 이름 ");
+		// name = new JLabel(" 사용자 이름 ");
 		name = new JLabel(" 메세지 입력 ");
 
 		jta = new JTextArea();
-		//		clientList = new JTextArea(0, 10);
+		// clientList = new JTextArea(0, 10);
 		clientList = new JList();
 
 		jsp = new JScrollPane(jta);
@@ -86,16 +85,16 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		conf.addActionListener(this);
 		join.addActionListener(this);
 
-		jtf.addMouseListener(this);
-		hi.addMouseListener(this);
-		pi.addMouseListener(this);
-		localport.addMouseListener(this);
-		lid.addMouseListener(this);
-		lpw.addMouseListener(this);
-
 		serveropen.addActionListener(this);
 		clientin.addActionListener(this);
 		textin.addActionListener(this);
+
+		jtf.addFocusListener(this);
+		hi.addFocusListener(this);
+		pi.addFocusListener(this);
+		localport.addFocusListener(this);
+		lid.addFocusListener(this);
+		lpw.addFocusListener(this);
 
 		// 서버 접속
 		h.add(hi);
@@ -103,8 +102,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		h.add(clientin);
 
 		// 서버 생성
-		h.add(new JLabel("IP : " + addr.getHostAddress(),
-				(int) CENTER_ALIGNMENT));
+		h.add(new JLabel("IP : " + addr.getHostAddress(), (int) CENTER_ALIGNMENT));
 		h.add(localport);
 		h.add(serveropen);
 
@@ -122,11 +120,11 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		// 접속자 확인창
 		s.add(new JLabel("접속자", (int) CENTER_ALIGNMENT), "North");
 		s.add(list, "Center");
-		//		clientList.setEditable(false);		
+		// clientList.setEditable(false);
 
 		// 메인 창
 		m.add(jsp, "Center");
-		m.add(s, "West");
+		m.add(s, "East");
 
 		// 프레임 설정
 		add(h, "North");
@@ -139,10 +137,8 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		jd.add(login);
 		jd.setSize(200, 200);
 		Dimension dd = jd.getSize();
-		jd.setLocation(screenSize.width / 2 - (dd.width / 2),
-				screenSize.height / 2 - (dd.height / 2));
+		jd.setLocation(screenSize.width / 2 - (dd.width / 2), screenSize.height / 2 - (dd.height / 2));
 		jd.setVisible(true);
-		jd.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		// 로그인창
 		JPanel lm = new JPanel(new GridLayout(4, 1));
@@ -162,8 +158,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		login.add(bt, "South");
 
 		// 창의 위치, 보임, EXIT 단추 활성화.
-		setLocation(screenSize.width / 2 - (d.width / 2),
-				screenSize.height / 2 - (d.height / 2));
+		setLocation(screenSize.width / 2 - (d.width / 2), screenSize.height / 2 - (d.height / 2));
 
 		setVisible(false);
 
@@ -181,14 +176,13 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		Object obj = e.getSource();
 
 		if (obj.equals(jtf) || obj.equals(textin)) {
-			//			name.setText(" 메시지 입력 ");
+			// name.setText(" 메시지 입력 ");
 			pw.println(jtf.getText());
 			jtf.setText("");
 		} else if (obj.equals(serveropen)) {
 			ServerOpen();
 		} else if (obj.equals(clientin) || obj.equals(pi)) {
 			ClientIn();
-			jta.setText("접속 되었습니다.\n");
 		} else if (obj.equals(conf)) {
 			login();
 		}
@@ -196,7 +190,6 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 	}
 
 	public void ClientIn() {
-
 		hostin = hi.getText();
 		portin = Integer.parseInt(pi.getText());
 		listener = new Thread(this);
@@ -207,45 +200,6 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 		jd.setSize(100, 100);
 		portin = Integer.parseInt(localport.getText());
 		server = new ChatServer(portin);
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Clicked
-		Object obj = e.getSource();
-		if (obj.equals(jtf)) {
-			jtf.setText("");
-		} else if (obj.equals(hi)) {
-			hi.setText("");
-		} else if (obj.equals(pi)) {
-			pi.setText("");
-		} else if (obj.equals(localport)) {
-			localport.setText("");
-		} else if (obj.equals(lpw)) {
-			lpw.setText("");
-		} else if (obj.equals(lid)) {
-			lid.setText("");
-		}
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-
 	}
 
 	public void login() {
@@ -260,13 +214,11 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, "hr", "hr");
 			stmt = con.createStatement();
-			sql = "select * from chatuser where id = '" + lid.getText()
-					+ "'";
+			sql = "select * from chatuser where id = '" + lid.getText() + "'";
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				pw = rs.getString(2);
 				nick = rs.getString(3);
-				System.out.println(nick);
 				if (lpw.getText().equals(pw)) {
 					jd.setVisible(false);
 					setVisible(true);
@@ -303,16 +255,41 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener,
 			ir = new BufferedReader(new InputStreamReader(ins));
 			pw = new PrintWriter(new OutputStreamWriter(os), true);
 
+			pw.print(nick);
 			while (true) {
 				String line = ir.readLine();
 				jta.append(line + "\n");
-				jsp.getVerticalScrollBar().setValue(
-						jsp.getVerticalScrollBar().getMaximum());
+				jsp.getVerticalScrollBar().setValue(jsp.getVerticalScrollBar().getMaximum());
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		// TODO Auto-generated method stub
+		Object obj = e.getSource();
+		if (obj.equals(jtf)) {
+			jtf.setText("");
+		} else if (obj.equals(hi)) {
+			hi.setText("");
+		} else if (obj.equals(pi)) {
+			pi.setText("");
+		} else if (obj.equals(localport)) {
+			localport.setText("");
+		} else if (obj.equals(lpw)) {
+			lpw.setText("");
+		} else if (obj.equals(lid)) {
+			lid.setText("");
+		}
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		// TODO Auto-generated method stub
 
 	}
 }

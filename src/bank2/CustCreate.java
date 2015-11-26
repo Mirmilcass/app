@@ -164,6 +164,8 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 
 		setVisible(true);
 
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
 	}
 
 	@Override
@@ -189,8 +191,6 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 
 		if (obj.equals(conf)) {
 			cheak();
-			setVisible(false);
-			dispose();
 		} else if (obj.equals(back)) {
 			setVisible(false);
 			dispose();
@@ -217,6 +217,8 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 					cust.setName(tfname.getText());
 					cust.setBal(Integer.parseInt(tfbal.getText()));
 					in();
+					setVisible(false);
+					dispose();
 				} else {
 					tfcpw.setText("일치 하지 않습니다. 재입력 해주세요.");
 				}

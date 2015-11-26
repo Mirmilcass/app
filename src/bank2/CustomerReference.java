@@ -130,7 +130,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 
 		setLocation(screenSize.width / 2 - (d.width / 2), screenSize.height / 2 - (d.height / 2));
 
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	@Override
