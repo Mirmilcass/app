@@ -60,7 +60,7 @@ class Customer2 implements Tool {
 	}
 
 	public void setVip(int vip) {
-
+		this.vip = 0;
 		this.vip = vip;
 	}
 
@@ -69,6 +69,7 @@ class Customer2 implements Tool {
 	}
 
 	public void setTax(int tax) {
+		this.tax = 500;
 		this.tax = tax;
 	}
 

@@ -102,8 +102,8 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 		tfbal = new JTextField(25);
 
 		ch = new CheckboxGroup();
-		Checkbox ncust = new Checkbox("快荐 绊按", true, ch);
-		Checkbox vcust = new Checkbox("老馆 绊按", false, ch);
+		Checkbox ncust = new Checkbox("老馆 绊按", true, ch);
+		Checkbox vcust = new Checkbox("快荐 绊按", false, ch);
 
 		input.add(new Label("酒捞叼  : "));
 		input.add(tfid);
