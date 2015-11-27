@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,6 +36,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 	private JButton conf, back, edit, inout, in, out;
 	private JDialog jd;
 	private JTextArea jdta;
+	private JLabel jdla;
 
 	private Choice cho;
 
@@ -73,7 +75,6 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		tf.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				// TODO Auto-generated method stub
 				tf.setText("");
 			}
 		});
@@ -131,36 +132,62 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		setLocation(screenSize.width / 2 - (d.width / 2), screenSize.height / 2 - (d.height / 2));
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		Object obj = e.getSource();
+		// 입출금 다이얼로그
+		jd = new JDialog(this);
+		jdtf = new JTextField();
 
-		if (obj.equals(back)) {
-			setVisible(false);
-			dispose();
-		} else if (obj.equals(conf)) {
-			while (model.getRowCount() > 0) {
-				for (int i = 0; i <= model.getRowCount(); i++) {
-					model.removeRow(i);
-				}
+		jd.setLayout(new BorderLayout());
+		jd.add(new Label(), "North");
+		jd.add(new Label(), "South");
+		jd.add(new Label(), "West");
+		jd.add(new Label(), "East");
+
+		JPanel mainView = new JPanel(new BorderLayout());
+
+		jd.add(mainView, "Center");
+
+		JPanel jdheader = new JPanel(new BorderLayout());
+
+		mainView.add(jdheader, "North");
+
+		jdla = new JLabel("", (int) CENTER_ALIGNMENT);
+
+		jdheader.add(jdla, "North");
+		jdheader.add(jdtf, "Center");
+
+		jdtf.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				jdtf.setText("");
 			}
-			reference();
-		} else if (obj.equals(edit)) {
-			edit();
-		} else if (obj.equals(inout)) {
-			inout();
-		} else if (obj.equals(in)) {
-			in();
-		} else if (obj.equals(out)) {
-			out();
-		}
+		});
+
+		JPanel jdbutton = new JPanel();
+		in = new JButton("입금");
+		out = new JButton("출금");
+
+		jdbutton.add(in);
+		jdbutton.add(out);
+
+		in.addActionListener(this);
+		out.addActionListener(this);
+
+		jdheader.add(jdbutton, "South");
+
+		jdta = new JTextArea();
+
+		mainView.add(jdta, "Center");
+		jdta.setEditable(false);
+
+		jd.setVisible(false);
+		jd.setSize(300, 300);
+
+		jd.setLocation(screenSize.width / 2 + (d.width / 2), screenSize.height / 2 - (d.height / 2));
+
 	}
 
 	public void reference() {
-		// cho.getSelectedItem() // cho에서 선택된 라벨의 스트링 값을 가져옴.
 		String selec = cho.getSelectedItem();
 
 		Connection conn = DBAction.getInstance().getConnection();
@@ -200,12 +227,16 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		Connection conn = DBAction.getInstance().getConnection();
 
 		String name = (String) table.getValueAt(table.getSelectedRow(), 1);
-		int vip;
-		if ("우수".equals((String) table.getValueAt(table.getSelectedRow(), 5))) {
+		int vip, tax;
+		if ("우수".equals((String) table.getValueAt(table.getSelectedRow(), 4))) {
 			vip = 1;
-		} else
+			tax = 0;
+		} else {
 			vip = 0;
-		String sql = "select name,vip from customer where id ='" + table.getValueAt(table.getSelectedRow(), 0) + "'";
+			tax = 500;
+		}
+		String sql = "select name,vip,tax from customer where id ='" + table.getValueAt(table.getSelectedRow(), 0)
+				+ "'";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -213,61 +244,14 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				sql = "UPDATE customer SET name ='" + name + "' vip = '" + vip + "' where id = '"
+				sql = "UPDATE customer SET name ='" + name + "', vip = " + vip + ", tax = " + tax + " where id = '"
 						+ table.getValueAt(table.getSelectedRow(), 0) + "'";
 				pstmt = conn.prepareStatement(sql);
+				pstmt.executeUpdate();
 			}
 		} catch (SQLException e1) {
 			System.out.println(e1.getMessage());
 		}
-	}
-
-	public void inout() {
-		jd = new JDialog();
-		jdtf = new JTextField();
-
-		jd.setLayout(new BorderLayout());
-		jd.add(new Label(), "North");
-		jd.add(new Label(), "South");
-		jd.add(new Label(), "West");
-		jd.add(new Label(), "East");
-
-		JPanel mainView = new JPanel(new BorderLayout());
-
-		jd.add(mainView, "Center");
-
-		JPanel jdheader = new JPanel(new BorderLayout());
-
-		mainView.add(jdheader, "North");
-
-		jdheader.add(
-				new JLabel((String) table.getValueAt(table.getSelectedRow(), 1) + " 님"
-						+ (String) table.getValueAt(table.getSelectedRow(), 3), (int) CENTER_ALIGNMENT), "North");
-		jdheader.add(jdtf, "Center");
-
-		JPanel jdbutton = new JPanel();
-		in = new JButton("입금");
-		out = new JButton("출금");
-
-		jdbutton.add(in);
-		jdbutton.add(out);
-
-		in.addActionListener(this);
-		out.addActionListener(this);
-
-		jdheader.add(jdbutton, "South");
-
-		jdta = new JTextArea();
-
-		mainView.add(jdta, "Center");
-		jdta.setEditable(false);
-
-		jd.setVisible(true);
-		jd.setSize(300, 300);
-
-		jd.setLocation(screenSize.width / 2 + (d.width / 2), screenSize.height / 2 - (d.height / 2));
-
-		jd.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	public void in() {
@@ -290,6 +274,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.executeQuery();
 				jdta.append(rs.getString("name") + "님의 잔액은 " + (rs.getInt("bal") + inbal) + "입니다.");
+				jdla.setText(rs.getString("name") + " 님" + (rs.getInt("bal") + inbal) + " 원");
 			}
 		} catch (SQLException e1) {
 			System.out.println(e1.getMessage());
@@ -317,13 +302,40 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.executeQuery();
 				jdta.append(rs.getString("name") + "님의 잔액은 " + (rs.getInt("bal") - inbal - rs.getInt("tax")) + "입니다.");
+				jdla.setText(rs.getString("name") + " 님" + (rs.getInt("bal") - inbal - rs.getInt("tax")) + " 원");
 			}
 		} catch (SQLException e1) {
 			System.out.println(e1.getMessage());
 		}
 	}
 
-	// public static void main(String[] args) {
-	// new CustomerReference();
-	// }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+
+		if (obj.equals(back)) {
+			setVisible(false);
+			dispose();
+		} else if (obj.equals(conf)) {
+			jd.setVisible(false);
+			model.setNumRows(0);
+			reference();
+		} else if (obj.equals(edit)) {
+			edit();
+		} else if (obj.equals(inout)) {
+			jdla.setText((String) table.getValueAt(table.getSelectedRow(), 1) + " 님"
+					+ (String) table.getValueAt(table.getSelectedRow(), 3));
+			jdtf.setText("");
+			jdta.setText("");
+			jd.setVisible(true);
+		} else if (obj.equals(in)) {
+			in();
+		} else if (obj.equals(out)) {
+			out();
+		}
+	}
+
+	public static void main(String[] args) {
+		new CustomerReference();
+	}
 }

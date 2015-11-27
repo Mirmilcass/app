@@ -102,7 +102,7 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 		tfbal = new JTextField(25);
 
 		ch = new CheckboxGroup();
-		Checkbox ncust = new Checkbox("老馆 绊按", true, ch);
+		Checkbox ncust = new Checkbox("老馆 绊按", false, ch);
 		Checkbox vcust = new Checkbox("快荐 绊按", false, ch);
 
 		input.add(new Label("酒捞叼  : "));
@@ -174,12 +174,12 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 
 		Checkbox temp = ch.getSelectedCheckbox();
 
-		if (temp.getLabel().equals("快荐 绊按")) {
-			cust.setVip(1);
-			cust.setTax(0);
-		} else {
+		if (temp.getLabel().equals("老馆 绊按")) {
 			cust.setVip(0);
 			cust.setTax(500);
+		} else if (temp.getLabel().equals("快荐 绊按")) {
+			cust.setVip(1);
+			cust.setTax(0);
 		}
 
 	}
