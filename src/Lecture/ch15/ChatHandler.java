@@ -9,7 +9,7 @@ public class ChatHandler extends Thread {
 	private BufferedReader i;
 	private PrintWriter o;
 	private ChatServer server;
-	private String name;
+	public String name;
 
 	public ChatHandler(ChatServer server, Socket s) throws IOException {
 		this.s = s;
@@ -22,9 +22,7 @@ public class ChatHandler extends Thread {
 
 	public void run() {
 		try {
-			broadcast("접속 되었습니다");
 			name = i.readLine();
-			System.out.println(name);
 			server.register(this);
 			broadcast(name + "님이 방문하셨습니다.");
 			while (true) {

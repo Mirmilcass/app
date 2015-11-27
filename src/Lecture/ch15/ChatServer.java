@@ -36,11 +36,22 @@ public class ChatServer {
 	public void broadcast(String message) {
 		synchronized (handlers) {
 			int n = handlers.size();
+			String namesum = "";
+
 			for (int i = 0; i < n; i++) {
-				//				ChatHandler c = (ChatHandler) handlers.elementAt(i);
 				ChatHandler c = (ChatHandler) getHandler(i);
 				try {
-					c.println(message);
+					namesum += c.name + "|";
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+
+			for (int i = 0; i < n; i++) {
+				// ChatHandler c = (ChatHandler) handlers.elementAt(i);
+				ChatHandler c = (ChatHandler) getHandler(i);
+				try {
+					c.println(namesum + message);
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -49,7 +60,7 @@ public class ChatServer {
 	}
 
 	public static void main(String[] args) {
-		ChatServer server = new ChatServer(9830);
+		/* ChatServer server = */new ChatServer(9830);
 	}
 
 }

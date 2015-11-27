@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.net.*;
 import java.sql.*;
+import java.util.StringTokenizer;
 
 import javax.swing.*;
 
@@ -16,12 +17,11 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener, FocusLi
 	public JTextField jtf, hi, pi, localport, lid, lpw;
 	public JButton serveropen, textin, clientin, conf, join;
 	public JLabel name;
-	public JList clientList;
+	public List clientList;
 
 	public String hostin;
 	public int portin;
 
-	private ChatServer server;
 	private InetAddress addr;
 
 	private BufferedReader ir;
@@ -48,7 +48,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener, FocusLi
 
 		jta = new JTextArea();
 		// clientList = new JTextArea(0, 10);
-		clientList = new JList();
+		clientList = new List();
 
 		jsp = new JScrollPane(jta);
 		list = new JScrollPane(clientList);
@@ -110,7 +110,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener, FocusLi
 		jta.setEditable(false);
 
 		// 접속자 리스트 width 제한
-		clientList.setFixedCellWidth(d.width / 3);
+		// clientList.setFixedCellWidth(d.width / 3);
 
 		// 입력 창
 		f.add(name, "West");
@@ -179,11 +179,11 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener, FocusLi
 			// name.setText(" 메시지 입력 ");
 			pw.println(jtf.getText());
 			jtf.setText("");
-		} else if (obj.equals(serveropen)) {
+		} else if (obj.equals(serveropen) || obj.equals(localport)) {
 			ServerOpen();
 		} else if (obj.equals(clientin) || obj.equals(pi)) {
 			ClientIn();
-		} else if (obj.equals(conf)) {
+		} else if (obj.equals(conf) || obj.equals(lpw)) {
 			login();
 		}
 
@@ -197,9 +197,10 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener, FocusLi
 	}
 
 	public void ServerOpen() {
-		jd.setSize(100, 100);
 		portin = Integer.parseInt(localport.getText());
-		server = new ChatServer(portin);
+		// 서버 생성 및 접속은 안되나?
+		// server = new Thread(new ChatServer(portin));
+
 	}
 
 	public void login() {
@@ -209,7 +210,7 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener, FocusLi
 		Statement stmt = null;
 		ResultSet rs = null;
 
-		String id, pw, sql;
+		String pw, sql;
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, "hr", "hr");
@@ -255,10 +256,16 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener, FocusLi
 			ir = new BufferedReader(new InputStreamReader(ins));
 			pw = new PrintWriter(new OutputStreamWriter(os), true);
 
-			pw.print(nick);
+			pw.println(nick);
+
 			while (true) {
 				String line = ir.readLine();
-				jta.append(line + "\n");
+				StringTokenizer st = new StringTokenizer(line, "|", false);
+				clientList.removeAll();
+				for (int i = 0; i < st.countTokens(); i++) {
+					clientList.add(st.nextToken());
+				}
+				jta.append(st.nextToken() + "\n");
 				jsp.getVerticalScrollBar().setValue(jsp.getVerticalScrollBar().getMaximum());
 			}
 
@@ -270,7 +277,6 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener, FocusLi
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		// TODO Auto-generated method stub
 		Object obj = e.getSource();
 		if (obj.equals(jtf)) {
 			jtf.setText("");
@@ -289,7 +295,22 @@ public class EchoAWT extends JFrame implements Runnable, ActionListener, FocusLi
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		// TODO Auto-generated method stub
+		Object obj = e.getSource();
+
+		if (jtf.getText().equals("") || hi.getText().equals("") || pi.getText().equals("")
+				|| localport.getText().equals("") || lpw.getText().equals("") || lid.getText().equals("")) {
+			if (obj.equals(hi)) {
+				hi.setText("HOST IP 입력");
+			} else if (obj.equals(pi)) {
+				pi.setText("PORT 입력");
+			} else if (obj.equals(localport)) {
+				localport.setText("원하는 PORT 입력");
+			} else if (obj.equals(lpw)) {
+				lpw.setText("PW를 입력하세요.");
+			} else if (obj.equals(lid)) {
+				lid.setText("ID를 입력하세요.");
+			}
+		}
 
 	}
 }
