@@ -4,12 +4,12 @@ import java.net.*;
 import java.util.*;
 
 public class ChatServer {
-	private Vector handlers;
+	private Vector<ChatHandler> handlers;
 
 	public ChatServer(int port) {
 		try {
 			ServerSocket server = new ServerSocket(port);
-			handlers = new Vector();
+			handlers = new Vector<ChatHandler>();
 			System.out.println("ChatServer is ready.");
 			while (true) {
 				Socket client = server.accept();

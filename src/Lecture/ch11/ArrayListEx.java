@@ -15,7 +15,7 @@ public class ArrayListEx {
 
 		int 수학[] = { 20, 50, 100, 25, 75, 95, 100, 32, 79, 60 };
 
-		ArrayList v = new ArrayList();
+		ArrayList<Comparable> v = new ArrayList<Comparable>();
 		for (int i = 0; i < 이름.length; i++) {
 			// 다양한 객체 추가방법
 			v.add(이름[i]);
@@ -28,7 +28,7 @@ public class ArrayListEx {
 				+ "조회 프로그램 -----------------\n");
 		System.out.println(" 이름\t국어\t영어\t수학" + "\t총점\t평균");
 
-		Iterator enu = v.iterator();
+		Iterator<Comparable> enu = v.iterator();
 		while (enu.hasNext()) {
 			System.out.print("\n" + enu.next());
 			Integer obj = (Integer) enu.next();

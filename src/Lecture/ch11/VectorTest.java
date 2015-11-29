@@ -52,14 +52,14 @@ public class VectorTest {
 			}
 
 			System.out.println("<< 출력 결과 - 표현 2 >>");
-			Iterator it = vc.iterator();
+			Iterator<String> it = vc.iterator();
 			while (it.hasNext()) {
-				String n = (String) it.next();
+				String n = it.next();
 				System.out.println(n);
 			}
 
 			System.out.println("<< 출력 결과 - 표현 3 >>");
-			Enumeration e = vc.elements();
+			Enumeration<String> e = vc.elements();
 			while (e.hasMoreElements()) {
 				Object obj = e.nextElement();
 				String str = (String) obj;

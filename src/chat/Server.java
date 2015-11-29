@@ -6,7 +6,7 @@ import java.net.*;
 
 public class Server implements Runnable {
 
-	Vector vc = new Vector();
+	Vector<Service> vc = new Vector<Service>();
 
 	public void run() {
 		ServerSocket ss = null;
@@ -62,7 +62,7 @@ public class Server implements Runnable {
 						multicast("100|" + name);
 						vc.addElement(this);
 						for (int i = 0; i < vc.size(); i++) {
-							Service sv = (Service) vc.elementAt(i);
+							Service sv = vc.elementAt(i);
 							try {
 								unicast("100|" + sv.name);
 							} catch (Exception e) {
@@ -85,7 +85,7 @@ public class Server implements Runnable {
 						String to = st.nextToken();
 						String temp = st.nextToken();
 						for (int i = 0; i < vc.size(); i++) {
-							Service sv = (Service) vc.elementAt(i);
+							Service sv = vc.elementAt(i);
 							if (to.equals(sv.name)) {
 								try {
 									sv.unicast("200|¢À" + name + "¢À "
@@ -113,7 +113,7 @@ public class Server implements Runnable {
 						String to = st.nextToken();
 						String temp = st.nextToken();
 						for (int i = 0; i < vc.size(); i++) {
-							Service sv = (Service) vc.elementAt(i);
+							Service sv = vc.elementAt(i);
 							if (to.equals(sv.name)) {
 								try {
 									sv.unicast("600|" + name + "|" + temp);
@@ -130,7 +130,7 @@ public class Server implements Runnable {
 
 					case 900: {
 						for (int i = 0; i < vc.size(); i++) {
-							Service sv = (Service) vc.elementAt(i);
+							Service sv = vc.elementAt(i);
 							if (name.equals(sv.name)) {
 								vc.removeElementAt(i);
 								break;
@@ -160,7 +160,7 @@ public class Server implements Runnable {
 		public void multicast(String msg) {
 			synchronized (this) {
 				for (int i = 0; i < vc.size(); i++) {
-					Service sv = (Service) vc.elementAt(i);
+					Service sv = vc.elementAt(i);
 					try {
 						sv.unicast(msg);
 					} catch (Exception e) {
