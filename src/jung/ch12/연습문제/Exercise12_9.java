@@ -45,11 +45,11 @@ class Exercise12_9 {
 			while (true) {
 				words.add(data[ran.nextInt(data.length)]);
 
-			try {
-				Thread.sleep(interval);
-			} catch (Exception e) {
+				try {
+					Thread.sleep(interval);
+				} catch (Exception e) {
 
-			}
+				}
 			}
 		} // end of run()
 	} // class WordGenerator
