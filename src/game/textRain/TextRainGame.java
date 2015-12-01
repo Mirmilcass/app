@@ -1,6 +1,7 @@
 package game.textRain;
 
 import java.awt.BorderLayout;
+import java.awt.Canvas;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.StringTokenizer;
@@ -17,7 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class TextRainGame extends JFrame implements Runnable {
+public class TextRainGame extends JFrame /* implements Runnable */{
 
 	private JPanel textin, darww, side;
 	private JLabel num;
@@ -26,13 +28,12 @@ public class TextRainGame extends JFrame implements Runnable {
 	private Words[] wds;
 	private Thread[] th;
 
-	private StringTokenizer st;
-
 	private int size;
 
 	public TextRainGame(int si) {
 
 		textData(); // 파일을 가져와서 그 내용을 String 타잎의 ArrayList에 정의.
+					// StringTokenizer사용
 		size = si;
 
 		th = new Thread[size];
@@ -77,24 +78,29 @@ public class TextRainGame extends JFrame implements Runnable {
 
 	}
 
-	@Override
-	public void run() {
-		// TODO run
-		while (true) {
-			repaint();
-			try {
-				Thread.sleep(2 * 1000);
-			} catch (InterruptedException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+	// @Override
+	// public void run() {
+	// // TODO run
+	// while (true) {
+	// size--;
+	// num.setText("남은 개수 = " + size);
+	// try {
+	// Thread.sleep(2 * 1000);
+	// } catch (InterruptedException e) {
+	// System.out.println(e.getMessage());
+	// }
+	// }
+	// }
 
 	public static void main(String args[]) {
 		/* TextRainGame trg = */new TextRainGame(20);
 		// trg.wd.start(); //
 		// Thread t1 = new Thread(trg);
-		// t1.start(); // 문자열 변경 2초 간격 내부 클래스임.
+		// t1.start();
+
+	}
+
+	class textDraw extends Canvas {
 
 	}
 
@@ -116,10 +122,9 @@ public class TextRainGame extends JFrame implements Runnable {
 							wds[i].name_str = "2";
 						}// count를 증가 시키지 않는다...
 						darww.remove(wds[i]);// 텍스트 필드와 단어가 같으면 레이블 삭제
-						size--;
-						num.setText("남은 개수 = " + size);
 						repaint();// 다시 그려 줌
-						th[i].stop();// 스레드를 없애줌 성능 향상을 위해서
+
+						th[i] = null;// 스레드를 없애줌 성능 향상을 위해서
 					}
 				in.setText("");
 			}
@@ -127,7 +132,10 @@ public class TextRainGame extends JFrame implements Runnable {
 	}
 
 	public void textData() {
+		// TODO 텍스트 가져오기.
 		try {
+			StreamTokenizer sti = new StreamTokenizer(new BufferedReader(new FileReader(new File(
+					"C:/Users/woori/git/app/src/game/textRain/word.txt"))));
 			BufferedReader inr = new BufferedReader(new FileReader(new File(
 					"C:/Users/woori/git/app/src/game/textRain/word.txt")));
 			// BufferedReader inr = new BufferedReader(new FileReader(new
@@ -138,7 +146,7 @@ public class TextRainGame extends JFrame implements Runnable {
 
 			while (inr.ready()) {
 				String str = inr.readLine();
-				st = new StringTokenizer(str, ":", false);
+				StringTokenizer st = new StringTokenizer(str, ":", false);
 				for (int i = 0; i < st.countTokens(); i++) {
 					arr.add(st.nextToken().trim());
 				}
@@ -150,6 +158,7 @@ public class TextRainGame extends JFrame implements Runnable {
 	}
 
 	class Words extends JLabel implements Runnable {
+		// TODO 단어 정의
 		int y = 0;
 		int x = 0;
 
@@ -169,7 +178,6 @@ public class TextRainGame extends JFrame implements Runnable {
 					Thread.sleep(500);
 
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 

@@ -14,19 +14,12 @@ package bank2;
  */
 
 import java.awt.BorderLayout;
-import java.awt.Canvas;
-import java.awt.Checkbox;
-import java.awt.CheckboxGroup;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
@@ -47,8 +40,8 @@ interface Tool {
 	Dimension screenSize = tk.getScreenSize();
 }
 
-public class BankEx2 implements Tool {
-	//TODO 메인
+public class BankStart implements Tool {
+	// TODO 메인
 
 	public static void main(String[] args) {
 		new Login();
@@ -78,8 +71,7 @@ class Login extends JFrame implements Tool, ActionListener {
 		main.add(header, "North");
 
 		header.add(new Label(""), "North");
-		header.add(new JLabel("관리자의 아이디와 패스워드를 입력하세요.",
-				(int) CENTER_ALIGNMENT), "Center");
+		header.add(new JLabel("관리자의 아이디와 패스워드를 입력하세요.", (int) CENTER_ALIGNMENT), "Center");
 		header.add(new Label(""), "South");
 
 		JPanel input = new JPanel(new GridLayout(9, 2));
@@ -138,8 +130,7 @@ class Login extends JFrame implements Tool, ActionListener {
 		setSize(350, 350);
 		Dimension d = getSize();
 
-		setLocation(screenSize.width / 2 - (d.width / 2),
-				screenSize.height / 2 - (d.height / 2));
+		setLocation(screenSize.width / 2 - (d.width / 2), screenSize.height / 2 - (d.height / 2));
 
 		setVisible(true);
 
@@ -154,12 +145,10 @@ class Login extends JFrame implements Tool, ActionListener {
 
 		if (obj.equals(exit)) {
 			System.exit(0);
-		} else if (obj.equals(conf) || obj.equals(jtfpw)
-				|| obj.equals(jtfid)) {
+		} else if (obj.equals(conf) || obj.equals(jtfpw) || obj.equals(jtfid)) {
 			Connection conn = DBAction.getInstance().getConnection();
 
-			String sql = "select * from bankadmin where id = '"
-					+ jtfid.getText() + "'";
+			String sql = "select * from bankadmin where id = '" + jtfid.getText() + "'";
 
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;

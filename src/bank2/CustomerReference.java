@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -335,7 +334,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		}
 	}
 
-	public static void main(String[] args) {
-		new CustomerReference();
-	}
+	// public static void main(String[] args) {
+	// new CustomerReference();
+	// }
 }

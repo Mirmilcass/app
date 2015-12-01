@@ -2,7 +2,7 @@ package bank2;
 
 import java.util.Random;
 
-class Customer2 implements Tool {
+class Customer2 {
 
 	private int PersonalNum;
 	private String accountNum;
