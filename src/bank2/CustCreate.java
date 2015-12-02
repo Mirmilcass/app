@@ -223,9 +223,28 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 				} else if (e.getKeyCode() == 8) {
 					if (sb.length() > 0)
 						sb.deleteCharAt(sb.length() - 1);
+				} else if (e.getKeyCode() == 127) {
+					sb.delete(0, sb.length());
+					tfid.setText("");
 				} else {
 					tfid.setText(str);
 				}
+			} else if (obj.equals(tfpw)) {
+				str = sb.toString().toLowerCase();
+				tfpw.setText(str);
+				if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97 && e.getKeyChar() <= 122
+						|| e.getKeyChar() >= 65 && e.getKeyChar() <= 90) {
+					sb.append(e.getKeyChar());
+				} else if (e.getKeyCode() == 8) {
+					if (sb.length() > 0)
+						sb.deleteCharAt(sb.length() - 1);
+				} else if (e.getKeyCode() == 127) {
+					sb.delete(0, sb.length());
+					tfpw.setText("");
+				} else {
+					tfpw.setText(str);
+				}
+
 			}
 		}
 	}
