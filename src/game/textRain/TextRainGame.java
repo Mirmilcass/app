@@ -25,39 +25,24 @@ public class TextRainGame extends JFrame /* implements Runnable */{
 	private JLabel num;
 	private JTextField in;
 	private ArrayList<String> arr;
+
+	// wordMake() 에서 사용.
 	private Words[] wds;
 	private Thread[] th;
-
 	private int size;
 
 	public TextRainGame(int si) {
+		// TODO 생성자
 
 		textData(); // 파일을 가져와서 그 내용을 String 타잎의 ArrayList에 정의.
-					// StringTokenizer사용
-		size = si;
-
-		th = new Thread[size];
-		wds = new Words[size];
+					// StringTokenizer사용한 메서드
 
 		setLayout(new BorderLayout());
-
 		textin = new JPanel(new GridLayout(1, 1));
 		darww = new JPanel();
-		side = new JPanel();
 
-		num = new JLabel("남은 개수 = " + size);
-
-		side.add(num);
-
-		add(side, "East");
-
-		for (int i = 0; i < size; i++)
-			darww.add(wds[i] = new Words(arr.get(new Random().nextInt(arr.size()))));
-
-		for (int i = 0; i < size; i++) {
-			th[i] = new Thread(wds[i]);
-			th[i].start();
-		}
+		// 단어들을 라벨로 생성해서 darww에 직접 넣는다.
+		wordMake(si);
 
 		add(darww, "Center");
 
@@ -101,14 +86,94 @@ public class TextRainGame extends JFrame /* implements Runnable */{
 	}
 
 	class textDraw extends Canvas {
+		// Canvas로 직접 그리는 방법은?
 
+	}
+
+	public void textData() {
+		// TODO 텍스트 가져오기.
+		try {
+			StreamTokenizer sti = new StreamTokenizer(new BufferedReader(new FileReader(new File(
+					"C:/Users/woori/git/app/src/game/textRain/word.txt"))));
+			// StreamTokenizer는 어떻게 쓰는걸까???
+
+			BufferedReader inr = new BufferedReader(new FileReader(new File(
+					"C:/Users/woori/git/app/src/game/textRain/word.txt")));
+			// BufferedReader inr = new BufferedReader(new FileReader(new
+			// File(
+			// "C:/Documents and Settings/Mil/git/app/src/game/textRain/word.txt")));
+
+			arr = new ArrayList<String>();
+
+			// System.out.println(sti.toString());
+			// System.out.println(sti.nextToken());
+			while (inr.ready()) {
+				String str = inr.readLine();
+				StringTokenizer st = new StringTokenizer(str, ":", false);
+				for (int i = 0; i < st.countTokens(); i++) {
+					arr.add(st.nextToken().trim());
+				}
+			}
+			inr.close();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void wordMake(int si) {
+		size = si;
+		th = new Thread[size];
+		wds = new Words[size];
+		side = new JPanel();
+		num = new JLabel("남은 개수 = " + size);
+		side.add(num);
+		add(side, "East");
+		for (int i = 0; i < size; i++)
+			darww.add(wds[i] = new Words(arr.get(new Random().nextInt(arr.size()))));
+		for (int i = 0; i < size; i++) {
+			th[i] = new Thread(wds[i]);
+			th[i].start();
+		}
+	}
+
+	class Words extends JLabel implements Runnable {
+		// TODO 단어 정의
+		int y = 0;
+		int x = 0;
+
+		String name_str = "1";// 점수 계산을 위한 세팅
+
+		public Words(String name) {
+			super(name);// 레이블 이름 세팅
+			// this.setFont(new Font("Serif", Font.BOLD, 50));// 폰트 세팅
+		}
+
+		@Override
+		public void run() { // 단어 라벨들을 움직이는 곳
+			x = (int) (Math.random() * 250);// 처음 위치
+			y = (int) (Math.random() * -500);// 화면 위로 y값을 위치 시킨다.
+			while (true) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// e.printStackTrace();
+					System.out.println(e.getMessage());
+				}
+
+				y += (int) (Math.random() * 10); // y값 증가
+				this.setBounds(x, y, 100, 100);
+
+				if (y > 600)
+					y = (int) (Math.random() * -500);// y값이 오버되면 다시 위로 올린다.
+			}
+		}
 	}
 
 	class Handler implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			// TODO 리스너 핸들러.
 			Object obj = e.getSource();
 
 			if (obj.equals(in)) {
@@ -127,65 +192,6 @@ public class TextRainGame extends JFrame /* implements Runnable */{
 						th[i] = null;// 스레드를 없애줌 성능 향상을 위해서
 					}
 				in.setText("");
-			}
-		}
-	}
-
-	public void textData() {
-		// TODO 텍스트 가져오기.
-		try {
-			StreamTokenizer sti = new StreamTokenizer(new BufferedReader(new FileReader(new File(
-					"C:/Users/woori/git/app/src/game/textRain/word.txt"))));
-			BufferedReader inr = new BufferedReader(new FileReader(new File(
-					"C:/Users/woori/git/app/src/game/textRain/word.txt")));
-			// BufferedReader inr = new BufferedReader(new FileReader(new
-			// File(
-			// "C:/Documents and Settings/Mil/git/app/src/game/textRain/word.txt")));
-
-			arr = new ArrayList<String>();
-
-			while (inr.ready()) {
-				String str = inr.readLine();
-				StringTokenizer st = new StringTokenizer(str, ":", false);
-				for (int i = 0; i < st.countTokens(); i++) {
-					arr.add(st.nextToken().trim());
-				}
-			}
-			inr.close();
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	class Words extends JLabel implements Runnable {
-		// TODO 단어 정의
-		int y = 0;
-		int x = 0;
-
-		String name_str = "1";// 점수 계산을 위한 세팅
-
-		public Words(String name) {
-			super(name);// 레이블 이름 세팅
-			// this.setFont(new Font("Serif", Font.BOLD, 50));// 폰트 세팅
-		}
-
-		@Override
-		public void run() {
-			x = (int) (Math.random() * 250);// 처음 위치
-			y = (int) (Math.random() * -500);// 화면 위로 y값을 위치 시킨다.
-			while (true) {
-				try {
-					Thread.sleep(500);
-
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				y += (int) (Math.random() * 10); // y값 증가
-				this.setBounds(x, y, 100, 100);
-
-				if (y > 600)
-					y = (int) (Math.random() * -500);// y값이 오버되면 다시 위로 올린다.
 			}
 		}
 	}

@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -45,6 +49,8 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 	private JTable table;
 
 	private Dimension d;
+
+	private StringBuffer jdin;
 
 	public CustomerReference() {
 
@@ -78,6 +84,16 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 			}
 		});
 
+		tf.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println(tf.getText().compareTo(" "));
+			}
+		});
+
+		// 테이블 생성
 		columnNames = new Vector<Object>();
 		columnNames.add("아이디");
 		columnNames.add("이름");
@@ -94,10 +110,13 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 
 		table = new JTable(model);
 
+		// 테이블 설정
 		table.getColumn("계좌 번호").setCellRenderer(celAlignCenter);
 		table.getColumn("계좌 번호").setPreferredWidth(150);
 		table.getColumn("잔액").setCellRenderer(celAlignRight);
 		table.getColumn("등급").setCellRenderer(celAlignCenter);
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
 
 		JScrollPane view = new JScrollPane(table);
 
@@ -162,6 +181,25 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 			}
 		});
 
+		jdin = new StringBuffer();
+
+		jdtf.addKeyListener(new KeyAdapter() {
+			String str;
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				str = jdin.toString();
+				jdtf.setText(str);
+				if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57)) {
+					jdtf.setText(str);
+				} else {
+					jdin.append(e.getKeyChar());
+				}
+			}
+
+		});
+
 		JPanel jdbutton = new JPanel();
 		in = new JButton("입금");
 		out = new JButton("출금");
@@ -197,9 +235,16 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		if (selec.equals("전체")) {
 			sql = "select id,name,accountnum,bal,vip from customer order by num";
 		} else if (selec.equals("아이디")) {
-			sql = " select id,name,accountnum,bal,vip from customer where id='" + tf.getText() + "' order by num";
+			if (tf.getText().length() == 0)
+				JOptionPane.showMessageDialog(this, new JLabel("아이디를 입력해주세요."), "입력 오류", JOptionPane.WARNING_MESSAGE);
+
+			sql = " select id,name,accountnum,bal,vip from customer where id='" + tf.getText().trim()
+					+ "' order by num";
 		} else if (selec.equals("이름")) {
-			sql = " select id,name,accountnum,bal,vip from customer where name='" + tf.getText() + "' order by num";
+			if (tf.getText().length() == 0)
+				JOptionPane.showMessageDialog(this, new JLabel("이름을 입력해주세요."), "입력 오류", JOptionPane.WARNING_MESSAGE);
+			sql = " select id,name,accountnum,bal,vip from customer where name='" + tf.getText().trim()
+					+ "' order by num";
 		}
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -225,6 +270,10 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 	public void edit() {
 		Connection conn = DBAction.getInstance().getConnection();
 
+		if (table.getSelectedRow() < 0) {
+			JOptionPane.showMessageDialog(this, new JLabel("수정할 정보를 선택해주세요."), "선택 오류", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
 		String name = (String) table.getValueAt(table.getSelectedRow(), 1);
 		int vip, tax;
 		if ("우수".equals((String) table.getValueAt(table.getSelectedRow(), 4))) {
@@ -243,11 +292,14 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				sql = "UPDATE customer SET name ='" + name + "', vip = " + vip + ", tax = " + tax + " where id = '"
-						+ table.getValueAt(table.getSelectedRow(), 0) + "'";
+				sql = "UPDATE customer SET name ='" + name.trim() + "', vip = " + vip + ", tax = " + tax
+						+ " where id = '" + table.getValueAt(table.getSelectedRow(), 0) + "'";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.executeUpdate();
-			}
+				JOptionPane.showMessageDialog(this, new JLabel("수정 완료"), "수정 완료", JOptionPane.PLAIN_MESSAGE);
+			} else
+				JOptionPane
+						.showMessageDialog(this, new JLabel("수정할 정보를 선택해주세요."), "선택 오류", JOptionPane.WARNING_MESSAGE);
 		} catch (SQLException e1) {
 			System.out.println(e1.getMessage());
 		}
@@ -257,7 +309,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		Connection conn = DBAction.getInstance().getConnection();
 
 		String sql = "select name,bal from customer where id='" + table.getValueAt(table.getSelectedRow(), 0) + "'";
-		int inbal = Integer.parseInt(jdtf.getText());
+		int inbal = Integer.parseInt(jdtf.getText().trim().trim());
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -284,7 +336,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		Connection conn = DBAction.getInstance().getConnection();
 
 		String sql = "select name,bal,tax from customer where id='" + table.getValueAt(table.getSelectedRow(), 0) + "'";
-		int inbal = Integer.parseInt(jdtf.getText());
+		int inbal = Integer.parseInt(jdtf.getText().trim());
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -294,7 +346,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				jdta.setText("");
-				jdta.append("" + inbal + "원 입금하였습니다.\n");
+				jdta.append("" + inbal + "원 출금하였습니다.\n");
 				jdta.append("수수료는 " + rs.getInt("tax") + "입니다.\n");
 				sql = "update customer set bal = " + (rs.getInt("bal") - inbal - rs.getInt("tax")) + " where id = '"
 						+ table.getValueAt(table.getSelectedRow(), 0) + "'";

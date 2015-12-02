@@ -8,10 +8,14 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,12 +24,15 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.sun.corba.se.impl.protocol.giopmsgheaders.KeyAddr;
+
 import oracle.DBAction;
 
-public class CustCreate extends JFrame implements ItemListener, ActionListener, Tool, FocusListener {
+public class CustCreate extends JFrame implements ItemListener, ActionListener, Tool {
 
 	int cust_idx;
 
@@ -102,7 +109,7 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 		tfbal = new JTextField(25);
 
 		ch = new CheckboxGroup();
-		Checkbox ncust = new Checkbox("일반 고객", false, ch);
+		Checkbox ncust = new Checkbox("일반 고객", true, ch);
 		Checkbox vcust = new Checkbox("우수 고객", false, ch);
 
 		input.add(new Label("아이디  : "));
@@ -124,12 +131,12 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 		input.add(new Label("잔액 : "));
 		input.add(tfbal);
 
-		// 포커스시 텍스트 필드 리셋
-		tfid.addFocusListener(this);
-		tfpw.addFocusListener(this);
-		tfcpw.addFocusListener(this);
-		tfname.addFocusListener(this);
-		tfbal.addFocusListener(this);
+		// 입력 제한
+		tfid.addKeyListener(new input());
+		tfpw.addKeyListener(new input());
+		tfcpw.addKeyListener(new input());
+		tfname.addKeyListener(new input());
+		tfbal.addKeyListener(new input());
 
 		JPanel footer = new JPanel(new BorderLayout());
 
@@ -197,10 +204,36 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 		}
 	}
 
+	class input extends KeyAdapter {
+		StringBuffer sb = new StringBuffer();
+		String str;
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO 입력제한
+			Object obj = e.getSource();
+			// System.out.println("char : " + e.getKeyCode());
+			// System.out.println("get : " + tfid.getText());
+			if (obj.equals(tfid)) {
+				str = sb.toString().toLowerCase();
+				tfid.setText(str);
+				if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97 && e.getKeyChar() <= 122
+						|| e.getKeyChar() >= 65 && e.getKeyChar() <= 90) {
+					sb.append(e.getKeyChar());
+				} else if (e.getKeyCode() == 8) {
+					if (sb.length() > 0)
+						sb.deleteCharAt(sb.length() - 1);
+				} else {
+					tfid.setText(str);
+				}
+			}
+		}
+	}
+
 	private void cheak() {
 		Connection conn = DBAction.getInstance().getConnection();
 
-		String sql = "select id from customer where id ='" + tfid.getText() + "'";
+		String sql = "select id from customer where id ='" + tfid.getText().trim() + "'";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -209,18 +242,23 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				tfid.setText("동일한 아이디가 존재합니다.");
+				JOptionPane
+						.showMessageDialog(this, new JLabel("동일한 아이디가 존재합니다."), "입력 오류", JOptionPane.WARNING_MESSAGE);
+				tfid.setText("");
 			} else {
-				cust.setId(tfid.getText());
-				cust.setPw(tfpw.getText());
-				if (tfcpw.getText().equals(tfpw.getText())) {
-					cust.setName(tfname.getText());
-					cust.setBal(Integer.parseInt(tfbal.getText()));
+				cust.setId(tfid.getText().trim());
+				cust.setPw(tfpw.getText().trim());
+				if (tfcpw.getText().trim().equals(tfpw.getText().trim())) {
+					cust.setName(tfname.getText().trim());
+					cust.setBal(Integer.parseInt(tfbal.getText().trim()));
 					in();
 					setVisible(false);
 					dispose();
 				} else {
-					tfcpw.setText("일치 하지 않습니다. 재입력 해주세요.");
+					JOptionPane.showMessageDialog(this, new JLabel("암호가 일치하지 않습니다."), "입력 오류",
+							JOptionPane.WARNING_MESSAGE);
+					tfpw.setText("");
+					tfcpw.setText("");
 				}
 			}
 		} catch (SQLException e1) {
@@ -252,33 +290,14 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 			/* int result = */pstmt.executeUpdate();
 			// String msg = result > -1 ? "successful" : "fail";
 			// System.out.println(msg);
+			JOptionPane.showMessageDialog(this, new JLabel("생성 되었습니다."), "생성 완료", JOptionPane.PLAIN_MESSAGE);
 		} catch (SQLException e1) {
 			System.out.println(e1.getMessage());
 		}
 	}
 
-	@Override
-	public void focusGained(FocusEvent e) {
-		// TODO Auto-generated method stub
-		Object obj = e.getSource();
-
-		if (obj.equals(tfid)) {
-			tfid.setText("");
-		} else if (obj.equals(tfpw)) {
-			tfpw.setText("");
-		} else if (obj.equals(tfcpw)) {
-			tfcpw.setText("");
-		} else if (obj.equals(tfname)) {
-			tfname.setText("");
-		} else if (obj.equals(tfbal)) {
-			tfbal.setText("");
-		}
-	}
-
-	@Override
-	public void focusLost(FocusEvent e) {
-		// TODO Auto-generated method stub
-
+	public static void main(String[] args) {
+		new CustCreate();
 	}
 
 }

@@ -30,6 +30,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -148,7 +149,7 @@ class Login extends JFrame implements Tool, ActionListener {
 		} else if (obj.equals(conf) || obj.equals(jtfpw) || obj.equals(jtfid)) {
 			Connection conn = DBAction.getInstance().getConnection();
 
-			String sql = "select * from bankadmin where id = '" + jtfid.getText() + "'";
+			String sql = "select * from bankadmin where id = '" + jtfid.getText().trim() + "'";
 
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -158,14 +159,17 @@ class Login extends JFrame implements Tool, ActionListener {
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
 					String pw = rs.getString("pw");
-					if (pw.equals(jtfpw.getText())) {
+					if (pw.equals(jtfpw.getText().trim())) {
 						setVisible(false);
 						new BankMain();
 					} else {
-						jtfpw.setText("암호가 틀립니다.");
+						JOptionPane.showMessageDialog(this, new JLabel("암호가 틀립니다."), "입력 오류",
+								JOptionPane.WARNING_MESSAGE);
+						jtfpw.setText("");
 					}
 				} else
-					jtfid.setText("아이디가 틀립니다.");
+					JOptionPane.showMessageDialog(this, new JLabel("아이디가 틀립니다."), "입력 오류", JOptionPane.WARNING_MESSAGE);
+				jtfid.setText("");
 			} catch (SQLException e1) {
 				System.out.println(e1.getMessage());
 			}
