@@ -2,6 +2,7 @@ package game.textRain;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -85,8 +86,23 @@ public class TextRainGame extends JFrame /* implements Runnable */{
 
 	}
 
-	class textDraw extends Canvas {
+	class textDraw extends Canvas implements Runnable {
 		// Canvas肺 流立 弊府绰 规过篮?
+		Random ran = new Random();
+
+		public void paint(Graphics g, int x, int y) {
+			g.drawString(arr.get(ran.nextInt()), x, y);
+		}
+
+		@Override
+		public void run() {
+			try {
+				repaint();
+				Thread.sleep(1000);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
 
 	}
 
@@ -105,8 +121,6 @@ public class TextRainGame extends JFrame /* implements Runnable */{
 
 			arr = new ArrayList<String>();
 
-			// System.out.println(sti.toString());
-			// System.out.println(sti.nextToken());
 			while (inr.ready()) {
 				String str = inr.readLine();
 				StringTokenizer st = new StringTokenizer(str, ":", false);

@@ -7,3 +7,15 @@ alter table 테이블명 add 컬럼명 테이터타잎;
 alter table 테이블명 drop column 컬럼명;
 
 alter table 테이블명 add 컬럼명 date default sysdate; // 현재 시간의 정보를 기록;
+
+// 오라클 DB 백업시 사용하는 Query문
+
+내보내기
+
+exp userid=system/1234@xe owner=clamp file=c:\140820.dmp
+
+exp userid=계정명/계정암호@시스템명 
+
+가져오기
+
+imp system/1234@xe fromuser=clamp touser=clamp file=c:\140820.dmp

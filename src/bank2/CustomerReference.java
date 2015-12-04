@@ -32,9 +32,17 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.UndoableEditListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
+import javax.swing.text.Position;
+import javax.swing.text.Segment;
 
 import oracle.DBAction;
 
@@ -53,7 +61,8 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 	private JTable table;
 
 	private Dimension d;
-	private StringBuffer sb, jdsb;
+
+	//	private StringBuffer sb, jdsb;
 
 	public CustomerReference() {
 
@@ -64,25 +73,23 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		viewp = new JPanel(new BorderLayout()); // 뷰 판넬
 
 		tf = new JTextField();
+		tf.setDocument(new TextUnedit(this, 5));
+		tf.setText("전체 조회");
 
-		conf = new JButton("조회");
-		back = new JButton("처음");
-		edit = new JButton("수정");
-		inout = new JButton("입 / 출금");
+		tf.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				tf.setText("");
+			}
 
-		rfHeaderP.add(tf, "Center");
-		rfHeaderP.add(conf, "East");
-		rfHeaderP.add(new Label(""), "South");
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (tf.getText().equals(""))
+					tf.setText("전체 조회");
+			}
+		});
 
-		// 테이블 생성
-		columnNames = new Vector<Object>();
-		columnNames.add("아이디");
-		columnNames.add("이름");
-		columnNames.add("계좌 번호");
-		columnNames.add("잔액");
-		columnNames.add("등급");
-
-		sb = new StringBuffer();
+		/*sb = new StringBuffer();
 		tf.addKeyListener(new KeyAdapter() {
 			// TODO 조회 입력
 			String str;
@@ -121,7 +128,24 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 
 			}
 
-		});
+		});*/
+
+		conf = new JButton("조회");
+		back = new JButton("처음");
+		edit = new JButton("수정");
+		inout = new JButton("입 / 출금");
+
+		rfHeaderP.add(tf, "Center");
+		rfHeaderP.add(conf, "East");
+		rfHeaderP.add(new Label(""), "South");
+
+		// 테이블 생성
+		columnNames = new Vector<Object>();
+		columnNames.add("아이디");
+		columnNames.add("이름");
+		columnNames.add("계좌 번호");
+		columnNames.add("잔액");
+		columnNames.add("등급");
 
 		model = new DefaultTableModel(rowData, columnNames) {
 			@Override
@@ -195,13 +219,17 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		setLocationRelativeTo(this);
 
 		setVisible(true);
+		conf.requestFocus(); // 지정 콤프 위치에 포커스 지정 visible아래 둬야함.
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		// 입출금 다이얼로그
+
 		jd = new JDialog(this);
-		jdtf = new JTextField();
 		jd.setTitle("입 / 출금");
+
+		jdtf = new JTextField();
+		jdtf.setDocument(new TextUnedit(jd, "num", 10));
 
 		jd.setLayout(new BorderLayout());
 		jd.add(new Label(), "North");
@@ -221,47 +249,50 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 
 		jdheader.add(jdla, "North");
 		jdheader.add(jdtf, "Center");
+		/*
+				// 입력 제한
+				jdsb = new StringBuffer();
 
-		jdsb = new StringBuffer();
+				jdtf.addKeyListener(new KeyAdapter() {
+					// TODO 입출금 입력
+					String str;
 
-		jdtf.addKeyListener(new KeyAdapter() {
-			// TODO 입출금 입력
-			String str;
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				str = jdsb.toString();
-				jdtf.setText(str);
-				if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57) {
-					jdsb.append(e.getKeyChar());
-					jdtf.setText(str);
-					// } else if (e.getKeyCode() == 8) {
-				} else if (e.getKeyChar() == e.VK_BACK_SPACE) {
-					if (jdsb.length() > 0)
-						jdsb.deleteCharAt(jdsb.length() - 1);
-				} else if (e.getKeyCode() == 127) {
-					jdsb.delete(0, jdsb.length());
-					jdtf.setText("");
-				} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57)) {
-					JOptionPane
-							.showMessageDialog(jd, new JLabel("숫자만 입력 가능합니다."), "입력 오류", JOptionPane.WARNING_MESSAGE);
-					jdtf.setText(str);
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if (jdtf.getText().length() > 10) {
-					JOptionPane.showMessageDialog(jd, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
-					if (jdsb.length() > 10) {
-						jdsb.delete(10, jdsb.length());
+					@Override
+					public void keyPressed(KeyEvent e) {
+						str = jdsb.toString();
 						jdtf.setText(str);
+
+						if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57) {
+							jdsb.append(e.getKeyChar());
+							jdtf.setText(str);
+							// } else if (e.getKeyCode() == 8) {
+						} else if (e.getKeyChar() == e.VK_BACK_SPACE) {
+							if (jdsb.length() > 0)
+								jdsb.deleteCharAt(jdsb.length() - 1);
+						} else if (e.getKeyCode() == 127) {
+							jdsb.delete(0, jdsb.length());
+							jdtf.setText("");
+						} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57)) {
+							JOptionPane
+									.showMessageDialog(jd, new JLabel("숫자만 입력 가능합니다."), "입력 오류", JOptionPane.WARNING_MESSAGE);
+							jdtf.setText(str);
+						}
 					}
-				}
-			}
 
-		});
+					@Override
+					public void keyReleased(KeyEvent e) {
+						if (jdtf.getText().length() > 10) {
+							JOptionPane.showMessageDialog(jd, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
+							if (jdsb.length() > 10) {
+								jdsb.delete(10, jdsb.length());
+								jdtf.setText(str);
+							}
+						}
+					}
 
+				});
+				//
+		*/
 		JPanel jdbutton = new JPanel();
 		in = new JButton("입금");
 		out = new JButton("출금");
@@ -293,7 +324,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		if (tf.getText().equals("")) {
+		if (tf.getText().equals("") || tf.getText().equals("전체 조회")) {
 			sql = "select id,name,accountnum,bal,vip from customer order by num";
 		} else {
 			sql = " select id,name,accountnum,bal,vip from customer where id='" + tf.getText() + "' or name='"
@@ -305,7 +336,6 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 			if (!rs.isBeforeFirst()) {
 				JOptionPane.showMessageDialog(this, new JTextArea("일치하는 정보가 없습니다. 이름 또는 아이디를 입력하세요."), "검색 오류",
 						JOptionPane.WARNING_MESSAGE);
-				sb.delete(0, sb.length());
 				tf.setText("");
 				return;
 			}
@@ -393,7 +423,6 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 				pstmt.executeQuery();
 				jdta.append(rs.getString("name") + "님의 잔액은 " + (rs.getInt("bal") + inbal) + "입니다.");
 				jdla.setText(rs.getString("name") + " 님" + (rs.getInt("bal") + inbal) + " 원");
-				jdsb.delete(0, jdsb.length());
 				jdtf.setText("");
 			}
 		} catch (SQLException e1) {
@@ -427,7 +456,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 					jdla.setText(rs.getString("name") + " 님" + (rs.getInt("bal") - inbal - rs.getInt("tax")) + " 원");
 				} else
 					JOptionPane.showMessageDialog(jd, "잔액이 부족합니다.", "잔액 부족", JOptionPane.ERROR_MESSAGE);
-				jdsb.delete(0, jdsb.length());
+				//				jdsb.delete(0, jdsb.length());
 				jdtf.setText("");
 			}
 		} catch (SQLException e1) {
@@ -448,7 +477,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 				return;
 			}
 			jd.setVisible(false);
-			jdsb.delete(0, jdsb.length());
+			//			jdsb.delete(0, jdsb.length());
 			model.setNumRows(0);
 			reference();
 		} else if (obj.equals(edit)) {
@@ -485,7 +514,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		}
 	}
 
-	public static void main(String[] args) {
-		new CustomerReference();
-	}
+	//	public static void main(String[] args) {
+	//		new CustomerReference();
+	//	}
 }

@@ -16,6 +16,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.im.InputContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,9 +27,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.sun.corba.se.impl.protocol.giopmsgheaders.KeyAddr;
+import com.sun.org.apache.bcel.internal.generic.IUSHR;
+import com.sun.org.apache.xpath.internal.FoundIndex;
 
 import oracle.DBAction;
 
@@ -38,7 +42,8 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 
 	private JButton conf, back;
 
-	private JTextField tfid, tfpw, tfcpw, tfname, tfbal;
+	private JTextField tfid, tfname, tfbal;
+	private JPasswordField tfpw, tfcpw;
 
 	private CheckboxGroup ch;
 
@@ -103,11 +108,11 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 
 		Main.add(input, "Center");
 
-		tfid = new JTextField(25);
-		tfpw = new JTextField(25);
-		tfcpw = new JTextField(25);
-		tfname = new JTextField(25);
-		tfbal = new JTextField(25);
+		tfid = new JTextField();
+		tfpw = new JPasswordField();
+		tfcpw = new JPasswordField();
+		tfname = new JTextField();
+		tfbal = new JTextField();
 
 		ch = new CheckboxGroup();
 		Checkbox ncust = new Checkbox("일반 고객", true, ch);
@@ -132,12 +137,30 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 		input.add(new Label("잔액 : "));
 		input.add(tfbal);
 
+		// 기본 한글 입력 설정
+		tfname.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				InputContext ctx = getInputContext();
+				Character.Subset[] subset = { Character.UnicodeBlock.HANGUL_SYLLABLES };
+				ctx.setCharacterSubsets(subset);
+			}
+		});
+
 		// 입력 제한
-		tfid.addKeyListener(new input());
-		tfpw.addKeyListener(new input());
-		tfcpw.addKeyListener(new input());
-		tfname.addKeyListener(new input());
-		tfbal.addKeyListener(new input());
+		tfid.setDocument(new TextUnedit(this, "id", 10));
+		tfpw.setDocument(new TextUnedit(this, 10));
+		tfcpw.setDocument(new TextUnedit(this, 10));
+		tfname.setDocument(new TextUnedit(this, "name", 5));
+		tfbal.setDocument(new TextUnedit(this, "num", 10));
+
+		/*
+				tfid.addKeyListener(new inputx());
+				tfpw.addKeyListener(new inputx());
+				tfcpw.addKeyListener(new inputx());
+				tfname.addKeyListener(new inputx());
+				tfbal.addKeyListener(new inputx());
+		*/
 
 		JPanel footer = new JPanel(new BorderLayout());
 
@@ -168,7 +191,9 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 
 		Dimension d = getSize();
 
-		setLocation(screenSize.width / 2 - (d.width / 2), screenSize.height / 2 - (d.height / 2));
+		setLocationRelativeTo(this);
+		// setLocation(screenSize.width / 2 - (d.width / 2), screenSize.height /
+		// 2 - (d.height / 2));
 
 		setVisible(true);
 
@@ -205,163 +230,164 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 		}
 	}
 
-	class input extends KeyAdapter {
-		StringBuffer idsb = new StringBuffer();
-		StringBuffer pwsb = new StringBuffer();
-		StringBuffer cpwsb = new StringBuffer();
-		StringBuffer balsb = new StringBuffer();
-		StringBuffer namesb = new StringBuffer();
+	/*
+		class inputx extends KeyAdapter {
+			StringBuffer idsb = new StringBuffer();
+			StringBuffer pwsb = new StringBuffer();
+			StringBuffer cpwsb = new StringBuffer();
+			StringBuffer balsb = new StringBuffer();
+			StringBuffer namesb = new StringBuffer();
 
-		String str;
+			String str;
 
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO 입력제한
-			Object obj = e.getSource();
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO 입력제한
+				Object obj = e.getSource();
 
-			if (obj.equals(tfid)) {
-				str = idsb.toString();
-				tfid.setText(str);
-				if (e.getKeyChar() == e.VK_BACK_SPACE) {
-					if (idsb.length() > 0)
-						idsb.deleteCharAt(idsb.length() - 1);
-				} else if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
-						&& e.getKeyChar() <= 122) {
-					idsb.append(e.getKeyChar());
-				}
-			} else if (obj.equals(tfpw)) {
-				str = pwsb.toString();
-				tfpw.setText(str);
-				if (e.getKeyChar() == e.VK_BACK_SPACE) {
-					if (pwsb.length() > 0)
-						pwsb.deleteCharAt(pwsb.length() - 1);
-				} else if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
-						&& e.getKeyChar() <= 122) {
-					pwsb.append(e.getKeyChar());
-				}
-			} else if (obj.equals(tfname)) {
-				str = cpwsb.toString();
-				tfname.setText(str);
-				if (e.getKeyChar() == e.VK_BACK_SPACE) {
-					if (cpwsb.length() > 0)
-						cpwsb.deleteCharAt(cpwsb.length() - 1);
-				} else if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
-						&& e.getKeyChar() <= 122) {
-					cpwsb.append(e.getKeyChar());
-				}
-			} else if (obj.equals(tfcpw)) {
-				str = namesb.toString();
-				tfcpw.setText(str);
-				if (e.getKeyChar() == e.VK_BACK_SPACE) {
-					if (namesb.length() > 0)
-						namesb.deleteCharAt(namesb.length() - 1);
-				}
-			} else if (obj.equals(tfname)) {
-				System.out.println(e.getKeyChar());
-				if (e.getKeyChar() > 40000) {
-					System.out.println(e.getKeyChar());
-					namesb.append(e.getKeyChar());
-					str = namesb.toString();
-					tfname.setText(str);
-				} else if (!(e.getKeyChar() > 40000 && e.getKeyChar() <= 50808 || e.getKeyChar() == e.VK_BACK_SPACE || e
-						.getKeyChar() == e.VK_ENTER)) {
-					tfname.setText(str);
-				}
-				if (tfname.getText().length() > 10) {
-					JOptionPane.showMessageDialog(rootPane, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
-					if (namesb.length() > 10) {
-						namesb.delete(10, namesb.length());
-						tfname.setText(str);
-					}
-				}
-			} else if (obj.equals(tfbal)) {
-				str = balsb.toString();
-				tfbal.setText(str);
-				if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57) {
-					balsb.append(e.getKeyChar());
-					tfbal.setText(str);
-				} else if (e.getKeyChar() == e.VK_BACK_SPACE) {
-					if (balsb.length() > 0)
-						balsb.deleteCharAt(balsb.length() - 1);
-				} else if (e.getKeyCode() == 127) {
-					balsb.delete(0, balsb.length());
-					tfbal.setText("");
-				} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57)) {
-					JOptionPane.showMessageDialog(rootPane, new JLabel("숫자만 입력 가능합니다."), "입력 오류",
-							JOptionPane.WARNING_MESSAGE);
-					tfbal.setText(str);
-				}
-			}
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			Object obj = e.getSource();
-
-			if (obj.equals(tfid)) {
-				if (e.getKeyChar() >= 65 && e.getKeyChar() <= 90) {
-					idsb.append(String.valueOf(e.getKeyChar()).toLowerCase());
+				if (obj.equals(tfid)) {
 					str = idsb.toString();
 					tfid.setText(str);
-				} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
-						&& e.getKeyChar() <= 122 || e.getKeyChar() >= 65 && e.getKeyChar() <= 90
-						|| e.getKeyChar() == e.VK_BACK_SPACE || e.getKeyChar() == e.VK_ENTER)) {
-					tfid.setText(str);
-				}
-				if (tfid.getText().length() > 10) {
-					JOptionPane.showMessageDialog(rootPane, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
-					if (idsb.length() > 10) {
-						idsb.delete(10, idsb.length());
-						tfid.setText(str);
+					if (e.getKeyChar() == e.VK_BACK_SPACE) {
+						if (idsb.length() > 0)
+							idsb.deleteCharAt(idsb.length() - 1);
+					} else if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
+							&& e.getKeyChar() <= 122) {
+						idsb.append(e.getKeyChar());
 					}
-				}
-			} else if (obj.equals(tfpw)) {
-				if (e.getKeyChar() >= 65 && e.getKeyChar() <= 90) {
-					pwsb.append(String.valueOf(e.getKeyChar()).toLowerCase());
+				} else if (obj.equals(tfpw)) {
 					str = pwsb.toString();
 					tfpw.setText(str);
-				} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
-						&& e.getKeyChar() <= 122 || e.getKeyChar() >= 65 && e.getKeyChar() <= 90
-						|| e.getKeyChar() == e.VK_BACK_SPACE || e.getKeyChar() == e.VK_ENTER)) {
-					tfpw.setText(str);
-				}
-				if (tfpw.getText().length() > 10) {
-					JOptionPane.showMessageDialog(rootPane, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
-					if (pwsb.length() > 10) {
-						pwsb.delete(10, pwsb.length());
-						tfpw.setText(str);
+					if (e.getKeyChar() == e.VK_BACK_SPACE) {
+						if (pwsb.length() > 0)
+							pwsb.deleteCharAt(pwsb.length() - 1);
+					} else if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
+							&& e.getKeyChar() <= 122) {
+						pwsb.append(e.getKeyChar());
 					}
-				}
-			} else if (obj.equals(tfcpw)) {
-				if (e.getKeyChar() >= 65 && e.getKeyChar() <= 90) {
-					cpwsb.append(String.valueOf(e.getKeyChar()).toLowerCase());
+				} else if (obj.equals(tfname)) {
 					str = cpwsb.toString();
-					tfcpw.setText(str);
-				} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
-						&& e.getKeyChar() <= 122 || e.getKeyChar() >= 65 && e.getKeyChar() <= 90
-						|| e.getKeyChar() == e.VK_BACK_SPACE || e.getKeyChar() == e.VK_ENTER)) {
-					tfcpw.setText(str);
-				}
-				if (tfcpw.getText().length() > 10) {
-					JOptionPane.showMessageDialog(rootPane, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
-					if (cpwsb.length() > 10) {
-						cpwsb.delete(10, cpwsb.length());
-						tfcpw.setText(str);
+					tfname.setText(str);
+					if (e.getKeyChar() == e.VK_BACK_SPACE) {
+						if (cpwsb.length() > 0)
+							cpwsb.deleteCharAt(cpwsb.length() - 1);
+					} else if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
+							&& e.getKeyChar() <= 122) {
+						cpwsb.append(e.getKeyChar());
 					}
-				}
-			} else if (obj.equals(tfbal)) {
-				if (tfbal.getText().length() > 10) {
-					JOptionPane.showMessageDialog(rootPane, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
-					if (balsb.length() > 10) {
-						balsb.delete(10, balsb.length());
+				} else if (obj.equals(tfcpw)) {
+					str = namesb.toString();
+					tfcpw.setText(str);
+					if (e.getKeyChar() == e.VK_BACK_SPACE) {
+						if (namesb.length() > 0)
+							namesb.deleteCharAt(namesb.length() - 1);
+					}
+				} else if (obj.equals(tfname)) {
+					System.out.println(e.getKeyChar());
+					if (e.getKeyChar() > 40000) {
+						System.out.println(e.getKeyChar());
+						namesb.append(e.getKeyChar());
+						str = namesb.toString();
+						tfname.setText(str);
+					} else if (!(e.getKeyChar() > 40000 && e.getKeyChar() <= 50808 || e.getKeyChar() == e.VK_BACK_SPACE || e
+							.getKeyChar() == e.VK_ENTER)) {
+						tfname.setText(str);
+					}
+					if (tfname.getText().length() > 10) {
+						JOptionPane.showMessageDialog(rootPane, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
+						if (namesb.length() > 10) {
+							namesb.delete(10, namesb.length());
+							tfname.setText(str);
+						}
+					}
+				} else if (obj.equals(tfbal)) {
+					str = balsb.toString();
+					tfbal.setText(str);
+					if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57) {
+						balsb.append(e.getKeyChar());
+						tfbal.setText(str);
+					} else if (e.getKeyChar() == e.VK_BACK_SPACE) {
+						if (balsb.length() > 0)
+							balsb.deleteCharAt(balsb.length() - 1);
+					} else if (e.getKeyCode() == 127) {
+						balsb.delete(0, balsb.length());
+						tfbal.setText("");
+					} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57)) {
+						JOptionPane.showMessageDialog(rootPane, new JLabel("숫자만 입력 가능합니다."), "입력 오류",
+								JOptionPane.WARNING_MESSAGE);
 						tfbal.setText(str);
 					}
 				}
 			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				Object obj = e.getSource();
+
+				if (obj.equals(tfid)) {
+					if (e.getKeyChar() >= 65 && e.getKeyChar() <= 90) {
+						idsb.append(String.valueOf(e.getKeyChar()).toLowerCase());
+						str = idsb.toString();
+						tfid.setText(str);
+					} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
+							&& e.getKeyChar() <= 122 || e.getKeyChar() >= 65 && e.getKeyChar() <= 90
+							|| e.getKeyChar() == e.VK_BACK_SPACE || e.getKeyChar() == e.VK_ENTER)) {
+						tfid.setText(str);
+					}
+					if (tfid.getText().length() > 10) {
+						JOptionPane.showMessageDialog(rootPane, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
+						if (idsb.length() > 10) {
+							idsb.delete(10, idsb.length());
+							tfid.setText(str);
+						}
+					}
+				} else if (obj.equals(tfpw)) {
+					if (e.getKeyChar() >= 65 && e.getKeyChar() <= 90) {
+						pwsb.append(String.valueOf(e.getKeyChar()).toLowerCase());
+						str = pwsb.toString();
+						tfpw.setText(str);
+					} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
+							&& e.getKeyChar() <= 122 || e.getKeyChar() >= 65 && e.getKeyChar() <= 90
+							|| e.getKeyChar() == e.VK_BACK_SPACE || e.getKeyChar() == e.VK_ENTER)) {
+						tfpw.setText(str);
+					}
+					if (tfpw.getText().length() > 10) {
+						JOptionPane.showMessageDialog(rootPane, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
+						if (pwsb.length() > 10) {
+							pwsb.delete(10, pwsb.length());
+							tfpw.setText(str);
+						}
+					}
+				} else if (obj.equals(tfcpw)) {
+					if (e.getKeyChar() >= 65 && e.getKeyChar() <= 90) {
+						cpwsb.append(String.valueOf(e.getKeyChar()).toLowerCase());
+						str = cpwsb.toString();
+						tfcpw.setText(str);
+					} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
+							&& e.getKeyChar() <= 122 || e.getKeyChar() >= 65 && e.getKeyChar() <= 90
+							|| e.getKeyChar() == e.VK_BACK_SPACE || e.getKeyChar() == e.VK_ENTER)) {
+						tfcpw.setText(str);
+					}
+					if (tfcpw.getText().length() > 10) {
+						JOptionPane.showMessageDialog(rootPane, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
+						if (cpwsb.length() > 10) {
+							cpwsb.delete(10, cpwsb.length());
+							tfcpw.setText(str);
+						}
+					}
+				} else if (obj.equals(tfbal)) {
+					if (tfbal.getText().length() > 10) {
+						JOptionPane.showMessageDialog(rootPane, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
+						if (balsb.length() > 10) {
+							balsb.delete(10, balsb.length());
+							tfbal.setText(str);
+						}
+					}
+				}
+			}
+
 		}
-
-	}
-
+	*/
 	private void cheak() {
 		Connection conn = DBAction.getInstance().getConnection();
 
@@ -425,8 +451,8 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 		}
 	}
 
-	public static void main(String[] args) {
-		new CustCreate();
-	}
+	//	public static void main(String[] args) {
+	//		new CustCreate();
+	//	}
 
 }
