@@ -223,6 +223,11 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 		Object obj = e.getSource();
 
 		if (obj.equals(conf)) {
+			if (tfid.getText().isEmpty() || tfpw.getText().isEmpty() || tfcpw.getText().isEmpty()
+					|| tfname.getText().isEmpty() || tfbal.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "입력되지 않은 값이 존재 합니다. 확인해주세요", "입력 오류", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			cheak();
 		} else if (obj.equals(back)) {
 			setVisible(false);
@@ -391,7 +396,7 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 	private void cheak() {
 		Connection conn = DBAction.getInstance().getConnection();
 
-		String sql = "select id from customer where id ='" + tfid.getText().trim() + "'";
+		String sql = "select id from customer where id ='" + tfid.getText() + "'";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -404,11 +409,11 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 						.showMessageDialog(this, new JLabel("동일한 아이디가 존재합니다."), "입력 오류", JOptionPane.WARNING_MESSAGE);
 				tfid.setText("");
 			} else {
-				cust.setId(tfid.getText().trim());
-				cust.setPw(tfpw.getText().trim());
-				if (tfcpw.getText().trim().equals(tfpw.getText().trim())) {
-					cust.setName(tfname.getText().trim());
-					cust.setBal(Integer.parseInt(tfbal.getText().trim()));
+				cust.setId(tfid.getText());
+				cust.setPw(tfpw.getText());
+				if (tfcpw.getText().equals(tfpw.getText())) {
+					cust.setName(tfname.getText());
+					cust.setBal(Integer.parseInt(tfbal.getText()));
 					in();
 					setVisible(false);
 					dispose();
@@ -445,7 +450,7 @@ public class CustCreate extends JFrame implements ItemListener, ActionListener, 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.executeUpdate();
-			JOptionPane.showMessageDialog(this, new JLabel("생성 되었습니다."), "생성 완료", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(this, "생성 되었습니다.", "생성 완료", JOptionPane.PLAIN_MESSAGE);
 		} catch (SQLException e1) {
 			System.out.println(e1.getMessage());
 		}

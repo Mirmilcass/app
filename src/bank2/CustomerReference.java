@@ -230,6 +230,7 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 
 		jdtf = new JTextField();
 		jdtf.setDocument(new TextUnedit(jd, "num", 10));
+		jdtf.setHorizontalAlignment((int) RIGHT_ALIGNMENT);
 
 		jd.setLayout(new BorderLayout());
 		jd.add(new Label(), "North");
@@ -254,7 +255,6 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 				jdsb = new StringBuffer();
 
 				jdtf.addKeyListener(new KeyAdapter() {
-					// TODO 입출금 입력
 					String str;
 
 					@Override
