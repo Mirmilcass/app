@@ -42,7 +42,9 @@ public class TextUnedit extends PlainDocument {
 			return;
 		}
 
-		if (!type.isEmpty()) {
+		if (type.isEmpty()) {
+			super.insertString(offs, str, a);
+		} else if (!type.isEmpty()) {
 			if (type.equals("num")) { // ¼ýÀÚ¸¸
 				if (str.charAt(0) >= '0' && str.charAt(0) <= '9') {
 					super.insertString(offs, str, a);

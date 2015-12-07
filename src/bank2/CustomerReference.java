@@ -89,47 +89,6 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 			}
 		});
 
-		/*sb = new StringBuffer();
-		tf.addKeyListener(new KeyAdapter() {
-			// TODO 조회 입력
-			String str;
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if (e.getKeyChar() >= 65 && e.getKeyChar() <= 90) {
-					sb.append(String.valueOf(e.getKeyChar()).toLowerCase());
-					str = sb.toString();
-					tf.setText(str);
-				} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
-						&& e.getKeyChar() <= 122 || e.getKeyChar() >= 65 && e.getKeyChar() <= 90
-						|| e.getKeyChar() == e.VK_BACK_SPACE || e.getKeyChar() == e.VK_ENTER)) {
-					tf.setText(str);
-				}
-				if (tf.getText().length() > 10) {
-					JOptionPane.showMessageDialog(jd, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
-					if (sb.length() > 10) {
-						sb.delete(10, sb.length());
-						tf.setText(str);
-					}
-				}
-			}
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				str = sb.toString();
-				tf.setText(str);
-				if (e.getKeyChar() == e.VK_BACK_SPACE) {
-					if (sb.length() > 0)
-						sb.deleteCharAt(sb.length() - 1);
-				} else if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57 || e.getKeyChar() >= 97
-						&& e.getKeyChar() <= 122) {
-					sb.append(e.getKeyChar());
-				}
-
-			}
-
-		});*/
-
 		conf = new JButton("조회");
 		back = new JButton("처음");
 		edit = new JButton("수정");
@@ -229,8 +188,8 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 		jd.setTitle("입 / 출금");
 
 		jdtf = new JTextField();
+		jdtf.setHorizontalAlignment(JTextField.TRAILING);
 		jdtf.setDocument(new TextUnedit(jd, "num", 10));
-		jdtf.setHorizontalAlignment((int) RIGHT_ALIGNMENT);
 
 		jd.setLayout(new BorderLayout());
 		jd.add(new Label(), "North");
@@ -250,49 +209,6 @@ public class CustomerReference extends JFrame implements Tool, ActionListener {
 
 		jdheader.add(jdla, "North");
 		jdheader.add(jdtf, "Center");
-		/*
-				// 입력 제한
-				jdsb = new StringBuffer();
-
-				jdtf.addKeyListener(new KeyAdapter() {
-					String str;
-
-					@Override
-					public void keyPressed(KeyEvent e) {
-						str = jdsb.toString();
-						jdtf.setText(str);
-
-						if (e.getKeyChar() >= 48 && e.getKeyChar() <= 57) {
-							jdsb.append(e.getKeyChar());
-							jdtf.setText(str);
-							// } else if (e.getKeyCode() == 8) {
-						} else if (e.getKeyChar() == e.VK_BACK_SPACE) {
-							if (jdsb.length() > 0)
-								jdsb.deleteCharAt(jdsb.length() - 1);
-						} else if (e.getKeyCode() == 127) {
-							jdsb.delete(0, jdsb.length());
-							jdtf.setText("");
-						} else if (!(e.getKeyChar() >= 48 && e.getKeyChar() <= 57)) {
-							JOptionPane
-									.showMessageDialog(jd, new JLabel("숫자만 입력 가능합니다."), "입력 오류", JOptionPane.WARNING_MESSAGE);
-							jdtf.setText(str);
-						}
-					}
-
-					@Override
-					public void keyReleased(KeyEvent e) {
-						if (jdtf.getText().length() > 10) {
-							JOptionPane.showMessageDialog(jd, "입력 범위를 넘었습니다.", "입력 오류", JOptionPane.WARNING_MESSAGE);
-							if (jdsb.length() > 10) {
-								jdsb.delete(10, jdsb.length());
-								jdtf.setText(str);
-							}
-						}
-					}
-
-				});
-				//
-		*/
 		JPanel jdbutton = new JPanel();
 		in = new JButton("입금");
 		out = new JButton("출금");
