@@ -23,14 +23,14 @@ import javax.swing.JTextField;
 public class TextRainGame extends JFrame /* implements Runnable */{
 
 	private JPanel textin, darww, side;
-	private JLabel num;
+	private JLabel point, fail, num;
 	private JTextField in;
 	private ArrayList<String> arr;
 
 	// wordMake() 에서 사용.
 	private Words[] wds;
 	private Thread[] th;
-	private int size;
+	private int size, p, f;
 
 	public TextRainGame(int si) {
 		// TODO 생성자
@@ -44,6 +44,15 @@ public class TextRainGame extends JFrame /* implements Runnable */{
 
 		// 단어들을 라벨로 생성해서 darww에 직접 넣는다.
 		wordMake(si);
+
+		side = new JPanel();
+		point = new JLabel("점수 : " + 0);
+		fail = new JLabel("실패 : " + 0);
+		num = new JLabel("남은 수 : " + size);
+		side.add(point);
+		side.add(fail);
+		side.add(num);
+		add(side, "North");
 
 		add(darww, "Center");
 
@@ -138,10 +147,6 @@ public class TextRainGame extends JFrame /* implements Runnable */{
 		size = si;
 		th = new Thread[size];
 		wds = new Words[size];
-		side = new JPanel();
-		num = new JLabel("남은 개수 = " + size);
-		side.add(num);
-		add(side, "East");
 		for (int i = 0; i < size; i++)
 			darww.add(wds[i] = new Words(arr.get(new Random().nextInt(arr.size()))));
 		for (int i = 0; i < size; i++) {
@@ -197,15 +202,21 @@ public class TextRainGame extends JFrame /* implements Runnable */{
 						if (wds[i].name_str.equals("1"))
 						// 점수계산:같은 단어가 있으면 count를 증가 시키고 name_str를 2로 만들어 중복으로
 						{
-							// jl1.setText("점수:" + ++count + "");
+							point.setText("점수 : " + ++p + "");
+							num.setText("남은 개수 : " + --size);
 							wds[i].name_str = "2";
 						}// count를 증가 시키지 않는다...
+
 						darww.remove(wds[i]);// 텍스트 필드와 단어가 같으면 레이블 삭제
 						repaint();// 다시 그려 줌
 
 						th[i] = null;// 스레드를 없애줌 성능 향상을 위해서
+						in.setText("");
+						return;
 					}
+				fail.setText("실패 : " + ++f);
 				in.setText("");
+
 			}
 		}
 	}
