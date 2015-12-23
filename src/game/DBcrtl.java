@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -137,15 +138,15 @@ public class DBcrtl extends JFrame implements ActionListener {
 
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("jdbc:oracle:thin:@");
-		stringBuilder.append(jtfip.getText());
+		stringBuilder.append(jtfip.getText().trim());
 		stringBuilder.append(":1521:");
-		stringBuilder.append(jtfsysname.getText());
+		stringBuilder.append(jtfsysname.getText().trim());
 		String url = stringBuilder.toString();
 
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("Successful Drivaer loading");
-			conn = DriverManager.getConnection(url, jtfuser.getText(), jtfpw.getText());
+			conn = DriverManager.getConnection(url, jtfuser.getText().trim(), jtfpw.getText().trim());
 			System.out.println("Connection Successful");
 		} catch (ClassNotFoundException e) {
 			System.out.println(e.getMessage());
@@ -153,13 +154,13 @@ public class DBcrtl extends JFrame implements ActionListener {
 			System.out.println(e.getMessage());
 		}
 
-		new Handler(jtfuser.getText(), jtfsysname.getText(), jtfip.getText(), conn);
+		new tableHandler(jtfuser.getText(), jtfsysname.getText(), jtfip.getText(), conn);
 		setVisible(false);
 
 	}
 }
 
-class Handler extends JFrame {
+class tableHandler extends JFrame implements Runnable {
 
 	private Connection conn;
 
@@ -170,15 +171,16 @@ class Handler extends JFrame {
 
 	private JButton conf, out, exit;
 
-	public Handler(String user, String sysname, String ip, Connection conn) {
+	public tableHandler(String user, String sysname, String ip, Connection conn) {
 		super(user + "/" + sysname + "@" + ip);
 
 		this.conn = conn;
 
 		setLayout(new BorderLayout());
 
-		String[] type = { "DB 생성", "DB 드랍", "DB 퍼지", "DB 복구", "Data 삽입", "Data 검색", "Data 수정", "column 추가",
-				"column 수정", "column 삭제", "내보내기", "가져오기" };
+		/*String[] type = { "DB 생성", "DB 드랍", "DB 퍼지", "DB 복구", "Data 삽입", "Data 검색", "Data 수정", "column 추가",
+				"column 수정", "column 삭제", "내보내기", "가져오기" };*/
+		String[] type = { "DB", "Data", "column", "내보내기", "가져오기" };
 
 		JPanel side = new JPanel(new GridLayout(type.length, 1));
 
@@ -226,6 +228,7 @@ class Handler extends JFrame {
 		String sql = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		ResultSetMetaData rsmd = null;
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -233,6 +236,18 @@ class Handler extends JFrame {
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+		}
+
+	}
+
+	@Override
+	public void run() {
+		try {
+
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.getStackTrace();
+
 		}
 
 	}
